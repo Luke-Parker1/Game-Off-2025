@@ -1,0 +1,55 @@
+[gd_scene load_steps=8 format=3 uid="uid://b2lk5meo42827"]
+
+[ext_resource type="Texture2D" uid="uid://b2paakn4rmqkv" path="res://icon.svg" id="1_4flbx"]
+[ext_resource type="Script" uid="uid://f1a23u4u1tyb" path="res://player.gd" id="1_onrkg"]
+[ext_resource type="Script" uid="uid://v4nlkn46p8aj" path="res://state_machine.gd" id="3_i3pqv"]
+[ext_resource type="Script" uid="uid://1yhkh6ng2egx" path="res://player_default.gd" id="4_hqtel"]
+[ext_resource type="Script" uid="uid://cne4b4d532klw" path="res://player_dash.gd" id="5_sweqy"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_onrkg"]
+size = Vector2(32, 32)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_sweqy"]
+
+[node name="Player" type="CharacterBody2D"]
+script = ExtResource("1_onrkg")
+jump_height = 150.0
+jump_time_to_peak = 0.5
+jump_time_to_descent = 0.25
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(0.25, 0.25)
+texture = ExtResource("1_4flbx")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_onrkg")
+
+[node name="SwordAttackHitbox" type="Area2D" parent="."]
+position = Vector2(32, 0)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="SwordAttackHitbox"]
+shape = SubResource("RectangleShape2D_sweqy")
+disabled = true
+
+[node name="DashTimer" type="Timer" parent="."]
+wait_time = 0.3
+one_shot = true
+
+[node name="DashCoolDown" type="Timer" parent="."]
+wait_time = 0.2
+one_shot = true
+
+[node name="StateMachine" type="Node" parent="." node_paths=PackedStringArray("initial_state")]
+script = ExtResource("3_i3pqv")
+initial_state = NodePath("Default")
+
+[node name="Default" type="Node" parent="StateMachine" node_paths=PackedStringArray("Player")]
+script = ExtResource("4_hqtel")
+Player = NodePath("../..")
+metadata/_custom_type_script = "uid://1yhkh6ng2egx"
+
+[node name="Dash" type="Node" parent="StateMachine" node_paths=PackedStringArray("Player")]
+script = ExtResource("5_sweqy")
+Player = NodePath("../..")
+dash_timer = 0.3
+metadata/_custom_type_script = "uid://cne4b4d532klw"
