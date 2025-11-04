@@ -20,9 +20,6 @@ var dash_cooldown_active := false
 # If this is false, the current state handles all movement
 var state_allows_default_move := true
 
-# If this is false, the current state doesn't allow the player to jump. This doesn't matter if state_allows_default_move is false
-var state_allows_jump := true
-
 # 1.0 is right, -1.0 is left
 var look_direction := 1.0
 
@@ -32,14 +29,14 @@ func _ready():
 	sword_hitbox_startpos = $SwordAttackHitbox.position.x
 
 func _physics_process(delta):
-	print($DashCoolDown.is_stopped())
+	#print($DashCoolDown.is_stopped())
 	if state_allows_default_move:
 		# Add the gravity.
-		if not is_on_floor() and state_allows_jump:
+		if not is_on_floor():
 			velocity.y += get_custom_gravity() * delta
 
 		# Handle jump.
-		if Input.is_action_just_pressed("jump") and is_on_floor() and state_allows_jump:
+		if Input.is_action_just_pressed("jump") and is_on_floor():
 			jump()
 		if Input.is_action_just_released("jump"):
 			jumping = false

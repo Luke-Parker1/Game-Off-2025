@@ -8,8 +8,12 @@ class_name PlayerDefault
 
 func Enter():
 	Player.state_allows_default_move = true
-	Player.state_allows_jump = true
+
 
 func State_Physics_Update(_delta: float):
 	if Input.is_action_just_pressed("dash") and Player.get_node("DashCoolDown").is_stopped():
 		Transitioned.emit(self, "dash")
+	elif Input.is_action_just_pressed("sword") and Player.get_node("SwordAttackCooldown").is_stopped():
+		Transitioned.emit(self, "swordattack")
+	elif Input.is_action_just_pressed("shoot") and Player.get_node("ShootCooldown").is_stopped():
+		Transitioned.emit(self, "shoot")

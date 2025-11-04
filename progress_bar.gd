@@ -19,8 +19,14 @@ func _process(delta):
 	if value >= max_value or value <= min_value:
 		reversed = !reversed
 	
-	left_type_mult = value/max_value
-	right_type_mult = (max_value - value)/max_value
+	if value > max_value/2:
+		left_type_mult = (value - max_value/2)/(max_value/2)
+		right_type_mult = 0
+	else:
+		left_type_mult = 0
+		right_type_mult = (max_value/2 - value)/(max_value/2)
+	#left_type_mult = value/max_value
+	#right_type_mult = (max_value - value)/max_value
 	#print("Left Weapon Damage Multiplier: ", left_type_mult)
 	#print("Right Weapon Damage Multiplier: ", right_type_mult)
 	
