@@ -22,6 +22,7 @@ var state_allows_default_move := true
 
 # 1.0 is right, -1.0 is left
 var look_direction := 1.0
+var knockback_direction := 0.0
 
 var sword_hitbox_startpos : float
 
@@ -56,7 +57,7 @@ func _physics_process(delta):
 			#velocity.x = look_direction * dash_speed
 		else:
 			velocity.x = 0.0
-
+	#print(velocity)
 	move_and_slide()
 	
 	# Flip attack hitboxes

@@ -18,13 +18,17 @@ func Enter():
 func State_Physics_Update(delta: float):
 	Player.velocity.x = Player.look_direction * dash_speed
 	dash_time -= delta
-	if dash_time <= 0:
+	
+	if Player.knockback_direction != 0.0:
+		Transitioned.emit(self, "knockback")
+	elif Input.is_action_just_pressed("sword") and Player.get_node("SwordAttackCooldown").is_stopped():
+		Transitioned.emit(self, "swordattack")
+	elif Input.is_action_just_pressed("shoot") and Player.get_node("ShootCooldown").is_stopped():
+		Transitioned.emit(self, "shoot")
+	elif dash_time <= 0:
 		Transitioned.emit(self, "default")
 	
-	if Input.is_action_just_pressed("sword") and Player.get_node("SwordAttackCooldown").is_stopped():
-		Transitioned.emit(self, "swordattack")
-	if Input.is_action_just_pressed("shoot") and Player.get_node("ShootCooldown").is_stopped():
-		Transitioned.emit(self, "shoot")
+	
 
 func Exit():
 	Player.get_node("DashCoolDown").start()

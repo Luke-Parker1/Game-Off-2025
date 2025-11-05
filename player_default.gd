@@ -11,7 +11,9 @@ func Enter():
 
 
 func State_Physics_Update(_delta: float):
-	if Input.is_action_just_pressed("dash") and Player.get_node("DashCoolDown").is_stopped():
+	if Player.knockback_direction != 0.0:
+		Transitioned.emit(self, "knockback")
+	elif Input.is_action_just_pressed("dash") and Player.get_node("DashCoolDown").is_stopped():
 		Transitioned.emit(self, "dash")
 	elif Input.is_action_just_pressed("sword") and Player.get_node("SwordAttackCooldown").is_stopped():
 		Transitioned.emit(self, "swordattack")

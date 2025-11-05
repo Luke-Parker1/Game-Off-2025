@@ -19,7 +19,9 @@ func Enter():
 
 func State_Physics_Update(delta: float):
 	attack_time -= delta
-	if attack_time <= 0:
+	if Player.knockback_direction != 0.0:
+		Transitioned.emit(self, "knockback")
+	elif attack_time <= 0:
 		Transitioned.emit(self, "default")
 
 func Exit():

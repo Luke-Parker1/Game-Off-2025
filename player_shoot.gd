@@ -13,8 +13,11 @@ func Enter():
 	bullet.shooter = Player
 	Player.add_sibling(bullet)
 
-func State_Update(_delta: float):
-	Transitioned.emit(self, "default")
+func State_Physics_Update(_delta: float):
+	if Player.knockback_direction != 0.0:
+		Transitioned.emit(self, "knockback")
+	else:
+		Transitioned.emit(self, "default")
 
 func Exit():
 	Player.get_node("ShootCooldown").start()
