@@ -3,10 +3,10 @@ extends ProgressBar
 # Keeps track of if the value should be counting up or down
 var reversed := false
 
-# Multiplier for weapons assigned to the left side (CHOOSE WHAT THIS IS LATER)
+# Multiplier for weapons assigned to the left side (ranged attacks)
 var left_type_mult : float
 
-# Multiplier for weapons assigned to the right side (CHOOSE WHAT THIS IS LATER)
+# Multiplier for weapons assigned to the right side (melee attacks)
 var right_type_mult : float
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.

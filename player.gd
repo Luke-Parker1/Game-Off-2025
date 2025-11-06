@@ -1,5 +1,7 @@
 extends CharacterBody2D
 
+@export var health : float
+
 @export var speed := 300.0
 @export var dash_speed := 500.0
 
@@ -10,6 +12,15 @@ extends CharacterBody2D
 @onready var jump_velocity : float = ((2.0*jump_height)/jump_time_to_peak) * -1.0
 @onready var jump_gravity : float = ((-2.0*jump_height)/(jump_time_to_peak * jump_time_to_peak)) * -1.0
 @onready var fall_gravity : float = ((-2.0*jump_height)/(jump_time_to_descent * jump_time_to_descent)) * -1.0
+
+@export var recoil_speed : float
+@export var recoil_time : float
+
+# Recoil time when pogoing
+@export var pogo_time : float
+
+@export var sword_attack_damage : float
+@export var bullet_damage : float
 
 # Keeps track of whether the jump button is being held or not
 var jumping := false
@@ -24,10 +35,16 @@ var state_allows_default_move := true
 var look_direction := 1.0
 var knockback_direction := 0.0
 
-var sword_hitbox_startpos : float
+var recoil_direction : Vector2
+var gun_direction : Vector2
+
+# List of enemies hit with one attack. Used to make sure enemies aren't hit more than once
+var hit_enemies : Array
+
+var multiplier_bar : ProgressBar
 
 func _ready():
-	sword_hitbox_startpos = $SwordAttackHitbox.position.x
+	multiplier_bar = get_tree().get_nodes_in_group("MultiplierBar")[0]
 
 func _physics_process(delta):
 	#print($DashCoolDown.is_stopped())
@@ -50,7 +67,9 @@ func _physics_process(delta):
 		
 		# Get the input direction and handle the movement/deceleration.
 		var direction = Input.get_axis("left", "right")
-		if direction:
+		if recoil_direction != Vector2.ZERO:
+			velocity = recoil_direction * recoil_speed
+		elif direction:
 			velocity.x = direction * speed
 			look_direction = direction
 		#elif dashing:
@@ -61,18 +80,64 @@ func _physics_process(delta):
 	move_and_slide()
 	
 	# Flip attack hitboxes
-	$SwordAttackHitbox.position.x = sword_hitbox_startpos * look_direction
+	if $StateMachine.current_state.name.to_lower() != "swordattack":
+		if Input.is_action_pressed("up"):
+			$SwordAttackHitbox.rotation_degrees = -90
+		elif Input.is_action_pressed("down") and not is_on_floor():
+			$SwordAttackHitbox.rotation_degrees = 90
+		elif look_direction < 0:
+			$SwordAttackHitbox.rotation_degrees = 180
+		else:
+			$SwordAttackHitbox.rotation_degrees = 0
+	
+	#Rotate gun
+	gun_direction = Input.get_vector("left", "right", "up", "down")
+	#if gun_direction.is_equal_approx(Vector2(0,1)) and is_on_floor():
+		#gun_direction = Vector2(look_direction, 1)
+	if gun_direction.is_equal_approx(Vector2(0,0)):
+		gun_direction = Vector2(look_direction, 0)
+	$GunRotator.rotation = Vector2.ZERO.angle_to_point(gun_direction)
 
 # This is called get_custom_gravity because get_gravity is a function built into godot
 func get_custom_gravity() -> float:
-	return jump_gravity if velocity.y < 0.0 and jumping else fall_gravity
+	if velocity.y < 0.0 and jumping or recoil_direction.is_equal_approx(Vector2(0.0, -1.0)):
+		return jump_gravity
+	else:
+		return fall_gravity
+	
+	#return jump_gravity if velocity.y < 0.0 and jumping else fall_gravity
 
 func jump():
 	velocity.y = jump_velocity
 	jumping = true
 
+func hit(hit_pos):
+	if $InvinviblityTimer.is_stopped():
+		if hit_pos.direction_to(global_position).x >= 0:
+			# This is "Greater or equal to" the default direction is right
+			knockback_direction = 1.0
+		else:
+			knockback_direction = -1.0
+		$InvinviblityTimer.start()
 
 #func _on_dash_timer_timeout():
 	#dashing = false
 	#dash_cooldown_active = true
 	#$DashCoolDown.start()
+
+
+func _on_sword_attack_hitbox_body_entered(body):
+	if body.is_in_group("Enemy") and !hit_enemies.has(body):
+		hit_enemies.append(body)
+		body.hit(sword_attack_damage * multiplier_bar.right_type_mult)
+		recoil_direction = Vector2.from_angle($SwordAttackHitbox.rotation) * -1
+		if recoil_direction.is_equal_approx(Vector2(0.0, -1.0)):
+			# Set recoil timer to pogo time
+			$RecoilTime.wait_time = pogo_time
+		else:
+			# Set recoil timer to regular recoil time
+			$RecoilTime.wait_time = recoil_time
+		$RecoilTime.start()
+
+func _on_recoil_time_timeout():
+	recoil_direction = Vector2.ZERO

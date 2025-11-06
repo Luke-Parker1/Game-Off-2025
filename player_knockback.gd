@@ -20,16 +20,25 @@ func Enter():
 	stun_time = stun_timer
 	knockback_time = knockback_timer
 	Player.velocity = Vector2.ZERO
+	frame_freeze(0.05, stun_timer)
 
 func State_Physics_Update(delta: float):
-	if stun_time < 0:
-		Player.velocity = Vector2(Player.knockback_direction, -.5).normalized() * knockback_force
-		knockback_time -= delta
-	else:
-		stun_time -= delta
+	#if stun_time < 0:
+		#Player.velocity = Vector2(Player.knockback_direction, -.5).normalized() * knockback_force
+		#knockback_time -= delta
+	#else:
+		#stun_time -= delta
+	
+	Player.velocity = Vector2(Player.knockback_direction, -.5).normalized() * knockback_force
+	knockback_time -= delta
 	
 	if knockback_time <= 0:
 		Transitioned.emit(self, "default")
 
 func Exit():
 	Player.knockback_direction = 0
+
+func frame_freeze(timeScale, duration):
+	Engine.time_scale = timeScale
+	await get_tree().create_timer(duration * timeScale).timeout
+	Engine.time_scale = 1.0

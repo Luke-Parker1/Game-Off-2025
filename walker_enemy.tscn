@@ -1,6 +1,6 @@
-[gd_scene load_steps=5 format=3 uid="uid://fy2v3116q2dv"]
+[gd_scene load_steps=6 format=3 uid="uid://fy2v3116q2dv"]
 
-[ext_resource type="Script" uid="uid://byyo0jgvc8wcs" path="res://enemy.gd" id="1_4gyqm"]
+[ext_resource type="Script" uid="uid://byyo0jgvc8wcs" path="res://walker_enemy.gd" id="1_4gyqm"]
 [ext_resource type="Texture2D" uid="uid://b2paakn4rmqkv" path="res://icon.svg" id="1_7k104"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_7k104"]
@@ -9,10 +9,15 @@ size = Vector2(38.4, 38.4)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_4gyqm"]
 size = Vector2(38.4, 38.4)
 
-[node name="Enemy" type="CharacterBody2D" groups=["Enemy"]]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_lwh3n"]
+size = Vector2(32, 7)
+
+[node name="WalkerEnemy" type="CharacterBody2D" groups=["Enemy"]]
 collision_layer = 2
 collision_mask = 2
 script = ExtResource("1_4gyqm")
+speed = 150.0
+health = 10.0
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 scale = Vector2(0.3, 0.3)
@@ -25,5 +30,13 @@ shape = SubResource("RectangleShape2D_7k104")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HitBox"]
 shape = SubResource("RectangleShape2D_4gyqm")
+
+[node name="FloorDetector" type="Area2D" parent="."]
+position = Vector2(36, 19)
+collision_layer = 2
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="FloorDetector"]
+shape = SubResource("RectangleShape2D_lwh3n")
 
 [connection signal="body_entered" from="HitBox" to="." method="_on_hit_box_body_entered"]

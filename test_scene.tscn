@@ -1,8 +1,9 @@
-[gd_scene load_steps=6 format=3 uid="uid://cqkedpsayif7j"]
+[gd_scene load_steps=7 format=3 uid="uid://cqkedpsayif7j"]
 
 [ext_resource type="Texture2D" uid="uid://b2paakn4rmqkv" path="res://icon.svg" id="1_uhqqe"]
 [ext_resource type="PackedScene" uid="uid://b2lk5meo42827" path="res://player.tscn" id="2_ia1lp"]
-[ext_resource type="PackedScene" uid="uid://fy2v3116q2dv" path="res://enemy.tscn" id="3_sasra"]
+[ext_resource type="PackedScene" uid="uid://fy2v3116q2dv" path="res://walker_enemy.tscn" id="3_sasra"]
+[ext_resource type="PackedScene" uid="uid://j5mwc8ewxk6l" path="res://progress_bar.tscn" id="4_coq8p"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_uhqqe"]
 size = Vector2(1302, 30)
@@ -28,6 +29,8 @@ shape = SubResource("RectangleShape2D_uhqqe")
 
 [node name="StaticBody2D2" type="StaticBody2D" parent="."]
 position = Vector2(867, 404)
+collision_layer = 3
+collision_mask = 3
 
 [node name="Sprite2D" type="Sprite2D" parent="StaticBody2D2"]
 scale = Vector2(2.1640625, 0.25)
@@ -36,8 +39,22 @@ texture = ExtResource("1_uhqqe")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D2"]
 shape = SubResource("RectangleShape2D_ia1lp")
 
+[node name="StaticBody2D3" type="StaticBody2D" parent="."]
+position = Vector2(108, 407)
+collision_layer = 3
+collision_mask = 3
+
+[node name="Sprite2D" type="Sprite2D" parent="StaticBody2D3"]
+scale = Vector2(2.1640625, 0.25)
+texture = ExtResource("1_uhqqe")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D3"]
+shape = SubResource("RectangleShape2D_ia1lp")
+
 [node name="Player" parent="." instance=ExtResource("2_ia1lp")]
 position = Vector2(526, 173)
 
-[node name="Enemy" parent="." instance=ExtResource("3_sasra")]
-position = Vector2(407, 128)
+[node name="WalkerEnemy" parent="." instance=ExtResource("3_sasra")]
+position = Vector2(708, 404)
+
+[node name="ProgressBarLayer" parent="." instance=ExtResource("4_coq8p")]

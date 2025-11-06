@@ -21,9 +21,11 @@ func State_Physics_Update(delta: float):
 	attack_time -= delta
 	if Player.knockback_direction != 0.0:
 		Transitioned.emit(self, "knockback")
+	
 	elif attack_time <= 0:
 		Transitioned.emit(self, "default")
 
 func Exit():
 	hitbox.disabled = true
+	Player.hit_enemies.clear()
 	Player.get_node("SwordAttackCooldown").start()

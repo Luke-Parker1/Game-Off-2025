@@ -2,9 +2,9 @@
 
 [ext_resource type="Script" uid="uid://7g4dsvpqdyl2" path="res://progress_bar.gd" id="1_chwcf"]
 
-[node name="CanvasLayer" type="CanvasLayer"]
+[node name="ProgressBarLayer" type="CanvasLayer"]
 
-[node name="ProgressBar" type="ProgressBar" parent="."]
+[node name="ProgressBar" type="ProgressBar" parent="." groups=["MultiplierBar"]]
 offset_right = 1152.0
 offset_bottom = 27.0
 max_value = 20.0

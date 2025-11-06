@@ -13,13 +13,20 @@
 size = Vector2(32, 32)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_sweqy"]
+size = Vector2(50, 40)
 
 [node name="Player" type="CharacterBody2D" groups=["Player"]]
 z_index = 100
 script = ExtResource("1_onrkg")
+health = 15.0
 jump_height = 150.0
 jump_time_to_peak = 0.5
 jump_time_to_descent = 0.25
+recoil_speed = 300.0
+recoil_time = 0.1
+pogo_time = 0.15
+sword_attack_damage = 4.0
+bullet_damage = 4.0
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 scale = Vector2(0.25, 0.25)
@@ -29,22 +36,42 @@ texture = ExtResource("1_4flbx")
 shape = SubResource("RectangleShape2D_onrkg")
 
 [node name="SwordAttackHitbox" type="Area2D" parent="."]
-position = Vector2(32, 0)
+collision_layer = 3
+collision_mask = 3
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="SwordAttackHitbox"]
+position = Vector2(47, 0)
 shape = SubResource("RectangleShape2D_sweqy")
 disabled = true
+
+[node name="GunRotator" type="Node2D" parent="."]
+
+[node name="ShootPosition" type="Marker2D" parent="GunRotator"]
+position = Vector2(27, 0)
+gizmo_extents = 20.0
+
+[node name="Sprite2D" type="Sprite2D" parent="GunRotator/ShootPosition"]
+scale = Vector2(0.1, 0.1)
+texture = ExtResource("1_4flbx")
 
 [node name="DashCoolDown" type="Timer" parent="."]
 wait_time = 0.2
 one_shot = true
 
 [node name="SwordAttackCooldown" type="Timer" parent="."]
-wait_time = 0.2
+wait_time = 0.05
 one_shot = true
 
 [node name="ShootCooldown" type="Timer" parent="."]
 wait_time = 0.3
+one_shot = true
+
+[node name="RecoilTime" type="Timer" parent="."]
+wait_time = 0.05
+one_shot = true
+
+[node name="InvinviblityTimer" type="Timer" parent="."]
+wait_time = 0.7
 one_shot = true
 
 [node name="StateMachine" type="Node" parent="." node_paths=PackedStringArray("initial_state")]
@@ -77,6 +104,9 @@ metadata/_custom_type_script = "uid://bnynjfxcvoh4i"
 script = ExtResource("8_dw050")
 Player = NodePath("../..")
 knockback_force = 550.0
-stun_timer = 0.1
-knockback_timer = 0.1
+stun_timer = 0.4
+knockback_timer = 0.2
 metadata/_custom_type_script = "uid://bdqbrifxcawsk"
+
+[connection signal="body_entered" from="SwordAttackHitbox" to="." method="_on_sword_attack_hitbox_body_entered"]
+[connection signal="timeout" from="RecoilTime" to="." method="_on_recoil_time_timeout"]
