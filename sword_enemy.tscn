@@ -1,0 +1,58 @@
+[gd_scene load_steps=8 format=3 uid="uid://b1tpi2ms12dmx"]
+
+[ext_resource type="Script" uid="uid://cfuo1o74q1j4b" path="res://sword_enemy.gd" id="1_6dv18"]
+[ext_resource type="Texture2D" uid="uid://b2paakn4rmqkv" path="res://icon.svg" id="1_fn28w"]
+[ext_resource type="Script" uid="uid://v4nlkn46p8aj" path="res://state_machine.gd" id="3_e1cvk"]
+[ext_resource type="Script" uid="uid://b1tndal8vtuip" path="res://sword_enemy_default.gd" id="4_7cuhq"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_fn28w"]
+size = Vector2(25.6, 64)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_6dv18"]
+size = Vector2(31, 58)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_e1cvk"]
+size = Vector2(32, 7)
+
+[node name="SwordEnemy" type="CharacterBody2D"]
+collision_layer = 2
+collision_mask = 2
+script = ExtResource("1_6dv18")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(0.2, 0.5)
+texture = ExtResource("1_fn28w")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_fn28w")
+
+[node name="HitBox" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HitBox"]
+shape = SubResource("RectangleShape2D_fn28w")
+
+[node name="Sword" type="Area2D" parent="."]
+position = Vector2(32, 0)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Sword"]
+shape = SubResource("RectangleShape2D_6dv18")
+
+[node name="FloorDetector" type="Area2D" parent="."]
+position = Vector2(31, 34)
+collision_layer = 2
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="FloorDetector"]
+shape = SubResource("RectangleShape2D_e1cvk")
+
+[node name="StateMachine" type="Node" parent="." node_paths=PackedStringArray("initial_state")]
+script = ExtResource("3_e1cvk")
+initial_state = NodePath("Default")
+
+[node name="Default" type="Node" parent="StateMachine" node_paths=PackedStringArray("Enemy") groups=["Enemy"]]
+script = ExtResource("4_7cuhq")
+Enemy = NodePath("../..")
+speed = 50.0
+metadata/_custom_type_script = "uid://b1tndal8vtuip"
+
+[connection signal="body_entered" from="HitBox" to="." method="_on_hit_box_body_entered"]

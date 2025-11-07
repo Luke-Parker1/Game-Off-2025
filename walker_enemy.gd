@@ -10,7 +10,7 @@ var direction := 1.0
 func _physics_process(delta):
 	if not is_on_floor():
 		velocity += get_gravity() * delta
-	if is_on_wall():
+	if is_on_wall() or $FloorDetector.get_overlapping_bodies().size() == 0:
 		direction *= -1
 		$FloorDetector.position.x *= -1
 	
