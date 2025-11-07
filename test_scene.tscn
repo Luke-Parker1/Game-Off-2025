@@ -28,7 +28,7 @@ position = Vector2(284, 0)
 shape = SubResource("RectangleShape2D_uhqqe")
 
 [node name="StaticBody2D2" type="StaticBody2D" parent="."]
-position = Vector2(716, 298)
+position = Vector2(138, 240)
 collision_layer = 3
 collision_mask = 3
 
@@ -40,7 +40,7 @@ texture = ExtResource("1_uhqqe")
 shape = SubResource("RectangleShape2D_ia1lp")
 
 [node name="StaticBody2D3" type="StaticBody2D" parent="."]
-position = Vector2(134, 404)
+position = Vector2(253, 406)
 collision_layer = 3
 collision_mask = 3
 
@@ -56,5 +56,5 @@ position = Vector2(526, 173)
 
 [node name="ProgressBarLayer" parent="." instance=ExtResource("4_coq8p")]
 
-[node name="SwordEnemy" parent="." groups=["Enemy"] instance=ExtResource("4_2nij2")]
-position = Vector2(630, 375)
+[node name="SwordEnemy" parent="." instance=ExtResource("4_2nij2")]
+position = Vector2(1137, 372)

@@ -4,7 +4,7 @@ extends CharacterBody2D
 
 @export var health : float
 
-@export var knockback_speed : float
+@export var knockback_speed : Vector2
 var knockback : Vector2
 
 var direction := 1.0
@@ -13,7 +13,7 @@ var direction := 1.0
 func _physics_process(delta):
 	if not is_on_floor():
 		velocity += get_gravity() * delta
-	if is_on_wall() or $FloorDetector.get_overlapping_bodies().size() == 0:
+	elif is_on_wall() or $FloorDetector.get_overlapping_bodies().size() == 0:
 		direction *= -1
 		$FloorDetector.position.x *= -1
 	

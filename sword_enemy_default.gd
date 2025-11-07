@@ -13,10 +13,11 @@ func State_Physics_Update(_delta: float):
 		Enemy.direction *= -1
 		Enemy.get_node("FloorDetector").position.x *= -1
 	
-	Enemy.velocity.x = Enemy.direction * speed
+	#Enemy.velocity.x = Enemy.direction * speed
+	Enemy.speed = speed
 	if Enemy.get_node("RayCast2D").is_colliding():
 		if Enemy.get_node("RayCast2D").get_collider().is_in_group("Player"):
 			Transitioned.emit(self, "chase")
-	elif !Enemy.knockback.is_equal_approx(Vector2.ZERO):
+	if !Enemy.knockback.is_equal_approx(Vector2.ZERO):
 			Transitioned.emit(self, "chase")
 		
