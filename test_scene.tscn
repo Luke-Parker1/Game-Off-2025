@@ -56,5 +56,5 @@ position = Vector2(526, 173)
 
 [node name="ProgressBarLayer" parent="." instance=ExtResource("4_coq8p")]
 
-[node name="SwordEnemy" parent="." instance=ExtResource("4_2nij2")]
-position = Vector2(916, 353)
+[node name="SwordEnemy" parent="." groups=["Enemy"] instance=ExtResource("4_2nij2")]
+position = Vector2(630, 375)

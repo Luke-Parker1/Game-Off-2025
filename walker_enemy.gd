@@ -4,6 +4,9 @@ extends CharacterBody2D
 
 @export var health : float
 
+@export var knockback_speed : float
+var knockback : Vector2
+
 var direction := 1.0
 
 
@@ -15,10 +18,13 @@ func _physics_process(delta):
 		$FloorDetector.position.x *= -1
 	
 	velocity.x = direction * speed
+	velocity += knockback
 	move_and_slide()
 
-func hit(damage):
+func hit(damage : float, knockback_direction : Vector2):
 	health -= damage
+	knockback = knockback_direction * knockback_speed
+	$KnockbackTimer.start()
 	if health <= 0:
 		queue_free()
 
@@ -32,3 +38,7 @@ func _on_hit_box_body_entered(body):
 			#body.knockback_direction = -1.0
 		body.hit(global_position)
 		
+
+
+func _on_knockback_timer_timeout():
+	knockback = Vector2.ZERO

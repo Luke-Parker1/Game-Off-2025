@@ -129,7 +129,7 @@ func hit(hit_pos):
 func _on_sword_attack_hitbox_body_entered(body):
 	if body.is_in_group("Enemy") and !hit_enemies.has(body):
 		hit_enemies.append(body)
-		body.hit(sword_attack_damage * multiplier_bar.right_type_mult)
+		body.hit(sword_attack_damage * multiplier_bar.right_type_mult, Vector2.from_angle($SwordAttackHitbox.rotation))
 		recoil_direction = Vector2.from_angle($SwordAttackHitbox.rotation) * -1
 		if recoil_direction.is_equal_approx(Vector2(0.0, -1.0)):
 			# Set recoil timer to pogo time
