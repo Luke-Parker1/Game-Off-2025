@@ -1,9 +1,10 @@
-[gd_scene load_steps=7 format=3 uid="uid://cqkedpsayif7j"]
+[gd_scene load_steps=8 format=3 uid="uid://cqkedpsayif7j"]
 
 [ext_resource type="Texture2D" uid="uid://b2paakn4rmqkv" path="res://icon.svg" id="1_uhqqe"]
 [ext_resource type="PackedScene" uid="uid://b2lk5meo42827" path="res://player.tscn" id="2_ia1lp"]
-[ext_resource type="PackedScene" uid="uid://b1tpi2ms12dmx" path="res://sword_enemy.tscn" id="4_2nij2"]
+[ext_resource type="PackedScene" uid="uid://ct5v1n0oygfrs" path="res://gun_enemy.tscn" id="4_2nij2"]
 [ext_resource type="PackedScene" uid="uid://j5mwc8ewxk6l" path="res://progress_bar.tscn" id="4_coq8p"]
+[ext_resource type="PackedScene" uid="uid://b1tpi2ms12dmx" path="res://sword_enemy.tscn" id="5_2nij2"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_uhqqe"]
 size = Vector2(1302, 30)
@@ -56,5 +57,8 @@ position = Vector2(526, 173)
 
 [node name="ProgressBarLayer" parent="." instance=ExtResource("4_coq8p")]
 
-[node name="SwordEnemy" parent="." instance=ExtResource("4_2nij2")]
-position = Vector2(1137, 372)
+[node name="GunEnemy" parent="." instance=ExtResource("4_2nij2")]
+position = Vector2(946, 387)
+
+[node name="SwordEnemy" parent="." instance=ExtResource("5_2nij2")]
+position = Vector2(1098, 388)

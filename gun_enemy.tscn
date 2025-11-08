@@ -1,0 +1,81 @@
+[gd_scene load_steps=8 format=3 uid="uid://ct5v1n0oygfrs"]
+
+[ext_resource type="Script" uid="uid://ctfxyue2f7mjk" path="res://gun_enemy.gd" id="1_nvn6k"]
+[ext_resource type="Texture2D" uid="uid://b2paakn4rmqkv" path="res://icon.svg" id="1_wfsuc"]
+[ext_resource type="Script" uid="uid://v4nlkn46p8aj" path="res://state_machine.gd" id="3_54xfl"]
+[ext_resource type="Script" uid="uid://deexs4m6fy0b1" path="res://gun_enemy_default.gd" id="3_r4b8p"]
+[ext_resource type="Script" uid="uid://ccybx4amowe1u" path="res://gun_enemy_shoot.gd" id="5_ukchy"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_wfsuc"]
+size = Vector2(32, 32)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_nvn6k"]
+size = Vector2(32, 7)
+
+[node name="GunEnemy" type="CharacterBody2D" groups=["Enemy"]]
+collision_layer = 2
+collision_mask = 2
+script = ExtResource("1_nvn6k")
+health = 10.0
+knockback_speed = Vector2(250, 25)
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(0.25, 0.25)
+texture = ExtResource("1_wfsuc")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_wfsuc")
+
+[node name="HitBox" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HitBox"]
+shape = SubResource("RectangleShape2D_wfsuc")
+
+[node name="FloorDetector" type="Area2D" parent="."]
+position = Vector2(35, 19)
+collision_layer = 2
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="FloorDetector"]
+shape = SubResource("RectangleShape2D_nvn6k")
+
+[node name="KnockbackTimer" type="Timer" parent="."]
+wait_time = 0.1
+one_shot = true
+
+[node name="GunCooldown" type="Timer" parent="."]
+wait_time = 0.6
+one_shot = true
+
+[node name="RayCast2D" type="RayCast2D" parent="."]
+target_position = Vector2(500, 0)
+
+[node name="StateMachine" type="Node" parent="." node_paths=PackedStringArray("initial_state")]
+script = ExtResource("3_54xfl")
+initial_state = NodePath("Default")
+
+[node name="Default" type="Node" parent="StateMachine" node_paths=PackedStringArray("Enemy")]
+script = ExtResource("3_r4b8p")
+Enemy = NodePath("../..")
+speed = 150.0
+metadata/_custom_type_script = "uid://deexs4m6fy0b1"
+
+[node name="Shoot" type="Node" parent="StateMachine" node_paths=PackedStringArray("Enemy")]
+script = ExtResource("5_ukchy")
+Enemy = NodePath("../..")
+windup_timer = 0.15
+cooldown_timer = 0.15
+metadata/_custom_type_script = "uid://ccybx4amowe1u"
+
+[node name="GunRotator" type="Node2D" parent="."]
+
+[node name="ShootPosition" type="Marker2D" parent="GunRotator"]
+position = Vector2(27, 0)
+gizmo_extents = 20.0
+
+[node name="Sprite2D" type="Sprite2D" parent="GunRotator/ShootPosition"]
+scale = Vector2(0.1, 0.1)
+texture = ExtResource("1_wfsuc")
+
+[connection signal="body_entered" from="HitBox" to="." method="_on_hit_box_body_entered"]
+[connection signal="timeout" from="KnockbackTimer" to="." method="_on_knockback_timer_timeout"]

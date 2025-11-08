@@ -20,7 +20,7 @@ size = Vector2(32, 7)
 collision_layer = 2
 collision_mask = 2
 script = ExtResource("1_6dv18")
-health = 20.0
+health = 10.0
 knockback_speed = Vector2(250, 25)
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
@@ -79,6 +79,7 @@ metadata/_custom_type_script = "uid://bn87wwqajopv4"
 
 [node name="KnockbackTimer" type="Timer" parent="."]
 wait_time = 0.1
+one_shot = true
 
 [node name="RayCast2D" type="RayCast2D" parent="."]
 position = Vector2(0, 7)
