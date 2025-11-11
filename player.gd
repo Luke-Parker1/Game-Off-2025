@@ -20,7 +20,9 @@ extends CharacterBody2D
 @export var pogo_time : float
 
 @export var sword_attack_damage : float
+@export var big_sword_damage : float
 @export var bullet_damage : float
+@export var big_bullet_damage : float
 
 # Keeps track of whether the jump button is being held or not
 var jumping := false
@@ -43,8 +45,18 @@ var hit_enemies : Array
 
 var multiplier_bar : ProgressBar
 
+var sword_xp := 0.0
+var gun_xp := 0.0
+
+@export var required_xp_for_bigsword : float
+@export var required_xp_for_bigshoot : float
+
 func _ready():
 	multiplier_bar = get_tree().get_nodes_in_group("MultiplierBar")[0]
+	$StateMachine/BigSwordAttack.required_xp = required_xp_for_bigsword
+	$StateMachine/Shoot.damage = bullet_damage
+	$StateMachine/BigShoot.damage = big_bullet_damage
+	$StateMachine/BigShoot.required_xp = required_xp_for_bigshoot
 
 func _physics_process(delta):
 	#print($DashCoolDown.is_stopped())
@@ -89,6 +101,15 @@ func _physics_process(delta):
 			$SwordAttackHitbox.rotation_degrees = 180
 		else:
 			$SwordAttackHitbox.rotation_degrees = 0
+	if $StateMachine.current_state.name.to_lower() != "bigswordattack":
+		if Input.is_action_pressed("up"):
+			$BigSwordHitbox.rotation_degrees = -90
+		elif Input.is_action_pressed("down") and not is_on_floor():
+			$BigSwordHitbox.rotation_degrees = 90
+		elif look_direction < 0:
+			$BigSwordHitbox.rotation_degrees = 180
+		else:
+			$BigSwordHitbox.rotation_degrees = 0
 	
 	#Rotate gun
 	gun_direction = Input.get_vector("left", "right", "up", "down")
@@ -97,6 +118,10 @@ func _physics_process(delta):
 	if gun_direction.is_equal_approx(Vector2(0,0)):
 		gun_direction = Vector2(look_direction, 0)
 	$GunRotator.rotation = Vector2.ZERO.angle_to_point(gun_direction)
+	
+	# Get xp
+	$"XP Layer/SwordXP".value = sword_xp
+	$"XP Layer/GunXP".value = gun_xp
 
 # This is called get_custom_gravity because get_gravity is a function built into godot
 func get_custom_gravity() -> float:
@@ -125,19 +150,48 @@ func hit(hit_pos):
 	#dash_cooldown_active = true
 	#$DashCoolDown.start()
 
+func big_sword_check() -> bool:
+	if sword_xp >= required_xp_for_bigsword:
+		return true
+	else:
+		return false
+
+func big_shoot_check() -> bool:
+	if gun_xp >= required_xp_for_bigshoot:
+		return true
+	else:
+		return false
+
+func sword_attack(enemy, damage, hitbox):
+	hit_enemies.append(enemy)
+	enemy.hit(damage * multiplier_bar.right_type_mult, Vector2.from_angle(hitbox.rotation))
+	recoil_direction = Vector2.from_angle(hitbox.rotation) * -1
+	if recoil_direction.is_equal_approx(Vector2(0.0, -1.0)):
+		# Set recoil timer to pogo time
+		$RecoilTime.wait_time = pogo_time
+	else:
+		# Set recoil timer to regular recoil time
+		$RecoilTime.wait_time = recoil_time
+	$RecoilTime.start()
 
 func _on_sword_attack_hitbox_body_entered(body):
 	if body.is_in_group("Enemy") and !hit_enemies.has(body):
-		hit_enemies.append(body)
-		body.hit(sword_attack_damage * multiplier_bar.right_type_mult, Vector2.from_angle($SwordAttackHitbox.rotation))
-		recoil_direction = Vector2.from_angle($SwordAttackHitbox.rotation) * -1
-		if recoil_direction.is_equal_approx(Vector2(0.0, -1.0)):
-			# Set recoil timer to pogo time
-			$RecoilTime.wait_time = pogo_time
-		else:
-			# Set recoil timer to regular recoil time
-			$RecoilTime.wait_time = recoil_time
-		$RecoilTime.start()
+		#hit_enemies.append(body)
+		#body.hit(sword_attack_damage * multiplier_bar.right_type_mult, Vector2.from_angle($SwordAttackHitbox.rotation))
+		#recoil_direction = Vector2.from_angle($SwordAttackHitbox.rotation) * -1
+		#if recoil_direction.is_equal_approx(Vector2(0.0, -1.0)):
+			## Set recoil timer to pogo time
+			#$RecoilTime.wait_time = pogo_time
+		#else:
+			## Set recoil timer to regular recoil time
+			#$RecoilTime.wait_time = recoil_time
+		#$RecoilTime.start()
+		sword_attack(body, sword_attack_damage, $SwordAttackHitbox)
 
 func _on_recoil_time_timeout():
 	recoil_direction = Vector2.ZERO
+
+
+func _on_big_sword_hitbox_body_entered(body):
+	if body.is_in_group("Enemy") and !hit_enemies.has(body):
+		sword_attack(body, big_sword_damage, $BigSwordHitbox)

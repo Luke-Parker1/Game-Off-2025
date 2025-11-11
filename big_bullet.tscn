@@ -1,0 +1,23 @@
+[gd_scene load_steps=4 format=3 uid="uid://0l4pdyih8glm"]
+
+[ext_resource type="Script" uid="uid://bvs1ly6iemx2s" path="res://bullet.gd" id="1_pshhb"]
+[ext_resource type="Texture2D" uid="uid://b2paakn4rmqkv" path="res://icon.svg" id="2_8ykht"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_pshhb"]
+size = Vector2(29.44, 29.44)
+
+[node name="BigBullet" type="Area2D"]
+collision_layer = 3
+collision_mask = 3
+script = ExtResource("1_pshhb")
+speed = 700.0
+is_big_bullet = true
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(0.23, 0.23)
+texture = ExtResource("2_8ykht")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_pshhb")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

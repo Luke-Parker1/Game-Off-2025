@@ -29,6 +29,7 @@ func State_Physics_Update(delta: float):
 		bullet.global_position = Enemy.get_node("GunRotator/ShootPosition").global_position
 		bullet.global_rotation = Enemy.get_node("GunRotator/ShootPosition").global_rotation
 		bullet.shooter = Enemy
+		bullet.shooter_is_player = false
 		bullet.damage = Enemy.bullet_damage * Enemy.multiplier_bar.left_type_mult
 		Enemy.add_sibling(bullet)
 		shot = true

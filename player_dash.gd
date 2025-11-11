@@ -23,8 +23,12 @@ func State_Physics_Update(delta: float):
 		Transitioned.emit(self, "knockback")
 	elif Input.is_action_just_pressed("sword") and Player.get_node("SwordAttackCooldown").is_stopped():
 		Transitioned.emit(self, "swordattack")
+	elif Input.is_action_just_pressed("big sword") and Player.get_node("SwordAttackCooldown").is_stopped() and Player.big_sword_check():
+		Transitioned.emit(self, "bigswordattack")
 	elif Input.is_action_just_pressed("shoot") and Player.get_node("ShootCooldown").is_stopped():
 		Transitioned.emit(self, "shoot")
+	elif Input.is_action_just_pressed("big shoot") and Player.get_node("ShootCooldown").is_stopped() and Player.big_shoot_check():
+		Transitioned.emit(self, "bigshoot")
 	elif dash_time <= 0:
 		Transitioned.emit(self, "default")
 	

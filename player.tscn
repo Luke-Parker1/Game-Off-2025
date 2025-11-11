@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://b2lk5meo42827"]
+[gd_scene load_steps=14 format=3 uid="uid://b2lk5meo42827"]
 
 [ext_resource type="Texture2D" uid="uid://b2paakn4rmqkv" path="res://icon.svg" id="1_4flbx"]
 [ext_resource type="Script" uid="uid://f1a23u4u1tyb" path="res://player.gd" id="1_onrkg"]
@@ -7,13 +7,18 @@
 [ext_resource type="Script" uid="uid://cne4b4d532klw" path="res://player_dash.gd" id="5_sweqy"]
 [ext_resource type="Script" uid="uid://cu2ngqtk4kefk" path="res://player_sword_attack.gd" id="6_2hs0m"]
 [ext_resource type="Script" uid="uid://bnynjfxcvoh4i" path="res://player_shoot.gd" id="7_1jxqw"]
+[ext_resource type="PackedScene" uid="uid://cwcomh31mp8tt" path="res://bullet.tscn" id="8_b26j0"]
 [ext_resource type="Script" uid="uid://bdqbrifxcawsk" path="res://player_knockback.gd" id="8_dw050"]
+[ext_resource type="PackedScene" uid="uid://0l4pdyih8glm" path="res://big_bullet.tscn" id="9_n7ghd"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_onrkg"]
 size = Vector2(32, 32)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_sweqy"]
 size = Vector2(50, 40)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_dw050"]
+size = Vector2(110, 82)
 
 [node name="Player" type="CharacterBody2D" groups=["Player"]]
 z_index = 100
@@ -26,7 +31,11 @@ recoil_speed = 300.0
 recoil_time = 0.1
 pogo_time = 0.15
 sword_attack_damage = 4.0
+big_sword_damage = 12.0
 bullet_damage = 4.0
+big_bullet_damage = 12.0
+required_xp_for_bigsword = 3.0
+required_xp_for_bigshoot = 3.0
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 scale = Vector2(0.25, 0.25)
@@ -42,6 +51,15 @@ collision_mask = 3
 [node name="CollisionShape2D" type="CollisionShape2D" parent="SwordAttackHitbox"]
 position = Vector2(47, 0)
 shape = SubResource("RectangleShape2D_sweqy")
+disabled = true
+
+[node name="BigSwordHitbox" type="Area2D" parent="."]
+collision_layer = 3
+collision_mask = 3
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="BigSwordHitbox"]
+position = Vector2(76, 0)
+shape = SubResource("RectangleShape2D_dw050")
 disabled = true
 
 [node name="GunRotator" type="Node2D" parent="."]
@@ -89,15 +107,24 @@ Player = NodePath("../..")
 dash_timer = 0.3
 metadata/_custom_type_script = "uid://cne4b4d532klw"
 
-[node name="SwordAttack" type="Node" parent="StateMachine" node_paths=PackedStringArray("Player")]
+[node name="SwordAttack" type="Node" parent="StateMachine" node_paths=PackedStringArray("Player", "hitbox")]
 script = ExtResource("6_2hs0m")
 Player = NodePath("../..")
 attack_timer = 0.2
+hitbox = NodePath("../../SwordAttackHitbox/CollisionShape2D")
+gives_xp = true
 metadata/_custom_type_script = "uid://cu2ngqtk4kefk"
 
 [node name="Shoot" type="Node" parent="StateMachine" node_paths=PackedStringArray("Player")]
 script = ExtResource("7_1jxqw")
 Player = NodePath("../..")
+BULLET = ExtResource("8_b26j0")
+metadata/_custom_type_script = "uid://bnynjfxcvoh4i"
+
+[node name="BigShoot" type="Node" parent="StateMachine" node_paths=PackedStringArray("Player")]
+script = ExtResource("7_1jxqw")
+Player = NodePath("../..")
+BULLET = ExtResource("9_n7ghd")
 metadata/_custom_type_script = "uid://bnynjfxcvoh4i"
 
 [node name="Knockback" type="Node" parent="StateMachine" node_paths=PackedStringArray("Player")]
@@ -108,5 +135,29 @@ stun_timer = 0.4
 knockback_timer = 0.2
 metadata/_custom_type_script = "uid://bdqbrifxcawsk"
 
+[node name="BigSwordAttack" type="Node" parent="StateMachine" node_paths=PackedStringArray("Player", "hitbox")]
+script = ExtResource("6_2hs0m")
+Player = NodePath("../..")
+attack_timer = 0.2
+hitbox = NodePath("../../BigSwordHitbox/CollisionShape2D")
+metadata/_custom_type_script = "uid://cu2ngqtk4kefk"
+
+[node name="XP Layer" type="CanvasLayer" parent="."]
+
+[node name="SwordXP" type="ProgressBar" parent="XP Layer"]
+offset_left = 1049.0
+offset_top = 92.0
+offset_right = 1272.0
+offset_bottom = 119.0
+max_value = 15.0
+
+[node name="GunXP" type="ProgressBar" parent="XP Layer"]
+offset_left = 10.0
+offset_top = 92.0
+offset_right = 233.0
+offset_bottom = 119.0
+max_value = 15.0
+
 [connection signal="body_entered" from="SwordAttackHitbox" to="." method="_on_sword_attack_hitbox_body_entered"]
+[connection signal="body_entered" from="BigSwordHitbox" to="." method="_on_big_sword_hitbox_body_entered"]
 [connection signal="timeout" from="RecoilTime" to="." method="_on_recoil_time_timeout"]
