@@ -18,6 +18,8 @@ func Enter():
 	bullet.shooter_is_player = true
 	bullet.damage = damage * Player.multiplier_bar.left_type_mult
 	Player.add_sibling(bullet)
+	
+	Player.gun_xp -= required_xp
 
 func State_Physics_Update(_delta: float):
 	if Player.knockback_direction != 0.0:
@@ -26,5 +28,4 @@ func State_Physics_Update(_delta: float):
 		Transitioned.emit(self, "default")
 
 func Exit():
-	Player.gun_xp -= required_xp
 	Player.get_node("ShootCooldown").start()

@@ -15,12 +15,13 @@ var attack_time : float
 @export var gives_xp : bool
 
 # Amount of xp required for this attack
-var required_xp := 0
+var required_xp := 0.0
 
 func Enter():
 	Player.state_allows_default_move = true
 	attack_time = attack_timer
 	hitbox.disabled = false
+	Player.sword_xp -= required_xp
 
 func State_Physics_Update(delta: float):
 	attack_time -= delta
@@ -34,6 +35,5 @@ func Exit():
 	hitbox.disabled = true
 	if Player.hit_enemies.size() > 0 and gives_xp:
 		Player.sword_xp += Player.multiplier_bar.right_type_mult
-	Player.sword_xp -= required_xp
 	Player.hit_enemies.clear()
 	Player.get_node("SwordAttackCooldown").start()

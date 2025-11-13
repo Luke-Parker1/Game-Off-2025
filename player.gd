@@ -21,8 +21,10 @@ extends CharacterBody2D
 
 @export var sword_attack_damage : float
 @export var big_sword_damage : float
+@export var sword_thrust_damage : float
 @export var bullet_damage : float
 @export var big_bullet_damage : float
+@export var explosive_bullet_damage : float
 
 # Keeps track of whether the jump button is being held or not
 var jumping := false
@@ -49,7 +51,9 @@ var sword_xp := 0.0
 var gun_xp := 0.0
 
 @export var required_xp_for_bigsword : float
+@export var required_xp_for_thrust : float
 @export var required_xp_for_bigshoot : float
+@export var required_xp_for_explosive : float
 
 func _ready():
 	multiplier_bar = get_tree().get_nodes_in_group("MultiplierBar")[0]
@@ -57,8 +61,12 @@ func _ready():
 	$StateMachine/Shoot.damage = bullet_damage
 	$StateMachine/BigShoot.damage = big_bullet_damage
 	$StateMachine/BigShoot.required_xp = required_xp_for_bigshoot
+	$StateMachine/SwordThrust.required_xp = required_xp_for_thrust
+	$StateMachine/ShootExplosive.damage = explosive_bullet_damage
+	$StateMachine/ShootExplosive.required_xp = required_xp_for_explosive
 
 func _physics_process(delta):
+	#print(Engine.get_frames_per_second())
 	#print($DashCoolDown.is_stopped())
 	if state_allows_default_move:
 		# Add the gravity.
@@ -110,6 +118,11 @@ func _physics_process(delta):
 			$BigSwordHitbox.rotation_degrees = 180
 		else:
 			$BigSwordHitbox.rotation_degrees = 0
+	if $StateMachine.current_state.name.to_lower() != "sword_thrust":
+		if look_direction < 0:
+			$SwordThrustHitbox.rotation_degrees = 180
+		else:
+			$SwordThrustHitbox.rotation_degrees = 0
 	
 	#Rotate gun
 	gun_direction = Input.get_vector("left", "right", "up", "down")
@@ -122,6 +135,7 @@ func _physics_process(delta):
 	# Get xp
 	$"XP Layer/SwordXP".value = sword_xp
 	$"XP Layer/GunXP".value = gun_xp
+	
 
 # This is called get_custom_gravity because get_gravity is a function built into godot
 func get_custom_gravity() -> float:
@@ -156,15 +170,27 @@ func big_sword_check() -> bool:
 	else:
 		return false
 
+func sword_thrust_check() -> bool:
+	if sword_xp >= required_xp_for_thrust:
+		return true
+	else:
+		return false
+
 func big_shoot_check() -> bool:
 	if gun_xp >= required_xp_for_bigshoot:
 		return true
 	else:
 		return false
 
-func sword_attack(enemy, damage, hitbox):
+func explosive_check() -> bool:
+	if gun_xp >= required_xp_for_explosive:
+		return true
+	else:
+		return false
+
+func sword_attack(enemy, damage, hitbox, knockback_mult):
 	hit_enemies.append(enemy)
-	enemy.hit(damage * multiplier_bar.right_type_mult, Vector2.from_angle(hitbox.rotation))
+	enemy.hit(damage * multiplier_bar.right_type_mult, Vector2.from_angle(hitbox.rotation) * knockback_mult)
 	recoil_direction = Vector2.from_angle(hitbox.rotation) * -1
 	if recoil_direction.is_equal_approx(Vector2(0.0, -1.0)):
 		# Set recoil timer to pogo time
@@ -186,7 +212,7 @@ func _on_sword_attack_hitbox_body_entered(body):
 			## Set recoil timer to regular recoil time
 			#$RecoilTime.wait_time = recoil_time
 		#$RecoilTime.start()
-		sword_attack(body, sword_attack_damage, $SwordAttackHitbox)
+		sword_attack(body, sword_attack_damage, $SwordAttackHitbox, 1)
 
 func _on_recoil_time_timeout():
 	recoil_direction = Vector2.ZERO
@@ -194,4 +220,9 @@ func _on_recoil_time_timeout():
 
 func _on_big_sword_hitbox_body_entered(body):
 	if body.is_in_group("Enemy") and !hit_enemies.has(body):
-		sword_attack(body, big_sword_damage, $BigSwordHitbox)
+		sword_attack(body, big_sword_damage, $BigSwordHitbox, 1)
+
+
+func _on_sword_thrust_hitbox_body_entered(body):
+	if body.is_in_group("Enemy") and !hit_enemies.has(body):
+		sword_attack(body, sword_thrust_damage, $SwordThrustHitbox, 8.5)
