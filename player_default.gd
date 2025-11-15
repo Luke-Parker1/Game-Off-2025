@@ -8,6 +8,7 @@ class_name PlayerDefault
 
 func Enter():
 	Player.state_allows_default_move = true
+	Player.state_allows_animation = true
 
 
 func State_Physics_Update(_delta: float):

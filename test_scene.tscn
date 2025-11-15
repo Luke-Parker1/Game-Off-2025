@@ -52,13 +52,13 @@ texture = ExtResource("1_uhqqe")
 shape = SubResource("RectangleShape2D_ia1lp")
 
 [node name="Player" parent="." instance=ExtResource("2_ia1lp")]
-position = Vector2(526, 173)
+position = Vector2(526, 385)
 required_xp_for_bigsword = 1.0
-required_xp_for_thrust = 1.0
+required_xp_for_thrust = 0.0
 required_xp_for_bigshoot = 1.0
 required_xp_for_explosive = 1.0
 
 [node name="ProgressBarLayer" parent="." instance=ExtResource("4_coq8p")]
 
 [node name="WalkerEnemy" parent="." instance=ExtResource("4_2nij2")]
-position = Vector2(848, 206)
+position = Vector2(910, 358)

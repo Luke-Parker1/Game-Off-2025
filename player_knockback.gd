@@ -17,10 +17,13 @@ var knockback_time : float
 
 func Enter():
 	Player.state_allows_default_move = false
+	Player.state_allows_animation = false
 	stun_time = stun_timer
 	knockback_time = knockback_timer
 	Player.velocity = Vector2.ZERO
 	frame_freeze(0.05, stun_timer)
+	Player.get_node("AnimatedSprite2D").play("hit")
+	Player.get_node("HitParticles").emitting = true
 
 func State_Physics_Update(delta: float):
 	#if stun_time < 0:

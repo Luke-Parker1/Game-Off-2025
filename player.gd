@@ -35,6 +35,9 @@ var dash_cooldown_active := false
 # If this is false, the current state handles all movement
 var state_allows_default_move := true
 
+# If this is false, the current state handles the animation
+var state_allows_animation := true
+
 # 1.0 is right, -1.0 is left
 var look_direction := 1.0
 var knockback_direction := 0.0
@@ -54,6 +57,11 @@ var gun_xp := 0.0
 @export var required_xp_for_thrust : float
 @export var required_xp_for_bigshoot : float
 @export var required_xp_for_explosive : float
+
+@onready var default_sprite_scale = $AnimatedSprite2D.scale
+
+# Keeps track of if the sprite is bouncing dowm or if it is returning to its default scale during walk cycle
+var sprite_bouncing_down := true
 
 func _ready():
 	multiplier_bar = get_tree().get_nodes_in_group("MultiplierBar")[0]
@@ -75,15 +83,10 @@ func _physics_process(delta):
 
 		# Handle jump.
 		if Input.is_action_just_pressed("jump") and is_on_floor():
+			$AnimatedSprite2D.scale = default_sprite_scale * Vector2(0.7, 1.3)
 			jump()
 		if Input.is_action_just_released("jump"):
 			jumping = false
-		
-		# Handle Dash
-		#if Input.is_action_just_pressed("dash") and !dashing and !dash_cooldown_active:
-			#dashing = true
-			#velocity.y = 0
-			#$DashTimer.start()
 		
 		# Get the input direction and handle the movement/deceleration.
 		var direction = Input.get_axis("left", "right")
@@ -98,6 +101,40 @@ func _physics_process(delta):
 			velocity.x = 0.0
 	#print(velocity)
 	move_and_slide()
+	
+	if state_allows_animation:
+		# Squash and stretch
+		if is_on_floor() and velocity.x != 0:
+			if sprite_bouncing_down:
+				$AnimatedSprite2D.scale = $AnimatedSprite2D.scale.move_toward(default_sprite_scale  * Vector2(1.15, 0.85), 4*delta)
+			else:
+				$AnimatedSprite2D.scale = $AnimatedSprite2D.scale.move_toward(default_sprite_scale, 4*delta)
+			if $AnimatedSprite2D.scale.is_equal_approx(default_sprite_scale):
+				sprite_bouncing_down = true
+			elif $AnimatedSprite2D.scale.is_equal_approx(default_sprite_scale * Vector2(1.15, 0.85)):
+				sprite_bouncing_down = false
+		else:
+			$AnimatedSprite2D.scale = $AnimatedSprite2D.scale.move_toward(default_sprite_scale, 4*delta)
+	
+		# Animation
+		if not is_on_floor():
+			if get_custom_gravity() == jump_gravity:
+				$AnimatedSprite2D.play("jump ascend")
+			else:
+				$AnimatedSprite2D.play("jump descend")
+		elif velocity.x != 0:
+			$AnimatedSprite2D.play("run")
+		else:
+			$AnimatedSprite2D.play("default")
+	else:
+		$AnimatedSprite2D.scale = default_sprite_scale
+	
+	if $StateMachine.current_state.name.to_lower() != "swordattack" and $StateMachine.current_state.name.to_lower() != "bigswordattack" and $StateMachine.current_state.name.to_lower() != "sword_thrust":
+		if look_direction <= 0:
+			$AnimatedSprite2D.flip_h = true
+		else:
+			$AnimatedSprite2D.flip_h = false
+	
 	
 	# Flip attack hitboxes
 	if $StateMachine.current_state.name.to_lower() != "swordattack":
@@ -199,6 +236,16 @@ func sword_attack(enemy, damage, hitbox, knockback_mult):
 		# Set recoil timer to regular recoil time
 		$RecoilTime.wait_time = recoil_time
 	$RecoilTime.start()
+
+func create_dash_effect(animation_time):
+	var dash_silhouette = $AnimatedSprite2D.duplicate()
+	get_parent().add_child(dash_silhouette)
+	dash_silhouette.global_position = $AnimatedSprite2D.global_position
+	await get_tree().create_timer(animation_time).timeout
+	dash_silhouette.modulate.a = 0.4
+	await get_tree().create_timer(animation_time).timeout
+	dash_silhouette.modulate.a = 0.2
+	dash_silhouette.queue_free()
 
 func _on_sword_attack_hitbox_body_entered(body):
 	if body.is_in_group("Enemy") and !hit_enemies.has(body):

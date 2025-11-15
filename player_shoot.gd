@@ -10,6 +10,7 @@ var required_xp := 0.0
 
 func Enter():
 	Player.state_allows_default_move = true
+	Player.state_allows_animation = true
 	var bullet = BULLET.instantiate()
 	bullet.global_position = Player.get_node("GunRotator/ShootPosition").global_position
 	bullet.global_rotation = Player.get_node("GunRotator/ShootPosition").global_rotation
