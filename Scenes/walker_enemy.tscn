@@ -1,7 +1,7 @@
-[gd_scene load_steps=6 format=3 uid="uid://fy2v3116q2dv"]
+[gd_scene load_steps=7 format=3 uid="uid://fy2v3116q2dv"]
 
-[ext_resource type="Script" uid="uid://byyo0jgvc8wcs" path="res://walker_enemy.gd" id="1_4gyqm"]
-[ext_resource type="Texture2D" uid="uid://b2paakn4rmqkv" path="res://icon.svg" id="1_7k104"]
+[ext_resource type="Script" uid="uid://byyo0jgvc8wcs" path="res://Scripts/walker_enemy.gd" id="1_7d8e2"]
+[ext_resource type="Texture2D" uid="uid://b2paakn4rmqkv" path="res://Art/icon.svg" id="2_cemhg"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_7k104"]
 size = Vector2(38.4, 38.4)
@@ -12,17 +12,21 @@ size = Vector2(38.4, 38.4)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_lwh3n"]
 size = Vector2(32, 7)
 
+[sub_resource type="Curve" id="Curve_lwh3n"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.87209314, 0.9101124), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 3
+
 [node name="WalkerEnemy" type="CharacterBody2D" groups=["Enemy"]]
 collision_layer = 2
 collision_mask = 2
-script = ExtResource("1_4gyqm")
+script = ExtResource("1_7d8e2")
 speed = 150.0
 health = 10.0
 knockback_speed = Vector2(250, 25)
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 scale = Vector2(0.3, 0.3)
-texture = ExtResource("1_7k104")
+texture = ExtResource("2_cemhg")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_7k104")
@@ -43,6 +47,20 @@ shape = SubResource("RectangleShape2D_lwh3n")
 [node name="KnockbackTimer" type="Timer" parent="."]
 wait_time = 0.1
 one_shot = true
+
+[node name="HitParticles" type="CPUParticles2D" parent="."]
+emitting = false
+lifetime = 0.3
+one_shot = true
+explosiveness = 1.0
+local_coords = true
+spread = 180.0
+gravity = Vector2(0, 0)
+initial_velocity_min = 400.0
+initial_velocity_max = 400.0
+scale_amount_min = 3.0
+scale_amount_max = 10.0
+scale_amount_curve = SubResource("Curve_lwh3n")
 
 [connection signal="body_entered" from="HitBox" to="." method="_on_hit_box_body_entered"]
 [connection signal="timeout" from="KnockbackTimer" to="." method="_on_knockback_timer_timeout"]

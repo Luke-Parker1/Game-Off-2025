@@ -21,6 +21,12 @@ func Enter():
 	Player.velocity.y = 0
 	hitbox.disabled = false
 	current_effect_num = effect_num
+	hitbox.get_node("AnimatedSprite2D").visible = true
+	hitbox.get_node("AnimatedSprite2D").play("attack")
+	if Player.look_direction > 0:
+		hitbox.get_node("AnimatedSprite2D").flip_v = false
+	else:
+		hitbox.get_node("AnimatedSprite2D").flip_v = true
 
 func State_Physics_Update(delta: float):
 	Player.get_node("AnimatedSprite2D").play("sword thrust")
@@ -39,4 +45,5 @@ func Exit():
 	hitbox.disabled = true
 	Player.sword_xp -= required_xp
 	Player.hit_enemies.clear()
+	hitbox.get_node("AnimatedSprite2D").visible = false
 	Player.get_node("SwordAttackCooldown").start()

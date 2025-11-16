@@ -1,0 +1,68 @@
+[gd_scene load_steps=8 format=3 uid="uid://cjbpx1lsg06dy"]
+
+[ext_resource type="Script" uid="uid://se6ct5g5mh7o" path="res://Scripts/explosive_bullet.gd" id="1_js8op"]
+[ext_resource type="Shader" uid="uid://byj2pf1y7nemn" path="res://Scripts/color_change.gdshader" id="2_2jpdw"]
+[ext_resource type="Texture2D" uid="uid://c25ea13winnp7" path="res://Art/explosive.png" id="2_js8op"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_v8qja"]
+size = Vector2(16, 16)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_h8223"]
+shader = ExtResource("2_2jpdw")
+shader_parameter/active = false
+shader_parameter/tint = Color(1, 1, 1, 1)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_8fevl"]
+radius = 57.0
+
+[sub_resource type="Curve" id="Curve_8fevl"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[node name="ExplosiveBullet" type="Area2D"]
+z_index = 150
+collision_layer = 3
+collision_mask = 3
+script = ExtResource("1_js8op")
+speed = 700.0
+knockback_mult = Vector2(5, 1)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_v8qja")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+material = SubResource("ShaderMaterial_h8223")
+scale = Vector2(4, 4)
+texture = ExtResource("2_js8op")
+
+[node name="ExplosionHitBox" type="Area2D" parent="."]
+collision_layer = 3
+collision_mask = 3
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ExplosionHitBox"]
+shape = SubResource("CircleShape2D_8fevl")
+disabled = true
+
+[node name="ExplosionTimer" type="Timer" parent="."]
+wait_time = 0.5
+one_shot = true
+
+[node name="ExplosionParticles" type="CPUParticles2D" parent="."]
+emitting = false
+amount = 20
+lifetime = 0.5
+one_shot = true
+explosiveness = 1.0
+local_coords = true
+spread = 180.0
+gravity = Vector2(0, 0)
+initial_velocity_min = 150.0
+initial_velocity_max = 300.0
+scale_amount_min = 10.0
+scale_amount_max = 15.0
+scale_amount_curve = SubResource("Curve_8fevl")
+color = Color(1, 0.015686275, 0.3372549, 1)
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="body_entered" from="ExplosionHitBox" to="." method="_on_explosion_hit_box_body_entered"]
+[connection signal="timeout" from="ExplosionTimer" to="." method="_on_explosion_timer_timeout"]

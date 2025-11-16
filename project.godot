@@ -13,7 +13,7 @@ config_version=5
 config/name="Github Game Off 2025"
 run/main_scene="uid://cqkedpsayif7j"
 config/features=PackedStringArray("4.5", "GL Compatibility")
-config/icon="res://icon.svg"
+config/icon="res://Art/icon.svg"
 
 [display]
 
@@ -99,3 +99,4 @@ shoot={
 textures/canvas_textures/default_texture_filter=0
 renderer/rendering_method="gl_compatibility"
 renderer/rendering_method.mobile="gl_compatibility"
+environment/defaults/default_clear_color=Color(0.03529412, 0.003921569, 0.050980393, 1)

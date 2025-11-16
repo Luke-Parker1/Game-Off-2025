@@ -161,13 +161,35 @@ func _physics_process(delta):
 		else:
 			$SwordThrustHitbox.rotation_degrees = 0
 	
+	# Make sword be white when damage is zero
+	if multiplier_bar.right_type_mult == 0:
+		$SwordAttackHitbox/CollisionShape2D/AnimatedSprite2D.material.set_shader_parameter("active", true)
+		$BigSwordHitbox/CollisionShape2D/AnimatedSprite2D.material.set_shader_parameter("active", true)
+		$SwordThrustHitbox/CollisionShape2D/AnimatedSprite2D.material.set_shader_parameter("active", true)
+	else:
+		$SwordAttackHitbox/CollisionShape2D/AnimatedSprite2D.material.set_shader_parameter("active", false)
+		$BigSwordHitbox/CollisionShape2D/AnimatedSprite2D.material.set_shader_parameter("active", false)
+		$SwordThrustHitbox/CollisionShape2D/AnimatedSprite2D.material.set_shader_parameter("active", false)
+	
 	#Rotate gun
 	gun_direction = Input.get_vector("left", "right", "up", "down")
 	#if gun_direction.is_equal_approx(Vector2(0,1)) and is_on_floor():
 		#gun_direction = Vector2(look_direction, 1)
 	if gun_direction.is_equal_approx(Vector2(0,0)):
 		gun_direction = Vector2(look_direction, 0)
+	if gun_direction.x < 0:
+		$GunRotator/ShootPosition/Sprite2D.flip_v = true
+		$GunRotator/ShootPosition/Sprite2D.offset.y = abs($GunRotator/ShootPosition/Sprite2D.offset.y) * -1
+	else:
+		$GunRotator/ShootPosition/Sprite2D.flip_v = false
+		$GunRotator/ShootPosition/Sprite2D.offset.y = abs($GunRotator/ShootPosition/Sprite2D.offset.y)
+	
 	$GunRotator.rotation = Vector2.ZERO.angle_to_point(gun_direction)
+	
+	if $GunRotator/ShootPosition/ShootParticles.emitting:
+		$GunRotator/ShootPosition/Sprite2D.visible = true
+	else:
+		$GunRotator/ShootPosition/Sprite2D.visible = false
 	
 	# Get xp
 	$"XP Layer/SwordXP".value = sword_xp

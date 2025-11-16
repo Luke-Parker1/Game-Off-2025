@@ -1,19 +1,22 @@
-[gd_scene load_steps=35 format=3 uid="uid://b2lk5meo42827"]
+[gd_scene load_steps=50 format=3 uid="uid://b2lk5meo42827"]
 
-[ext_resource type="Texture2D" uid="uid://b2paakn4rmqkv" path="res://icon.svg" id="1_4flbx"]
-[ext_resource type="Script" uid="uid://f1a23u4u1tyb" path="res://player.gd" id="1_onrkg"]
-[ext_resource type="Texture2D" uid="uid://b11m7snql17p3" path="res://player_sheet.png" id="2_urp6f"]
-[ext_resource type="Texture2D" uid="uid://dqhctu8or5e2t" path="res://game_off_2025_sword_attack-Sheet.png" id="3_bwjto"]
-[ext_resource type="Script" uid="uid://v4nlkn46p8aj" path="res://state_machine.gd" id="3_i3pqv"]
-[ext_resource type="Script" uid="uid://1yhkh6ng2egx" path="res://player_default.gd" id="4_hqtel"]
-[ext_resource type="Script" uid="uid://cne4b4d532klw" path="res://player_dash.gd" id="5_sweqy"]
-[ext_resource type="Script" uid="uid://cu2ngqtk4kefk" path="res://player_sword_attack.gd" id="6_2hs0m"]
-[ext_resource type="Script" uid="uid://bnynjfxcvoh4i" path="res://player_shoot.gd" id="7_1jxqw"]
-[ext_resource type="PackedScene" uid="uid://cwcomh31mp8tt" path="res://bullet.tscn" id="8_b26j0"]
-[ext_resource type="Script" uid="uid://bdqbrifxcawsk" path="res://player_knockback.gd" id="8_dw050"]
-[ext_resource type="PackedScene" uid="uid://0l4pdyih8glm" path="res://big_bullet.tscn" id="9_n7ghd"]
-[ext_resource type="PackedScene" uid="uid://cjbpx1lsg06dy" path="res://explosive_bullet.tscn" id="10_ivps1"]
-[ext_resource type="Script" uid="uid://dmddma07poe7x" path="res://player_sword_thrust.gd" id="11_nvl01"]
+[ext_resource type="Script" uid="uid://f1a23u4u1tyb" path="res://Scripts/player.gd" id="1_onrkg"]
+[ext_resource type="Texture2D" uid="uid://b11m7snql17p3" path="res://Art/player_sheet.png" id="2_urp6f"]
+[ext_resource type="Shader" uid="uid://byj2pf1y7nemn" path="res://Scripts/color_change.gdshader" id="3_606se"]
+[ext_resource type="Texture2D" uid="uid://dqhctu8or5e2t" path="res://Art/sword_sheet.png" id="3_bwjto"]
+[ext_resource type="Script" uid="uid://v4nlkn46p8aj" path="res://Scripts/state_machine.gd" id="3_i3pqv"]
+[ext_resource type="Script" uid="uid://1yhkh6ng2egx" path="res://Scripts/player_default.gd" id="4_hqtel"]
+[ext_resource type="Script" uid="uid://cne4b4d532klw" path="res://Scripts/player_dash.gd" id="5_sweqy"]
+[ext_resource type="Texture2D" uid="uid://c4sv4qa32yjcl" path="res://Art/big_sword_sheet.png" id="5_u1c27"]
+[ext_resource type="Script" uid="uid://cu2ngqtk4kefk" path="res://Scripts/player_sword_attack.gd" id="6_2hs0m"]
+[ext_resource type="Texture2D" uid="uid://cmu54vvjrvnm2" path="res://Art/sword_thrust_sheet.png" id="6_op7ga"]
+[ext_resource type="Script" uid="uid://bnynjfxcvoh4i" path="res://Scripts/player_shoot.gd" id="7_1jxqw"]
+[ext_resource type="Texture2D" uid="uid://cj7akvj8mffcy" path="res://Art/gun_sheet.png" id="7_op7ga"]
+[ext_resource type="PackedScene" uid="uid://cwcomh31mp8tt" path="res://Scenes/bullet.tscn" id="8_b26j0"]
+[ext_resource type="Script" uid="uid://bdqbrifxcawsk" path="res://Scripts/player_knockback.gd" id="8_dw050"]
+[ext_resource type="PackedScene" uid="uid://0l4pdyih8glm" path="res://Scenes/big_bullet.tscn" id="9_n7ghd"]
+[ext_resource type="PackedScene" uid="uid://cjbpx1lsg06dy" path="res://Scenes/explosive_bullet.tscn" id="10_ivps1"]
+[ext_resource type="Script" uid="uid://dmddma07poe7x" path="res://Scripts/player_sword_thrust.gd" id="11_nvl01"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_u1c27"]
 atlas = ExtResource("2_urp6f")
@@ -129,6 +132,11 @@ size = Vector2(34, 63)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_sweqy"]
 size = Vector2(75, 49)
 
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_606se"]
+shader = ExtResource("3_606se")
+shader_parameter/active = false
+shader_parameter/tint = Color(1, 1, 1, 1)
+
 [sub_resource type="AtlasTexture" id="AtlasTexture_7lmhl"]
 atlas = ExtResource("3_bwjto")
 region = Rect2(0, 0, 20, 16)
@@ -147,7 +155,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_7lmhl")
 }, {
-"duration": 3.0,
+"duration": 1.0,
 "texture": SubResource("AtlasTexture_dx0e4")
 }, {
 "duration": 1.0,
@@ -159,10 +167,82 @@ animations = [{
 }]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_dw050"]
-size = Vector2(110, 82)
+size = Vector2(135, 82)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_u1c27"]
+shader = ExtResource("3_606se")
+shader_parameter/active = false
+shader_parameter/tint = Color(1, 1, 1, 1)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7hik5"]
+atlas = ExtResource("5_u1c27")
+region = Rect2(0, 0, 40, 26)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qtqh7"]
+atlas = ExtResource("5_u1c27")
+region = Rect2(40, 0, 40, 26)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2wuci"]
+atlas = ExtResource("5_u1c27")
+region = Rect2(80, 0, 40, 26)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_606se"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7hik5")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qtqh7")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2wuci")
+}],
+"loop": false,
+"name": &"attack",
+"speed": 15.0
+}]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_n7ghd"]
-size = Vector2(102, 46.5)
+size = Vector2(108, 46.5)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_op7ga"]
+shader = ExtResource("3_606se")
+shader_parameter/active = false
+shader_parameter/tint = Color(1, 1, 1, 1)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_iruf7"]
+atlas = ExtResource("6_op7ga")
+region = Rect2(0, 0, 30, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_j5n4i"]
+atlas = ExtResource("6_op7ga")
+region = Rect2(30, 0, 30, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_634y6"]
+atlas = ExtResource("6_op7ga")
+region = Rect2(60, 0, 30, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_u1c27"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_iruf7")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_j5n4i")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_634y6")
+}],
+"loop": false,
+"name": &"attack",
+"speed": 15.0
+}]
+
+[sub_resource type="Curve" id="Curve_op7ga"]
+_data = [Vector2(0.0116279125, 1), 0.0, 0.0, 0, 0, Vector2(0.77906984, 0.77528095), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 3
 
 [sub_resource type="Curve" id="Curve_bwjto"]
 _data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.87209314, 0.9101124), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
@@ -193,7 +273,6 @@ required_xp_for_explosive = 3.0
 position = Vector2(0, 31)
 scale = Vector2(4, 4)
 sprite_frames = SubResource("SpriteFrames_ivps1")
-animation = &"hit"
 offset = Vector2(0, -8)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
@@ -210,6 +289,7 @@ disabled = true
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="SwordAttackHitbox/CollisionShape2D"]
 visible = false
+material = SubResource("ShaderMaterial_606se")
 position = Vector2(-1.5, 0)
 scale = Vector2(4, 4)
 sprite_frames = SubResource("SpriteFrames_urp6f")
@@ -220,18 +300,36 @@ collision_layer = 3
 collision_mask = 3
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="BigSwordHitbox"]
-position = Vector2(76, 0)
+position = Vector2(88.5, 0)
 shape = SubResource("RectangleShape2D_dw050")
 disabled = true
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="BigSwordHitbox/CollisionShape2D"]
+visible = false
+material = SubResource("ShaderMaterial_u1c27")
+position = Vector2(-12.5, 0)
+scale = Vector2(4, 4)
+sprite_frames = SubResource("SpriteFrames_606se")
+animation = &"attack"
+frame = 2
+frame_progress = 1.0
 
 [node name="SwordThrustHitbox" type="Area2D" parent="."]
 collision_layer = 3
 collision_mask = 3
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="SwordThrustHitbox"]
-position = Vector2(73, 0)
+position = Vector2(76, 0)
 shape = SubResource("RectangleShape2D_n7ghd")
 disabled = true
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="SwordThrustHitbox/CollisionShape2D"]
+visible = false
+material = SubResource("ShaderMaterial_op7ga")
+position = Vector2(-6, 0)
+scale = Vector2(4, 4)
+sprite_frames = SubResource("SpriteFrames_u1c27")
+animation = &"attack"
 
 [node name="GunRotator" type="Node2D" parent="."]
 
@@ -239,9 +337,23 @@ disabled = true
 position = Vector2(27, 0)
 gizmo_extents = 20.0
 
+[node name="ShootParticles" type="CPUParticles2D" parent="GunRotator/ShootPosition"]
+emitting = false
+lifetime = 0.3
+one_shot = true
+explosiveness = 1.0
+local_coords = true
+gravity = Vector2(0, 0)
+initial_velocity_min = 100.0
+initial_velocity_max = 100.0
+scale_amount_min = 2.0
+scale_amount_max = 5.0
+scale_amount_curve = SubResource("Curve_op7ga")
+
 [node name="Sprite2D" type="Sprite2D" parent="GunRotator/ShootPosition"]
-scale = Vector2(0.1, 0.1)
-texture = ExtResource("1_4flbx")
+scale = Vector2(4, 4)
+texture = ExtResource("7_op7ga")
+offset = Vector2(-2, 1)
 
 [node name="DashCoolDown" type="Timer" parent="."]
 wait_time = 0.2
@@ -350,6 +462,7 @@ emitting = false
 lifetime = 0.3
 one_shot = true
 explosiveness = 1.0
+local_coords = true
 spread = 180.0
 gravity = Vector2(0, 0)
 initial_velocity_min = 400.0
@@ -357,6 +470,10 @@ initial_velocity_max = 400.0
 scale_amount_min = 3.0
 scale_amount_max = 10.0
 scale_amount_curve = SubResource("Curve_bwjto")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+drag_horizontal_enabled = true
+drag_vertical_enabled = true
 
 [connection signal="body_entered" from="SwordAttackHitbox" to="." method="_on_sword_attack_hitbox_body_entered"]
 [connection signal="body_entered" from="BigSwordHitbox" to="." method="_on_big_sword_hitbox_body_entered"]

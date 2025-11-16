@@ -32,6 +32,8 @@ func _physics_process(delta):
 func hit(damage : float, knockback_direction : Vector2):
 	health -= damage
 	knockback = knockback_direction * knockback_speed
+	if damage > 0:
+		$HitParticles.emitting = true
 	$KnockbackTimer.start()
 	if health <= 0:
 		queue_free()

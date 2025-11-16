@@ -20,6 +20,8 @@ func Enter():
 	bullet.damage = damage * Player.multiplier_bar.left_type_mult
 	Player.add_sibling(bullet)
 	
+	Player.get_node("GunRotator/ShootPosition/ShootParticles").emitting = true
+	
 	Player.gun_xp -= required_xp
 
 func State_Physics_Update(_delta: float):

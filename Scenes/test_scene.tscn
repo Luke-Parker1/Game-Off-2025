@@ -1,9 +1,9 @@
 [gd_scene load_steps=7 format=3 uid="uid://cqkedpsayif7j"]
 
-[ext_resource type="Texture2D" uid="uid://b2paakn4rmqkv" path="res://icon.svg" id="1_uhqqe"]
-[ext_resource type="PackedScene" uid="uid://b2lk5meo42827" path="res://player.tscn" id="2_ia1lp"]
-[ext_resource type="PackedScene" uid="uid://fy2v3116q2dv" path="res://walker_enemy.tscn" id="4_2nij2"]
-[ext_resource type="PackedScene" uid="uid://j5mwc8ewxk6l" path="res://progress_bar.tscn" id="4_coq8p"]
+[ext_resource type="Texture2D" uid="uid://b2paakn4rmqkv" path="res://Art/icon.svg" id="1_hb2xm"]
+[ext_resource type="PackedScene" uid="uid://b2lk5meo42827" path="res://Scenes/player.tscn" id="2_ak5v8"]
+[ext_resource type="PackedScene" uid="uid://j5mwc8ewxk6l" path="res://Scenes/progress_bar.tscn" id="3_x033f"]
+[ext_resource type="PackedScene" uid="uid://b1tpi2ms12dmx" path="res://Scenes/sword_enemy.tscn" id="4_rdbpf"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_uhqqe"]
 size = Vector2(1302, 30)
@@ -21,7 +21,7 @@ collision_mask = 3
 [node name="Sprite2D" type="Sprite2D" parent="StaticBody2D"]
 position = Vector2(283, 0)
 scale = Vector2(10.125, 0.25)
-texture = ExtResource("1_uhqqe")
+texture = ExtResource("1_hb2xm")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
 position = Vector2(284, 0)
@@ -34,7 +34,7 @@ collision_mask = 3
 
 [node name="Sprite2D" type="Sprite2D" parent="StaticBody2D2"]
 scale = Vector2(2.1640625, 0.25)
-texture = ExtResource("1_uhqqe")
+texture = ExtResource("1_hb2xm")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D2"]
 shape = SubResource("RectangleShape2D_ia1lp")
@@ -46,19 +46,19 @@ collision_mask = 3
 
 [node name="Sprite2D" type="Sprite2D" parent="StaticBody2D3"]
 scale = Vector2(2.1640625, 0.25)
-texture = ExtResource("1_uhqqe")
+texture = ExtResource("1_hb2xm")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D3"]
 shape = SubResource("RectangleShape2D_ia1lp")
 
-[node name="Player" parent="." instance=ExtResource("2_ia1lp")]
+[node name="Player" parent="." instance=ExtResource("2_ak5v8")]
 position = Vector2(526, 385)
-required_xp_for_bigsword = 1.0
+required_xp_for_bigsword = 0.0
 required_xp_for_thrust = 0.0
-required_xp_for_bigshoot = 1.0
-required_xp_for_explosive = 1.0
+required_xp_for_bigshoot = 0.0
+required_xp_for_explosive = 0.0
 
-[node name="ProgressBarLayer" parent="." instance=ExtResource("4_coq8p")]
+[node name="ProgressBarLayer" parent="." instance=ExtResource("3_x033f")]
 
-[node name="WalkerEnemy" parent="." instance=ExtResource("4_2nij2")]
-position = Vector2(910, 358)
+[node name="SwordEnemy" parent="." instance=ExtResource("4_rdbpf")]
+position = Vector2(865, 338)

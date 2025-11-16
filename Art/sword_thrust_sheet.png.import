@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://b11m7snql17p3"
-path="res://.godot/imported/player_sheet.png-17b10a9dc7138da4a4611d57f8e03d4d.ctex"
+uid="uid://cmu54vvjrvnm2"
+path="res://.godot/imported/sword_thrust_sheet.png-6e1bcdffa48ee9953a900a12e8f9ef77.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://player_sheet.png"
-dest_files=["res://.godot/imported/player_sheet.png-17b10a9dc7138da4a4611d57f8e03d4d.ctex"]
+source_file="res://Art/sword_thrust_sheet.png"
+dest_files=["res://.godot/imported/sword_thrust_sheet.png-6e1bcdffa48ee9953a900a12e8f9ef77.ctex"]
 
 [params]
 

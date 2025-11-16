@@ -1,10 +1,10 @@
-[gd_scene load_steps=8 format=3 uid="uid://ct5v1n0oygfrs"]
+[gd_scene load_steps=9 format=3 uid="uid://ct5v1n0oygfrs"]
 
-[ext_resource type="Script" uid="uid://ctfxyue2f7mjk" path="res://gun_enemy.gd" id="1_nvn6k"]
-[ext_resource type="Texture2D" uid="uid://b2paakn4rmqkv" path="res://icon.svg" id="1_wfsuc"]
-[ext_resource type="Script" uid="uid://v4nlkn46p8aj" path="res://state_machine.gd" id="3_54xfl"]
-[ext_resource type="Script" uid="uid://deexs4m6fy0b1" path="res://gun_enemy_default.gd" id="3_r4b8p"]
-[ext_resource type="Script" uid="uid://ccybx4amowe1u" path="res://gun_enemy_shoot.gd" id="5_ukchy"]
+[ext_resource type="Script" uid="uid://ctfxyue2f7mjk" path="res://Scripts/gun_enemy.gd" id="1_gwdp7"]
+[ext_resource type="Texture2D" uid="uid://b2paakn4rmqkv" path="res://Art/icon.svg" id="2_uelik"]
+[ext_resource type="Script" uid="uid://v4nlkn46p8aj" path="res://Scripts/state_machine.gd" id="3_eokkq"]
+[ext_resource type="Script" uid="uid://deexs4m6fy0b1" path="res://Scripts/gun_enemy_default.gd" id="4_mkxg3"]
+[ext_resource type="Script" uid="uid://ccybx4amowe1u" path="res://Scripts/gun_enemy_shoot.gd" id="5_13mcc"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_wfsuc"]
 size = Vector2(32, 32)
@@ -12,16 +12,20 @@ size = Vector2(32, 32)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_nvn6k"]
 size = Vector2(32, 7)
 
+[sub_resource type="Curve" id="Curve_ukchy"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.87209314, 0.9101124), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 3
+
 [node name="GunEnemy" type="CharacterBody2D" groups=["Enemy"]]
 collision_layer = 2
 collision_mask = 2
-script = ExtResource("1_nvn6k")
+script = ExtResource("1_gwdp7")
 health = 10.0
 knockback_speed = Vector2(250, 25)
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 scale = Vector2(0.25, 0.25)
-texture = ExtResource("1_wfsuc")
+texture = ExtResource("2_uelik")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_wfsuc")
@@ -51,17 +55,17 @@ one_shot = true
 target_position = Vector2(500, 0)
 
 [node name="StateMachine" type="Node" parent="." node_paths=PackedStringArray("initial_state")]
-script = ExtResource("3_54xfl")
+script = ExtResource("3_eokkq")
 initial_state = NodePath("Default")
 
 [node name="Default" type="Node" parent="StateMachine" node_paths=PackedStringArray("Enemy")]
-script = ExtResource("3_r4b8p")
+script = ExtResource("4_mkxg3")
 Enemy = NodePath("../..")
 speed = 150.0
 metadata/_custom_type_script = "uid://deexs4m6fy0b1"
 
 [node name="Shoot" type="Node" parent="StateMachine" node_paths=PackedStringArray("Enemy")]
-script = ExtResource("5_ukchy")
+script = ExtResource("5_13mcc")
 Enemy = NodePath("../..")
 windup_timer = 0.15
 cooldown_timer = 0.15
@@ -75,7 +79,21 @@ gizmo_extents = 20.0
 
 [node name="Sprite2D" type="Sprite2D" parent="GunRotator/ShootPosition"]
 scale = Vector2(0.1, 0.1)
-texture = ExtResource("1_wfsuc")
+texture = ExtResource("2_uelik")
+
+[node name="HitParticles" type="CPUParticles2D" parent="."]
+emitting = false
+lifetime = 0.3
+one_shot = true
+explosiveness = 1.0
+local_coords = true
+spread = 180.0
+gravity = Vector2(0, 0)
+initial_velocity_min = 400.0
+initial_velocity_max = 400.0
+scale_amount_min = 3.0
+scale_amount_max = 10.0
+scale_amount_curve = SubResource("Curve_ukchy")
 
 [connection signal="body_entered" from="HitBox" to="." method="_on_hit_box_body_entered"]
 [connection signal="timeout" from="KnockbackTimer" to="." method="_on_knockback_timer_timeout"]

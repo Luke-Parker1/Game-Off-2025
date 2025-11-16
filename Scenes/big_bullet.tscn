@@ -1,0 +1,94 @@
+[gd_scene load_steps=14 format=3 uid="uid://0l4pdyih8glm"]
+
+[ext_resource type="Script" uid="uid://bvs1ly6iemx2s" path="res://Scripts/bullet.gd" id="1_1ltgj"]
+[ext_resource type="Shader" uid="uid://byj2pf1y7nemn" path="res://Scripts/color_change.gdshader" id="2_bbd1i"]
+[ext_resource type="Texture2D" uid="uid://3ysviodkls0f" path="res://Art/big_bullet_sheet.png" id="3_bbd1i"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_pshhb"]
+size = Vector2(35.72, 8)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_1ltgj"]
+size = Vector2(59.72, 16)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_bbd1i"]
+size = Vector2(87.72, 24)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_x1r1v"]
+size = Vector2(159.72, 32)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_1ltgj"]
+shader = ExtResource("2_bbd1i")
+shader_parameter/active = false
+shader_parameter/tint = Color(1, 1, 1, 1)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bbd1i"]
+atlas = ExtResource("3_bbd1i")
+region = Rect2(0, 0, 40, 12)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_x1r1v"]
+atlas = ExtResource("3_bbd1i")
+region = Rect2(40, 0, 40, 12)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_26njd"]
+atlas = ExtResource("3_bbd1i")
+region = Rect2(80, 0, 40, 12)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1fkyl"]
+atlas = ExtResource("3_bbd1i")
+region = Rect2(120, 0, 40, 12)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_f1br6"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_bbd1i")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_x1r1v")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_26njd")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1fkyl")
+}],
+"loop": false,
+"name": &"default",
+"speed": 30.0
+}]
+
+[node name="BigBullet" type="Area2D"]
+z_index = 150
+collision_layer = 3
+collision_mask = 3
+script = ExtResource("1_1ltgj")
+speed = 700.0
+is_big_bullet = true
+
+[node name="CollisionShape2D0" type="CollisionShape2D" parent="."]
+position = Vector2(3.1399999, -4.7683716e-07)
+shape = SubResource("RectangleShape2D_pshhb")
+disabled = true
+
+[node name="CollisionShape2D1" type="CollisionShape2D" parent="."]
+position = Vector2(15.139999, -2.3841858e-07)
+shape = SubResource("RectangleShape2D_1ltgj")
+disabled = true
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="."]
+position = Vector2(29.14, -2.3841858e-07)
+shape = SubResource("RectangleShape2D_bbd1i")
+disabled = true
+
+[node name="CollisionShape2D3" type="CollisionShape2D" parent="."]
+position = Vector2(65.14, -2.3841858e-07)
+shape = SubResource("RectangleShape2D_x1r1v")
+disabled = true
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+material = SubResource("ShaderMaterial_1ltgj")
+position = Vector2(65, 0)
+scale = Vector2(4, 4)
+sprite_frames = SubResource("SpriteFrames_f1br6")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

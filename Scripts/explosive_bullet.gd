@@ -17,6 +17,12 @@ var hit_bodies : Array
 
 func _ready():
 	direction = Vector2.from_angle(rotation)
+	if damage > 0:
+		$ExplosionParticles.color = Color("ff0456")
+		$Sprite2D.material.set_shader_parameter("active", false)
+	else:
+		$ExplosionParticles.color = Color.WHITE
+		$Sprite2D.material.set_shader_parameter("active", true)
 
 func _physics_process(delta):
 	if $ExplosionTimer.is_stopped():
@@ -26,7 +32,9 @@ func _physics_process(delta):
 func _on_body_entered(body):
 	if body != shooter:
 		#$ExplosionHitBox/CollisionShape2D.disabled = false
+		$Sprite2D.visible = false
 		$ExplosionHitBox/CollisionShape2D.set_deferred("disabled", false)
+		$ExplosionParticles.emitting = true
 		$ExplosionTimer.start()
 
 

@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://j5mwc8ewxk6l"]
 
-[ext_resource type="Script" uid="uid://7g4dsvpqdyl2" path="res://progress_bar.gd" id="1_chwcf"]
+[ext_resource type="Script" uid="uid://7g4dsvpqdyl2" path="res://Scripts/progress_bar.gd" id="1_chwcf"]
 
 [node name="ProgressBarLayer" type="CanvasLayer"]
 
