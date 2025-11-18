@@ -22,9 +22,13 @@ func _process(delta):
 	if value > max_value/2:
 		left_type_mult = (value - max_value/2)/(max_value/2)
 		right_type_mult = 0
+		$SwordIcon.material.set_shader_parameter("active", true)
+		$GunIcon.material.set_shader_parameter("active", false)
 	else:
 		left_type_mult = 0
 		right_type_mult = (max_value/2 - value)/(max_value/2)
+		$SwordIcon.material.set_shader_parameter("active", false)
+		$GunIcon.material.set_shader_parameter("active", true)
 	#left_type_mult = value/max_value
 	#right_type_mult = (max_value - value)/max_value
 	#print("Left Weapon Damage Multiplier: ", left_type_mult)

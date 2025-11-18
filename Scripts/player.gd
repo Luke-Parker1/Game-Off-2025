@@ -29,6 +29,9 @@ extends CharacterBody2D
 # Keeps track of whether the jump button is being held or not
 var jumping := false
 
+# Keeps track of whether the player has pogoed since touching the ground
+var pogoing := false
+
 var dashing := false
 var dash_cooldown_active := false
 
@@ -80,6 +83,8 @@ func _physics_process(delta):
 		# Add the gravity.
 		if not is_on_floor():
 			velocity.y += get_custom_gravity() * delta
+		else:
+			pogoing = false
 
 		# Handle jump.
 		if Input.is_action_just_pressed("jump") and is_on_floor():
@@ -198,7 +203,7 @@ func _physics_process(delta):
 
 # This is called get_custom_gravity because get_gravity is a function built into godot
 func get_custom_gravity() -> float:
-	if velocity.y < 0.0 and jumping or recoil_direction.is_equal_approx(Vector2(0.0, -1.0)):
+	if velocity.y < 0.0 and ((jumping and !pogoing) or recoil_direction.is_equal_approx(Vector2(0.0, -1.0))):
 		return jump_gravity
 	else:
 		return fall_gravity
@@ -254,6 +259,8 @@ func sword_attack(enemy, damage, hitbox, knockback_mult):
 	if recoil_direction.is_equal_approx(Vector2(0.0, -1.0)):
 		# Set recoil timer to pogo time
 		$RecoilTime.wait_time = pogo_time
+		
+		pogoing = true
 	else:
 		# Set recoil timer to regular recoil time
 		$RecoilTime.wait_time = recoil_time

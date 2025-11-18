@@ -3,7 +3,7 @@
 [ext_resource type="Texture2D" uid="uid://b2paakn4rmqkv" path="res://Art/icon.svg" id="1_hb2xm"]
 [ext_resource type="PackedScene" uid="uid://b2lk5meo42827" path="res://Scenes/player.tscn" id="2_ak5v8"]
 [ext_resource type="PackedScene" uid="uid://j5mwc8ewxk6l" path="res://Scenes/progress_bar.tscn" id="3_x033f"]
-[ext_resource type="PackedScene" uid="uid://b1tpi2ms12dmx" path="res://Scenes/sword_enemy.tscn" id="4_rdbpf"]
+[ext_resource type="PackedScene" uid="uid://fy2v3116q2dv" path="res://Scenes/walker_enemy.tscn" id="4_hb2xm"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_uhqqe"]
 size = Vector2(1302, 30)
@@ -28,7 +28,7 @@ position = Vector2(284, 0)
 shape = SubResource("RectangleShape2D_uhqqe")
 
 [node name="StaticBody2D2" type="StaticBody2D" parent="."]
-position = Vector2(297, 276)
+position = Vector2(534, 258)
 collision_layer = 3
 collision_mask = 3
 
@@ -60,5 +60,5 @@ required_xp_for_explosive = 0.0
 
 [node name="ProgressBarLayer" parent="." instance=ExtResource("3_x033f")]
 
-[node name="SwordEnemy" parent="." instance=ExtResource("4_rdbpf")]
-position = Vector2(865, 338)
+[node name="WalkerEnemy" parent="." instance=ExtResource("4_hb2xm")]
+position = Vector2(763, 401)

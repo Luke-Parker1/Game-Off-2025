@@ -394,7 +394,7 @@ metadata/_custom_type_script = "uid://cne4b4d532klw"
 [node name="SwordAttack" type="Node" parent="StateMachine" node_paths=PackedStringArray("Player", "hitbox")]
 script = ExtResource("6_2hs0m")
 Player = NodePath("../..")
-attack_timer = 0.2
+attack_timer = 0.15
 hitbox = NodePath("../../SwordAttackHitbox/CollisionShape2D")
 gives_xp = true
 metadata/_custom_type_script = "uid://cu2ngqtk4kefk"
