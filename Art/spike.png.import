@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://blqxw3fueync0"
-path="res://.godot/imported/enemy_sheet.png-b902a4529fcd8c8224afa0cf2dbab37d.ctex"
+uid="uid://dj12kictuq2ob"
+path="res://.godot/imported/spike.png-ea75b8df9f131fa7a8dfc64e5853c7d8.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Art/enemy_sheet.png"
-dest_files=["res://.godot/imported/enemy_sheet.png-b902a4529fcd8c8224afa0cf2dbab37d.ctex"]
+source_file="res://Art/spike.png"
+dest_files=["res://.godot/imported/spike.png-ea75b8df9f131fa7a8dfc64e5853c7d8.ctex"]
 
 [params]
 

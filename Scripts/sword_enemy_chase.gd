@@ -46,6 +46,7 @@ func Enter():
 	forget_time = forget_timer
 	skid_time = skid_timer
 	Enemy.speed = speed
+	Enemy.get_node("AnimatedSprite2D").play("run")
 
 func State_Physics_Update(delta: float):
 	#if return_to_default:

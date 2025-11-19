@@ -9,6 +9,10 @@ var knockback : Vector2
 
 var direction := 1.0
 
+@onready var default_sprite_scale = $Sprite2D.scale
+
+# Keeps track of if the sprite is bouncing dowm or if it is returning to its default scale during walk cycle
+var sprite_bouncing_down := true
 
 func _physics_process(delta):
 	if not is_on_floor():
@@ -20,6 +24,18 @@ func _physics_process(delta):
 	velocity.x = direction * speed
 	velocity += knockback
 	move_and_slide()
+	
+	if is_on_floor() and velocity.x != 0:
+		if sprite_bouncing_down:
+			$Sprite2D.scale = $Sprite2D.scale.move_toward(default_sprite_scale  * Vector2(1.15, 0.85), 4*delta)
+		else:
+			$Sprite2D.scale = $Sprite2D.scale.move_toward(default_sprite_scale, 4*delta)
+		if $Sprite2D.scale.is_equal_approx(default_sprite_scale):
+			sprite_bouncing_down = true
+		elif $Sprite2D.scale.is_equal_approx(default_sprite_scale * Vector2(1.15, 0.85)):
+			sprite_bouncing_down = false
+	else:
+			$AnimatedSprite2D.scale = $AnimatedSprite2D.scale.move_toward(default_sprite_scale, 4*delta)
 
 func hit(damage : float, knockback_direction : Vector2):
 	health -= damage

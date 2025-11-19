@@ -15,6 +15,7 @@ func State_Physics_Update(_delta: float):
 	
 	#Enemy.velocity.x = Enemy.direction * speed
 	Enemy.speed = speed
+	Enemy.get_node("AnimatedSprite2D").play("walk")
 	if Enemy.get_node("RayCast2D").is_colliding():
 		if Enemy.get_node("RayCast2D").get_collider().is_in_group("Player"):
 			Transitioned.emit(self, "chase")

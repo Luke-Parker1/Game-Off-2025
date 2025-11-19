@@ -3,7 +3,7 @@
 [ext_resource type="Texture2D" uid="uid://b2paakn4rmqkv" path="res://Art/icon.svg" id="1_hb2xm"]
 [ext_resource type="PackedScene" uid="uid://b2lk5meo42827" path="res://Scenes/player.tscn" id="2_ak5v8"]
 [ext_resource type="PackedScene" uid="uid://j5mwc8ewxk6l" path="res://Scenes/progress_bar.tscn" id="3_x033f"]
-[ext_resource type="PackedScene" uid="uid://fy2v3116q2dv" path="res://Scenes/walker_enemy.tscn" id="4_hb2xm"]
+[ext_resource type="PackedScene" uid="uid://ct5v1n0oygfrs" path="res://Scenes/gun_enemy.tscn" id="4_hb2xm"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_uhqqe"]
 size = Vector2(1302, 30)
@@ -60,5 +60,5 @@ required_xp_for_explosive = 0.0
 
 [node name="ProgressBarLayer" parent="." instance=ExtResource("3_x033f")]
 
-[node name="WalkerEnemy" parent="." instance=ExtResource("4_hb2xm")]
-position = Vector2(763, 401)
+[node name="GunEnemy" parent="." instance=ExtResource("4_hb2xm")]
+position = Vector2(805, 388)

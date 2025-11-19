@@ -15,6 +15,11 @@ var direction := 1.0
 
 var multiplier_bar : ProgressBar
 
+@onready var default_sprite_scale = $AnimatedSprite2D.scale
+
+# Keeps track of if the sprite is bouncing dowm or if it is returning to its default scale during walk cycle
+var sprite_bouncing_down := true
+
 func _ready():
 	multiplier_bar = get_tree().get_nodes_in_group("MultiplierBar")[0]
 
@@ -31,7 +36,27 @@ func _physics_process(delta):
 	velocity += knockback
 	move_and_slide()
 	
+	if direction > 0:
+		$AnimatedSprite2D.flip_h = false
+	else:
+		$AnimatedSprite2D.flip_h = true
 	$GunRotator.rotation = Vector2.ZERO.angle_to_point(Vector2(direction, 0))
+	
+	if is_on_floor() and velocity.x != 0:
+		if sprite_bouncing_down:
+			$AnimatedSprite2D.scale = $AnimatedSprite2D.scale.move_toward(default_sprite_scale  * Vector2(1.05, 0.95), delta)
+		else:
+			$AnimatedSprite2D.scale = $AnimatedSprite2D.scale.move_toward(default_sprite_scale, delta)
+		if $AnimatedSprite2D.scale.is_equal_approx(default_sprite_scale):
+			sprite_bouncing_down = true
+		elif $AnimatedSprite2D.scale >= default_sprite_scale * Vector2(1.05, 0.95):
+			sprite_bouncing_down = false
+	else:
+		$AnimatedSprite2D.scale = $AnimatedSprite2D.scale.move_toward(default_sprite_scale, delta)
+	
+	
+	if (direction > 0 and $FloorDetector.position.x < 0) or (direction < 0 and $FloorDetector.position.x > 0):
+		$FloorDetector.position.x *= -1
 
 func hit(damage : float, knockback_direction : Vector2):
 	health -= damage

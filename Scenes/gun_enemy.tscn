@@ -1,16 +1,54 @@
-[gd_scene load_steps=9 format=3 uid="uid://ct5v1n0oygfrs"]
+[gd_scene load_steps=14 format=3 uid="uid://ct5v1n0oygfrs"]
 
 [ext_resource type="Script" uid="uid://ctfxyue2f7mjk" path="res://Scripts/gun_enemy.gd" id="1_gwdp7"]
-[ext_resource type="Texture2D" uid="uid://b2paakn4rmqkv" path="res://Art/icon.svg" id="2_uelik"]
+[ext_resource type="Texture2D" uid="uid://dlya5ytioatgn" path="res://Art/gun_enemy_sheet.png" id="2_eokkq"]
 [ext_resource type="Script" uid="uid://v4nlkn46p8aj" path="res://Scripts/state_machine.gd" id="3_eokkq"]
 [ext_resource type="Script" uid="uid://deexs4m6fy0b1" path="res://Scripts/gun_enemy_default.gd" id="4_mkxg3"]
 [ext_resource type="Script" uid="uid://ccybx4amowe1u" path="res://Scripts/gun_enemy_shoot.gd" id="5_13mcc"]
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_mkxg3"]
+atlas = ExtResource("2_eokkq")
+region = Rect2(0, 0, 24, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gwdp7"]
+atlas = ExtResource("2_eokkq")
+region = Rect2(24, 0, 24, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_uelik"]
+atlas = ExtResource("2_eokkq")
+region = Rect2(48, 0, 24, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_13mcc"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_mkxg3")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gwdp7")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_uelik")
+}],
+"loop": true,
+"name": &"walk",
+"speed": 3.0
+}]
+
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_wfsuc"]
-size = Vector2(32, 32)
+size = Vector2(35, 64)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_nvn6k"]
 size = Vector2(32, 7)
+
+[sub_resource type="Curve" id="Curve_gwdp7"]
+_data = [Vector2(0.0116279125, 1), 0.0, 0.0, 0, 0, Vector2(0.77906984, 0.77528095), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 3
 
 [sub_resource type="Curve" id="Curve_ukchy"]
 _data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.87209314, 0.9101124), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
@@ -23,9 +61,11 @@ script = ExtResource("1_gwdp7")
 health = 10.0
 knockback_speed = Vector2(250, 25)
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
-scale = Vector2(0.25, 0.25)
-texture = ExtResource("2_uelik")
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(0, 32)
+scale = Vector2(4, 4)
+sprite_frames = SubResource("SpriteFrames_13mcc")
+offset = Vector2(0, -8)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_wfsuc")
@@ -41,6 +81,7 @@ collision_layer = 2
 collision_mask = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="FloorDetector"]
+position = Vector2(0, 14)
 shape = SubResource("RectangleShape2D_nvn6k")
 
 [node name="KnockbackTimer" type="Timer" parent="."]
@@ -61,13 +102,13 @@ initial_state = NodePath("Default")
 [node name="Default" type="Node" parent="StateMachine" node_paths=PackedStringArray("Enemy")]
 script = ExtResource("4_mkxg3")
 Enemy = NodePath("../..")
-speed = 150.0
+speed = 50.0
 metadata/_custom_type_script = "uid://deexs4m6fy0b1"
 
 [node name="Shoot" type="Node" parent="StateMachine" node_paths=PackedStringArray("Enemy")]
 script = ExtResource("5_13mcc")
 Enemy = NodePath("../..")
-windup_timer = 0.15
+windup_timer = 0.25
 cooldown_timer = 0.15
 metadata/_custom_type_script = "uid://ccybx4amowe1u"
 
@@ -77,9 +118,19 @@ metadata/_custom_type_script = "uid://ccybx4amowe1u"
 position = Vector2(27, 0)
 gizmo_extents = 20.0
 
-[node name="Sprite2D" type="Sprite2D" parent="GunRotator/ShootPosition"]
-scale = Vector2(0.1, 0.1)
-texture = ExtResource("2_uelik")
+[node name="ShootParticles" type="CPUParticles2D" parent="GunRotator"]
+position = Vector2(27, 0)
+emitting = false
+lifetime = 0.3
+one_shot = true
+explosiveness = 1.0
+local_coords = true
+gravity = Vector2(0, 0)
+initial_velocity_min = 100.0
+initial_velocity_max = 100.0
+scale_amount_min = 2.0
+scale_amount_max = 5.0
+scale_amount_curve = SubResource("Curve_gwdp7")
 
 [node name="HitParticles" type="CPUParticles2D" parent="."]
 emitting = false

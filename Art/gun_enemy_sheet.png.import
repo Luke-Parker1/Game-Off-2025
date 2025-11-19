@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://brs3aiekjgv8y"
-path="res://.godot/imported/sword_enemy_sheet.png-2d41a8890aa3fce1a33a9423e5e068d1.ctex"
+uid="uid://dlya5ytioatgn"
+path="res://.godot/imported/gun_enemy_sheet.png-22e089b2d884d88ebde5e6c86fc84589.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Art/sword_enemy_sheet.png"
-dest_files=["res://.godot/imported/sword_enemy_sheet.png-2d41a8890aa3fce1a33a9423e5e068d1.ctex"]
+source_file="res://Art/gun_enemy_sheet.png"
+dest_files=["res://.godot/imported/gun_enemy_sheet.png-22e089b2d884d88ebde5e6c86fc84589.ctex"]
 
 [params]
 

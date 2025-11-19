@@ -1,7 +1,7 @@
 [gd_scene load_steps=7 format=3 uid="uid://fy2v3116q2dv"]
 
 [ext_resource type="Script" uid="uid://byyo0jgvc8wcs" path="res://Scripts/walker_enemy.gd" id="1_7d8e2"]
-[ext_resource type="Texture2D" uid="uid://b2paakn4rmqkv" path="res://Art/icon.svg" id="2_cemhg"]
+[ext_resource type="Texture2D" uid="uid://cuovt68o1r47c" path="res://Art/walker.png" id="2_7d8e2"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_7k104"]
 size = Vector2(38.4, 38.4)
@@ -25,8 +25,10 @@ health = 10.0
 knockback_speed = Vector2(250, 25)
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-scale = Vector2(0.3, 0.3)
-texture = ExtResource("2_cemhg")
+position = Vector2(0, 19)
+scale = Vector2(4, 4)
+texture = ExtResource("2_7d8e2")
+offset = Vector2(0, -4.5)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_7k104")

@@ -116,7 +116,7 @@ func _physics_process(delta):
 				$AnimatedSprite2D.scale = $AnimatedSprite2D.scale.move_toward(default_sprite_scale, 4*delta)
 			if $AnimatedSprite2D.scale.is_equal_approx(default_sprite_scale):
 				sprite_bouncing_down = true
-			elif $AnimatedSprite2D.scale.is_equal_approx(default_sprite_scale * Vector2(1.15, 0.85)):
+			elif $AnimatedSprite2D.scale >= default_sprite_scale * Vector2(1.15, 0.85):
 				sprite_bouncing_down = false
 		else:
 			$AnimatedSprite2D.scale = $AnimatedSprite2D.scale.move_toward(default_sprite_scale, 4*delta)

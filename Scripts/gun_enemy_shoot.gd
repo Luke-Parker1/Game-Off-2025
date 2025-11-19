@@ -20,11 +20,12 @@ func Enter():
 	windup_time = windup_timer
 	cooldown_time = cooldown_timer
 	shot = false
+	Enemy.get_node("AnimatedSprite2D").play("default")
 
 func State_Physics_Update(delta: float):
 	if windup_time > 0:
 		windup_time -= delta
-	elif windup_time <= 0 and  !shot:
+	elif windup_time <= 0 and !shot:
 		var bullet = BULLET.instantiate()
 		bullet.global_position = Enemy.get_node("GunRotator/ShootPosition").global_position
 		bullet.global_rotation = Enemy.get_node("GunRotator/ShootPosition").global_rotation
@@ -32,6 +33,7 @@ func State_Physics_Update(delta: float):
 		bullet.shooter_is_player = false
 		bullet.damage = Enemy.bullet_damage * Enemy.multiplier_bar.left_type_mult
 		Enemy.add_sibling(bullet)
+		Enemy.get_node("GunRotator/ShootParticles").emitting = true
 		shot = true
 	elif cooldown_time > 0:
 		cooldown_time -= delta
