@@ -35,16 +35,19 @@ func _physics_process(delta):
 		elif $Sprite2D.scale.is_equal_approx(default_sprite_scale * Vector2(1.15, 0.85)):
 			sprite_bouncing_down = false
 	else:
-			$AnimatedSprite2D.scale = $AnimatedSprite2D.scale.move_toward(default_sprite_scale, 4*delta)
+			$Sprite2D.scale = $Sprite2D.scale.move_toward(default_sprite_scale, 4*delta)
 
 func hit(damage : float, knockback_direction : Vector2):
 	health -= damage
-	if damage > 0:
+	if damage > 0 and health > 0:
 		$HitParticles.emitting = true
 	knockback = knockback_direction * knockback_speed
 	$KnockbackTimer.start()
 	if health <= 0:
-		queue_free()
+		$DieParticles.emitting = true
+		$Sprite2D.visible = false
+		$CollisionShape2D.set_deferred("disabled", true)
+		$HitBox/CollisionShape2D.set_deferred("disabled", true)
 
 func _on_hit_box_body_entered(body):
 	if body.is_in_group("Player"):
@@ -60,3 +63,7 @@ func _on_hit_box_body_entered(body):
 
 func _on_knockback_timer_timeout():
 	knockback = Vector2.ZERO
+
+
+func _on_die_particles_finished():
+	queue_free()

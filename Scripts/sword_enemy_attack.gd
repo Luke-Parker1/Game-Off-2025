@@ -25,7 +25,7 @@ func Enter():
 func State_Physics_Update(delta: float):
 	if windup_time > 0:
 		windup_time -= delta
-	elif attack_time > 0:
+	elif attack_time > 0 and Enemy.health > 0:
 		Enemy.get_node("Sword/CollisionShape2D").disabled = false
 		Enemy.get_node("Sword/AnimatedSprite2D").visible = true
 		Enemy.get_node("Sword/AnimatedSprite2D").play("attack")

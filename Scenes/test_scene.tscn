@@ -1,5 +1,6 @@
-[gd_scene load_steps=7 format=3 uid="uid://cqkedpsayif7j"]
+[gd_scene load_steps=9 format=3 uid="uid://cqkedpsayif7j"]
 
+[ext_resource type="PackedScene" uid="uid://dp2qd5sjm6xgp" path="res://Scenes/parallax.tscn" id="1_ak5v8"]
 [ext_resource type="Texture2D" uid="uid://b2paakn4rmqkv" path="res://Art/icon.svg" id="1_hb2xm"]
 [ext_resource type="PackedScene" uid="uid://b2lk5meo42827" path="res://Scenes/player.tscn" id="2_ak5v8"]
 [ext_resource type="PackedScene" uid="uid://j5mwc8ewxk6l" path="res://Scenes/progress_bar.tscn" id="3_x033f"]
@@ -11,10 +12,15 @@ size = Vector2(1302, 30)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ia1lp"]
 size = Vector2(279, 30)
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_hb2xm"]
+size = Vector2(52.5, 180)
+
 [node name="Test Scene" type="Node2D"]
 
+[node name="Parallax" parent="." instance=ExtResource("1_ak5v8")]
+
 [node name="StaticBody2D" type="StaticBody2D" parent="."]
-position = Vector2(270, 440)
+position = Vector2(394, 506)
 collision_layer = 3
 collision_mask = 3
 
@@ -28,7 +34,7 @@ position = Vector2(284, 0)
 shape = SubResource("RectangleShape2D_uhqqe")
 
 [node name="StaticBody2D2" type="StaticBody2D" parent="."]
-position = Vector2(534, 258)
+position = Vector2(658, 324)
 collision_layer = 3
 collision_mask = 3
 
@@ -40,19 +46,43 @@ texture = ExtResource("1_hb2xm")
 shape = SubResource("RectangleShape2D_ia1lp")
 
 [node name="StaticBody2D3" type="StaticBody2D" parent="."]
-position = Vector2(253, 406)
+position = Vector2(123, 397)
 collision_layer = 3
 collision_mask = 3
 
 [node name="Sprite2D" type="Sprite2D" parent="StaticBody2D3"]
-scale = Vector2(2.1640625, 0.25)
+scale = Vector2(0.3867188, 1.4140625)
 texture = ExtResource("1_hb2xm")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D3"]
+shape = SubResource("RectangleShape2D_hb2xm")
+
+[node name="StaticBody2D5" type="StaticBody2D" parent="."]
+position = Vector2(240, 402)
+collision_layer = 3
+collision_mask = 3
+
+[node name="Sprite2D" type="Sprite2D" parent="StaticBody2D5"]
+scale = Vector2(0.3867188, 1.4140625)
+texture = ExtResource("1_hb2xm")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D5"]
+shape = SubResource("RectangleShape2D_hb2xm")
+
+[node name="StaticBody2D4" type="StaticBody2D" parent="."]
+position = Vector2(424, 473)
+collision_layer = 3
+collision_mask = 3
+
+[node name="Sprite2D" type="Sprite2D" parent="StaticBody2D4"]
+scale = Vector2(2.1640625, 0.25)
+texture = ExtResource("1_hb2xm")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D4"]
 shape = SubResource("RectangleShape2D_ia1lp")
 
 [node name="Player" parent="." instance=ExtResource("2_ak5v8")]
-position = Vector2(526, 385)
+position = Vector2(612, 229)
 required_xp_for_bigsword = 0.0
 required_xp_for_thrust = 0.0
 required_xp_for_bigshoot = 0.0
@@ -61,4 +91,4 @@ required_xp_for_explosive = 0.0
 [node name="ProgressBarLayer" parent="." instance=ExtResource("3_x033f")]
 
 [node name="GunEnemy" parent="." instance=ExtResource("4_hb2xm")]
-position = Vector2(805, 388)
+position = Vector2(959, 372)

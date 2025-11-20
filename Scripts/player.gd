@@ -12,6 +12,7 @@ extends CharacterBody2D
 @onready var jump_velocity : float = ((2.0*jump_height)/jump_time_to_peak) * -1.0
 @onready var jump_gravity : float = ((-2.0*jump_height)/(jump_time_to_peak * jump_time_to_peak)) * -1.0
 @onready var fall_gravity : float = ((-2.0*jump_height)/(jump_time_to_descent * jump_time_to_descent)) * -1.0
+@onready var wall_slide_gravity := fall_gravity/10
 
 @export var recoil_speed : float
 @export var recoil_time : float
@@ -44,6 +45,7 @@ var state_allows_animation := true
 # 1.0 is right, -1.0 is left
 var look_direction := 1.0
 var knockback_direction := 0.0
+var wall_kick_direction := 0.0
 
 var recoil_direction : Vector2
 var gun_direction : Vector2
@@ -77,6 +79,10 @@ func _ready():
 	$StateMachine/ShootExplosive.required_xp = required_xp_for_explosive
 
 func _physics_process(delta):
+	#if is_on_wall():
+		#print(get_wall_normal())
+	#else:
+		#print("not on wall")
 	#print(Engine.get_frames_per_second())
 	#print($DashCoolDown.is_stopped())
 	if state_allows_default_move:
@@ -87,9 +93,11 @@ func _physics_process(delta):
 			pogoing = false
 
 		# Handle jump.
-		if Input.is_action_just_pressed("jump") and is_on_floor():
+		if Input.is_action_just_pressed("jump") and (is_on_floor() or is_on_wall()):
 			$AnimatedSprite2D.scale = default_sprite_scale * Vector2(0.7, 1.3)
 			jump()
+			if is_on_wall_only():
+				wall_kick_direction = get_wall_normal().x * 350
 		if Input.is_action_just_released("jump"):
 			jumping = false
 		
@@ -98,14 +106,21 @@ func _physics_process(delta):
 		if recoil_direction != Vector2.ZERO:
 			velocity = recoil_direction * recoil_speed
 		elif direction:
-			velocity.x = direction * speed
+			velocity.x = (direction * speed) + wall_kick_direction
 			look_direction = direction
 		#elif dashing:
 			#velocity.x = look_direction * dash_speed
 		else:
-			velocity.x = 0.0
-	#print(velocity)
+			velocity.x = wall_kick_direction
+	
 	move_and_slide()
+	
+	wall_kick_direction = move_toward(wall_kick_direction, 0, 1500*delta)
+	if is_on_floor() or is_on_wall():
+		wall_kick_direction = 0
+	
+	if is_on_wall_only() and velocity.y < 0 and !jumping:
+		velocity.y = 0
 	
 	if state_allows_animation:
 		# Squash and stretch
@@ -205,6 +220,8 @@ func _physics_process(delta):
 func get_custom_gravity() -> float:
 	if velocity.y < 0.0 and ((jumping and !pogoing) or recoil_direction.is_equal_approx(Vector2(0.0, -1.0))):
 		return jump_gravity
+	elif is_on_wall():
+		return wall_slide_gravity
 	else:
 		return fall_gravity
 	

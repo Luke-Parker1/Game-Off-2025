@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://ct5v1n0oygfrs"]
+[gd_scene load_steps=15 format=3 uid="uid://ct5v1n0oygfrs"]
 
 [ext_resource type="Script" uid="uid://ctfxyue2f7mjk" path="res://Scripts/gun_enemy.gd" id="1_gwdp7"]
 [ext_resource type="Texture2D" uid="uid://dlya5ytioatgn" path="res://Art/gun_enemy_sheet.png" id="2_eokkq"]
@@ -54,12 +54,17 @@ point_count = 3
 _data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.87209314, 0.9101124), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
 point_count = 3
 
+[sub_resource type="Curve" id="Curve_uelik"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.7965117, 0.8764045), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 3
+
 [node name="GunEnemy" type="CharacterBody2D" groups=["Enemy"]]
 collision_layer = 2
 collision_mask = 2
 script = ExtResource("1_gwdp7")
 health = 10.0
 knockback_speed = Vector2(250, 25)
+bullet_damage = 4.0
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 position = Vector2(0, 32)
@@ -146,5 +151,19 @@ scale_amount_min = 3.0
 scale_amount_max = 10.0
 scale_amount_curve = SubResource("Curve_ukchy")
 
+[node name="DieParticles" type="CPUParticles2D" parent="."]
+emitting = false
+lifetime = 0.7
+one_shot = true
+explosiveness = 1.0
+direction = Vector2(0, -1)
+spread = 75.0
+initial_velocity_min = 200.0
+initial_velocity_max = 300.0
+scale_amount_min = 5.0
+scale_amount_max = 10.0
+scale_amount_curve = SubResource("Curve_uelik")
+
 [connection signal="body_entered" from="HitBox" to="." method="_on_hit_box_body_entered"]
 [connection signal="timeout" from="KnockbackTimer" to="." method="_on_knockback_timer_timeout"]
+[connection signal="finished" from="DieParticles" to="." method="_on_die_particles_finished"]

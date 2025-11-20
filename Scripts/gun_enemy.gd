@@ -61,11 +61,14 @@ func _physics_process(delta):
 func hit(damage : float, knockback_direction : Vector2):
 	health -= damage
 	knockback = knockback_direction * knockback_speed
-	if damage > 0:
+	if damage > 0 and health > 0:
 		$HitParticles.emitting = true
 	$KnockbackTimer.start()
 	if health <= 0:
-		queue_free()
+		$DieParticles.emitting = true
+		$AnimatedSprite2D.visible = false
+		$CollisionShape2D.set_deferred("disabled", true)
+		$HitBox/CollisionShape2D.set_deferred("disabled", true)
 
 func _on_hit_box_body_entered(body):
 	if body.is_in_group("Player"):
@@ -74,3 +77,7 @@ func _on_hit_box_body_entered(body):
 
 func _on_knockback_timer_timeout():
 	knockback = Vector2.ZERO
+
+
+func _on_die_particles_finished():
+	queue_free()
