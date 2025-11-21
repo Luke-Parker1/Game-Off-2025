@@ -1,0 +1,51 @@
+[gd_scene load_steps=6 format=3 uid="uid://di0jxrmwns65l"]
+
+[ext_resource type="Texture2D" uid="uid://bi2eq7mspfgkj" path="res://Art/health_pickup.png" id="1_gvws8"]
+[ext_resource type="Script" uid="uid://cu1ubc866rnkx" path="res://Scripts/health_pickup.gd" id="1_lj2jr"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_gvws8"]
+size = Vector2(32, 28)
+
+[sub_resource type="Curve" id="Curve_gvws8"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.7848838, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="Curve" id="Curve_lj2jr"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.7965117, 0.8764045), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[node name="Health Pickup" type="Area2D"]
+script = ExtResource("1_lj2jr")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(4, 4)
+texture = ExtResource("1_gvws8")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_gvws8")
+
+[node name="CPUParticles2D" type="CPUParticles2D" parent="."]
+lifetime = 1.3
+spread = 180.0
+gravity = Vector2(0, 0)
+initial_velocity_min = 20.0
+initial_velocity_max = 35.0
+scale_amount_min = 4.0
+scale_amount_max = 6.0
+scale_amount_curve = SubResource("Curve_gvws8")
+
+[node name="DieParticles" type="CPUParticles2D" parent="."]
+emitting = false
+lifetime = 0.7
+one_shot = true
+explosiveness = 1.0
+direction = Vector2(0, -1)
+spread = 75.0
+initial_velocity_min = 200.0
+initial_velocity_max = 300.0
+scale_amount_min = 5.0
+scale_amount_max = 10.0
+scale_amount_curve = SubResource("Curve_lj2jr")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="finished" from="DieParticles" to="." method="_on_die_particles_finished"]

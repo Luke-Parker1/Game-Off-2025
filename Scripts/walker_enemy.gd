@@ -14,6 +14,10 @@ var direction := 1.0
 # Keeps track of if the sprite is bouncing dowm or if it is returning to its default scale during walk cycle
 var sprite_bouncing_down := true
 
+var max_enemies : int
+var enemies_left : int
+const HEALTH_DROP := preload("uid://di0jxrmwns65l")
+
 func _physics_process(delta):
 	if not is_on_floor():
 		velocity += get_gravity() * delta
@@ -48,6 +52,11 @@ func hit(damage : float, knockback_direction : Vector2):
 		$Sprite2D.visible = false
 		$CollisionShape2D.set_deferred("disabled", true)
 		$HitBox/CollisionShape2D.set_deferred("disabled", true)
+		get_tree().get_current_scene().enemies_killed += 1
+		if get_tree().get_current_scene().enemies_killed % 3 == 0:
+			var health_drop = HEALTH_DROP.instantiate()
+			health_drop.global_position = global_position
+			call_deferred("add_sibling", health_drop)
 
 func _on_hit_box_body_entered(body):
 	if body.is_in_group("Player"):

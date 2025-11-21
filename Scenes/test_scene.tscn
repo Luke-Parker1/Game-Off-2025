@@ -1,10 +1,12 @@
-[gd_scene load_steps=9 format=3 uid="uid://cqkedpsayif7j"]
+[gd_scene load_steps=11 format=3 uid="uid://cqkedpsayif7j"]
 
 [ext_resource type="PackedScene" uid="uid://dp2qd5sjm6xgp" path="res://Scenes/parallax.tscn" id="1_ak5v8"]
 [ext_resource type="Texture2D" uid="uid://b2paakn4rmqkv" path="res://Art/icon.svg" id="1_hb2xm"]
+[ext_resource type="Script" uid="uid://booj8ytpoe86a" path="res://Scripts/level.gd" id="1_x033f"]
 [ext_resource type="PackedScene" uid="uid://b2lk5meo42827" path="res://Scenes/player.tscn" id="2_ak5v8"]
 [ext_resource type="PackedScene" uid="uid://j5mwc8ewxk6l" path="res://Scenes/progress_bar.tscn" id="3_x033f"]
 [ext_resource type="PackedScene" uid="uid://ct5v1n0oygfrs" path="res://Scenes/gun_enemy.tscn" id="4_hb2xm"]
+[ext_resource type="PackedScene" uid="uid://fy2v3116q2dv" path="res://Scenes/walker_enemy.tscn" id="7_rdbpf"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_uhqqe"]
 size = Vector2(1302, 30)
@@ -16,6 +18,7 @@ size = Vector2(279, 30)
 size = Vector2(52.5, 180)
 
 [node name="Test Scene" type="Node2D"]
+script = ExtResource("1_x033f")
 
 [node name="Parallax" parent="." instance=ExtResource("1_ak5v8")]
 
@@ -58,7 +61,7 @@ texture = ExtResource("1_hb2xm")
 shape = SubResource("RectangleShape2D_hb2xm")
 
 [node name="StaticBody2D5" type="StaticBody2D" parent="."]
-position = Vector2(240, 402)
+position = Vector2(234, 165)
 collision_layer = 3
 collision_mask = 3
 
@@ -92,3 +95,9 @@ required_xp_for_explosive = 0.0
 
 [node name="GunEnemy" parent="." instance=ExtResource("4_hb2xm")]
 position = Vector2(959, 372)
+
+[node name="WalkerEnemy" parent="." instance=ExtResource("7_rdbpf")]
+position = Vector2(179, 433)
+
+[node name="WalkerEnemy2" parent="." instance=ExtResource("7_rdbpf")]
+position = Vector2(249, 435)

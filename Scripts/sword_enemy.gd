@@ -22,6 +22,10 @@ var sprite_bounce_speed := 1.0
 
 var multiplier_bar : ProgressBar
 
+var max_enemies : int
+var enemies_left : int
+const HEALTH_DROP := preload("uid://di0jxrmwns65l")
+
 func _ready():
 	multiplier_bar = get_tree().get_nodes_in_group("MultiplierBar")[0]
 
@@ -86,6 +90,11 @@ func hit(damage : float, knockback_direction : Vector2):
 		$HitBox/CollisionShape2D.set_deferred("disabled", true)
 		$Sword/AnimatedSprite2D.visible = false
 		$Sword/CollisionShape2D.set_deferred("disabled", true)
+		get_tree().get_current_scene().enemies_killed += 1
+		if get_tree().get_current_scene().enemies_killed % 3 == 0:
+			var health_drop = HEALTH_DROP.instantiate()
+			health_drop.global_position = global_position
+			call_deferred("add_sibling", health_drop)
 
 
 func _on_hit_box_body_entered(body):

@@ -59,8 +59,8 @@ animations = [{
 
 [node name="BigBullet" type="Area2D"]
 z_index = 150
-collision_layer = 3
-collision_mask = 3
+collision_layer = 7
+collision_mask = 7
 script = ExtResource("1_1ltgj")
 speed = 700.0
 is_big_bullet = true
