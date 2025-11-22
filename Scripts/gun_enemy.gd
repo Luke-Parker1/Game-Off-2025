@@ -3,6 +3,7 @@ extends CharacterBody2D
 var speed : float
 
 @export var health : float
+@export var contact_damage : float
 
 @export var knockback_speed : Vector2
 var knockback : Vector2
@@ -82,7 +83,7 @@ func hit(damage : float, knockback_direction : Vector2):
 
 func _on_hit_box_body_entered(body):
 	if body.is_in_group("Player"):
-		body.hit(global_position)
+		body.hit(global_position, contact_damage)
 
 
 func _on_knockback_timer_timeout():

@@ -3,6 +3,7 @@ extends CharacterBody2D
 @export var speed : float
 
 @export var health : float
+@export var contact_damage : float
 
 @export var knockback_speed : Vector2
 var knockback : Vector2
@@ -66,7 +67,7 @@ func _on_hit_box_body_entered(body):
 			#body.knockback_direction = 1.0
 		#else:
 			#body.knockback_direction = -1.0
-		body.hit(global_position)
+		body.hit(global_position, contact_damage)
 		
 
 

@@ -1,13 +1,13 @@
-[gd_scene load_steps=8 format=3 uid="uid://fy2v3116q2dv"]
+[gd_scene load_steps=8 format=3 uid="uid://dr2xp2cdv6tyo"]
 
-[ext_resource type="Script" uid="uid://byyo0jgvc8wcs" path="res://Scripts/walker_enemy.gd" id="1_7d8e2"]
-[ext_resource type="Texture2D" uid="uid://cuovt68o1r47c" path="res://Art/walker.png" id="2_7d8e2"]
+[ext_resource type="Script" uid="uid://byyo0jgvc8wcs" path="res://Scripts/walker_enemy.gd" id="1_hxtaf"]
+[ext_resource type="Texture2D" uid="uid://dh61ok1068vu" path="res://Art/big_walker.png" id="2_hxtaf"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_7d8e2"]
-size = Vector2(42, 34)
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_7k104"]
+size = Vector2(72, 52)
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_cemhg"]
-size = Vector2(42, 34)
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_4gyqm"]
+size = Vector2(72, 52)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_lwh3n"]
 size = Vector2(32, 7)
@@ -20,37 +20,38 @@ point_count = 3
 _data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.7965117, 0.8764045), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
 point_count = 3
 
-[node name="WalkerEnemy" type="CharacterBody2D" groups=["Enemy"]]
+[node name="BigWalkerEnemy" type="CharacterBody2D" groups=["Enemy"]]
 collision_layer = 4
 collision_mask = 2
-script = ExtResource("1_7d8e2")
+script = ExtResource("1_hxtaf")
 speed = 150.0
 health = 10.0
-contact_damage = 1.0
+contact_damage = 2.0
 knockback_speed = Vector2(250, 25)
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 position = Vector2(0, 19)
 scale = Vector2(4, 4)
-texture = ExtResource("2_7d8e2")
-offset = Vector2(0, -4.5)
+texture = ExtResource("2_hxtaf")
+offset = Vector2(0, -7)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(0, 2)
-shape = SubResource("RectangleShape2D_7d8e2")
+position = Vector2(0, -7)
+shape = SubResource("RectangleShape2D_7k104")
 
 [node name="HitBox" type="Area2D" parent="."]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HitBox"]
-position = Vector2(0, 2)
-shape = SubResource("RectangleShape2D_cemhg")
+position = Vector2(0, -7)
+shape = SubResource("RectangleShape2D_4gyqm")
 
 [node name="FloorDetector" type="Area2D" parent="."]
-position = Vector2(39, 19)
+position = Vector2(36, 19)
 collision_layer = 2
 collision_mask = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="FloorDetector"]
+position = Vector2(19, 0)
 shape = SubResource("RectangleShape2D_lwh3n")
 
 [node name="KnockbackTimer" type="Timer" parent="."]

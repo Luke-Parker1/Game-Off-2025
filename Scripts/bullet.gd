@@ -38,5 +38,7 @@ func _on_body_entered(body):
 			if !is_big_bullet:
 				shooter.gun_xp += shooter.multiplier_bar.left_type_mult
 		elif body.is_in_group("Player") and !shooter_is_player:
-			body.hit(global_position)
-		queue_free()
+			body.hit(global_position, damage)
+		
+		if !(body.is_in_group("Enemy") and !shooter_is_player) and !(body.is_in_group("Player") and shooter_is_player):
+			queue_free()

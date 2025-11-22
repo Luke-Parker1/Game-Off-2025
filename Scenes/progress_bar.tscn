@@ -1,9 +1,25 @@
-[gd_scene load_steps=7 format=3 uid="uid://j5mwc8ewxk6l"]
+[gd_scene load_steps=9 format=3 uid="uid://j5mwc8ewxk6l"]
 
 [ext_resource type="Script" uid="uid://7g4dsvpqdyl2" path="res://Scripts/progress_bar.gd" id="1_chwcf"]
 [ext_resource type="Texture2D" uid="uid://ckc3k77le0b4b" path="res://Art/gun_icon.png" id="2_tqi2h"]
 [ext_resource type="Shader" uid="uid://byj2pf1y7nemn" path="res://Scripts/color_change.gdshader" id="3_6j3lf"]
 [ext_resource type="Texture2D" uid="uid://coybr0gf4rg4g" path="res://Art/sword_icon.png" id="3_jda50"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_jda50"]
+bg_color = Color(0.047058824, 0.9019608, 0.9490196, 1)
+border_width_left = 4
+border_width_top = 4
+border_width_right = 4
+border_width_bottom = 4
+border_color = Color(1, 1, 1, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_6j3lf"]
+bg_color = Color(1, 0.019607844, 0.27450982, 1)
+border_width_left = 4
+border_width_top = 4
+border_width_right = 4
+border_width_bottom = 4
+border_color = Color(1, 1, 1, 1)
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_jda50"]
 shader = ExtResource("3_6j3lf")
@@ -18,10 +34,18 @@ shader_parameter/tint = Color(1, 1, 1, 1)
 [node name="ProgressBarLayer" type="CanvasLayer"]
 
 [node name="ProgressBar" type="ProgressBar" parent="." groups=["MultiplierBar"]]
-offset_left = 56.0
-offset_right = 1118.0
-offset_bottom = 27.0
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -531.0
+offset_top = 26.0
+offset_right = 531.0
+offset_bottom = 53.0
+grow_horizontal = 2
+theme_override_styles/background = SubResource("StyleBoxFlat_jda50")
+theme_override_styles/fill = SubResource("StyleBoxFlat_6j3lf")
 max_value = 20.0
+show_percentage = false
 script = ExtResource("1_chwcf")
 
 [node name="GunIcon" type="Sprite2D" parent="ProgressBar"]

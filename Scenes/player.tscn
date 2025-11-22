@@ -1,4 +1,4 @@
-[gd_scene load_steps=50 format=3 uid="uid://b2lk5meo42827"]
+[gd_scene load_steps=57 format=3 uid="uid://b2lk5meo42827"]
 
 [ext_resource type="Script" uid="uid://f1a23u4u1tyb" path="res://Scripts/player.gd" id="1_onrkg"]
 [ext_resource type="Texture2D" uid="uid://b11m7snql17p3" path="res://Art/player_sheet.png" id="2_urp6f"]
@@ -244,8 +244,60 @@ animations = [{
 _data = [Vector2(0.0116279125, 1), 0.0, 0.0, 0, 0, Vector2(0.77906984, 0.77528095), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
 point_count = 3
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_qqcod"]
+bg_color = Color(0.03529412, 0.003921569, 0.050980393, 1)
+border_width_left = 4
+border_width_top = 4
+border_width_right = 4
+border_width_bottom = 4
+border_color = Color(0, 0.59607846, 0.85882354, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_igrcy"]
+bg_color = Color(0.047058824, 0.9019608, 0.9490196, 1)
+border_width_left = 4
+border_width_top = 4
+border_width_right = 4
+border_width_bottom = 4
+border_color = Color(0, 0.59607846, 0.85882354, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_fs7ks"]
+bg_color = Color(0.03529412, 0.003921569, 0.050980393, 1)
+border_width_left = 4
+border_width_top = 4
+border_width_right = 4
+border_width_bottom = 4
+border_color = Color(0.6117647, 0.09019608, 0.23137255, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_l6n3p"]
+bg_color = Color(1, 0.019607844, 0.27450982, 1)
+border_width_left = 4
+border_width_top = 4
+border_width_right = 4
+border_width_bottom = 4
+border_color = Color(0.6117647, 0.09019608, 0.23137255, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_olqyp"]
+bg_color = Color(0.03529412, 0.003921569, 0.050980393, 1)
+border_width_left = 4
+border_width_top = 4
+border_width_right = 4
+border_width_bottom = 4
+border_color = Color(1, 1, 1, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_wpjfl"]
+bg_color = Color(1, 1, 1, 1)
+border_width_left = 4
+border_width_top = 4
+border_width_right = 4
+border_width_bottom = 4
+border_color = Color(1, 1, 1, 1)
+
 [sub_resource type="Curve" id="Curve_bwjto"]
 _data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.87209314, 0.9101124), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="Curve" id="Curve_qqcod"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.7965117, 0.8764045), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
 point_count = 3
 
 [node name="Player" type="CharacterBody2D" groups=["Player"]]
@@ -260,14 +312,14 @@ recoil_time = 0.1
 pogo_time = 0.15
 sword_attack_damage = 4.0
 big_sword_damage = 12.0
-sword_thrust_damage = 12.0
+sword_thrust_damage = 10.0
 bullet_damage = 4.0
 big_bullet_damage = 12.0
-explosive_bullet_damage = 12.0
-required_xp_for_bigsword = 3.0
-required_xp_for_thrust = 3.0
-required_xp_for_bigshoot = 3.0
-required_xp_for_explosive = 3.0
+explosive_bullet_damage = 10.0
+required_xp_for_bigsword = 2.0
+required_xp_for_thrust = 2.0
+required_xp_for_bigshoot = 2.0
+required_xp_for_explosive = 2.0
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 position = Vector2(0, 31)
@@ -351,6 +403,7 @@ scale_amount_max = 5.0
 scale_amount_curve = SubResource("Curve_op7ga")
 
 [node name="Sprite2D" type="Sprite2D" parent="GunRotator/ShootPosition"]
+visible = false
 scale = Vector2(4, 4)
 texture = ExtResource("7_op7ga")
 offset = Vector2(-2, 1)
@@ -444,18 +497,42 @@ metadata/_custom_type_script = "uid://dmddma07poe7x"
 [node name="XP Layer" type="CanvasLayer" parent="."]
 
 [node name="SwordXP" type="ProgressBar" parent="XP Layer"]
-offset_left = 1049.0
-offset_top = 92.0
-offset_right = 1272.0
-offset_bottom = 119.0
-max_value = 15.0
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -273.0
+offset_top = 100.0
+offset_right = -50.0
+offset_bottom = 127.0
+grow_horizontal = 0
+theme_override_styles/background = SubResource("StyleBoxFlat_qqcod")
+theme_override_styles/fill = SubResource("StyleBoxFlat_igrcy")
+max_value = 10.0
+show_percentage = false
 
 [node name="GunXP" type="ProgressBar" parent="XP Layer"]
-offset_left = 10.0
-offset_top = 92.0
-offset_right = 233.0
-offset_bottom = 119.0
-max_value = 15.0
+offset_left = 50.0
+offset_top = 100.0
+offset_right = 273.0
+offset_bottom = 127.0
+theme_override_styles/background = SubResource("StyleBoxFlat_fs7ks")
+theme_override_styles/fill = SubResource("StyleBoxFlat_l6n3p")
+max_value = 10.0
+show_percentage = false
+
+[node name="HealthBar" type="ProgressBar" parent="XP Layer"]
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 40.0
+offset_top = -60.0
+offset_right = 493.0
+offset_bottom = -33.0
+grow_vertical = 0
+theme_override_styles/background = SubResource("StyleBoxFlat_olqyp")
+theme_override_styles/fill = SubResource("StyleBoxFlat_wpjfl")
+max_value = 10.0
+show_percentage = false
 
 [node name="HitParticles" type="CPUParticles2D" parent="."]
 emitting = false
@@ -474,6 +551,19 @@ scale_amount_curve = SubResource("Curve_bwjto")
 [node name="Camera2D" type="Camera2D" parent="."]
 drag_horizontal_enabled = true
 drag_vertical_enabled = true
+
+[node name="DieParticles" type="CPUParticles2D" parent="."]
+emitting = false
+lifetime = 0.7
+one_shot = true
+explosiveness = 1.0
+direction = Vector2(0, -1)
+spread = 75.0
+initial_velocity_min = 200.0
+initial_velocity_max = 300.0
+scale_amount_min = 5.0
+scale_amount_max = 10.0
+scale_amount_curve = SubResource("Curve_qqcod")
 
 [connection signal="body_entered" from="SwordAttackHitbox" to="." method="_on_sword_attack_hitbox_body_entered"]
 [connection signal="body_entered" from="BigSwordHitbox" to="." method="_on_big_sword_hitbox_body_entered"]

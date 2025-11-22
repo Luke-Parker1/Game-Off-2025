@@ -10,7 +10,7 @@ class_name GunEnemyShoot
 var windup_time : float
 var cooldown_time : float
 
-const BULLET := preload("uid://cwcomh31mp8tt")
+@export var BULLET : PackedScene
 
 var shot := false
 

@@ -1,29 +1,29 @@
-[gd_scene load_steps=16 format=3 uid="uid://ct5v1n0oygfrs"]
+[gd_scene load_steps=17 format=3 uid="uid://0p24jlu4hkt4"]
 
-[ext_resource type="Script" uid="uid://ctfxyue2f7mjk" path="res://Scripts/gun_enemy.gd" id="1_gwdp7"]
-[ext_resource type="Texture2D" uid="uid://dlya5ytioatgn" path="res://Art/gun_enemy_sheet.png" id="2_eokkq"]
-[ext_resource type="Script" uid="uid://v4nlkn46p8aj" path="res://Scripts/state_machine.gd" id="3_eokkq"]
-[ext_resource type="Script" uid="uid://deexs4m6fy0b1" path="res://Scripts/gun_enemy_default.gd" id="4_mkxg3"]
-[ext_resource type="Script" uid="uid://ccybx4amowe1u" path="res://Scripts/gun_enemy_shoot.gd" id="5_13mcc"]
-[ext_resource type="PackedScene" uid="uid://cwcomh31mp8tt" path="res://Scenes/bullet.tscn" id="6_uelik"]
+[ext_resource type="Script" uid="uid://ctfxyue2f7mjk" path="res://Scripts/gun_enemy.gd" id="1_drfsx"]
+[ext_resource type="Texture2D" uid="uid://bgexhnpa78o4t" path="res://Art/big_gun_enemy_sheet.png" id="2_drfsx"]
+[ext_resource type="Script" uid="uid://v4nlkn46p8aj" path="res://Scripts/state_machine.gd" id="3_5rrn6"]
+[ext_resource type="Script" uid="uid://deexs4m6fy0b1" path="res://Scripts/gun_enemy_default.gd" id="4_oqvsh"]
+[ext_resource type="Script" uid="uid://ccybx4amowe1u" path="res://Scripts/gun_enemy_shoot.gd" id="5_utsuk"]
+[ext_resource type="PackedScene" uid="uid://0l4pdyih8glm" path="res://Scenes/big_bullet.tscn" id="6_drfsx"]
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_mkxg3"]
-atlas = ExtResource("2_eokkq")
-region = Rect2(0, 0, 24, 16)
+[sub_resource type="AtlasTexture" id="AtlasTexture_fbggw"]
+atlas = ExtResource("2_drfsx")
+region = Rect2(0, 0, 48, 24)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_gwdp7"]
-atlas = ExtResource("2_eokkq")
-region = Rect2(24, 0, 24, 16)
+[sub_resource type="AtlasTexture" id="AtlasTexture_5rrn6"]
+atlas = ExtResource("2_drfsx")
+region = Rect2(48, 0, 48, 24)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_uelik"]
-atlas = ExtResource("2_eokkq")
-region = Rect2(48, 0, 24, 16)
+[sub_resource type="AtlasTexture" id="AtlasTexture_oqvsh"]
+atlas = ExtResource("2_drfsx")
+region = Rect2(96, 0, 48, 24)
 
-[sub_resource type="SpriteFrames" id="SpriteFrames_13mcc"]
+[sub_resource type="SpriteFrames" id="SpriteFrames_d1cuc"]
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_mkxg3")
+"texture": SubResource("AtlasTexture_fbggw")
 }],
 "loop": true,
 "name": &"default",
@@ -31,18 +31,21 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_gwdp7")
+"texture": SubResource("AtlasTexture_5rrn6")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_uelik")
+"texture": SubResource("AtlasTexture_oqvsh")
 }],
 "loop": true,
 "name": &"walk",
 "speed": 3.0
 }]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_wfsuc"]
-size = Vector2(35, 64)
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_drfsx"]
+size = Vector2(49, 96)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_fbggw"]
+size = Vector2(49, 96)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_nvn6k"]
 size = Vector2(32, 7)
@@ -59,37 +62,34 @@ point_count = 3
 _data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.7965117, 0.8764045), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
 point_count = 3
 
-[node name="GunEnemy" type="CharacterBody2D" groups=["Enemy"]]
+[node name="BigGunEnemy" type="CharacterBody2D" groups=["Enemy"]]
 collision_layer = 4
 collision_mask = 2
-script = ExtResource("1_gwdp7")
+script = ExtResource("1_drfsx")
 health = 10.0
-contact_damage = 1.0
 knockback_speed = Vector2(250, 25)
-bullet_damage = 2.5
+bullet_damage = 4.5
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
-position = Vector2(0, 32)
+position = Vector2(0, 48)
 scale = Vector2(4, 4)
-sprite_frames = SubResource("SpriteFrames_13mcc")
-animation = &"walk"
-offset = Vector2(0, -8)
+sprite_frames = SubResource("SpriteFrames_d1cuc")
+offset = Vector2(0, -12)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-shape = SubResource("RectangleShape2D_wfsuc")
+shape = SubResource("RectangleShape2D_drfsx")
 
 [node name="HitBox" type="Area2D" parent="."]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HitBox"]
-shape = SubResource("RectangleShape2D_wfsuc")
+shape = SubResource("RectangleShape2D_fbggw")
 
 [node name="FloorDetector" type="Area2D" parent="."]
-position = Vector2(35, 19)
+position = Vector2(45, 47)
 collision_layer = 2
 collision_mask = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="FloorDetector"]
-position = Vector2(0, 14)
 shape = SubResource("RectangleShape2D_nvn6k")
 
 [node name="KnockbackTimer" type="Timer" parent="."]
@@ -97,38 +97,38 @@ wait_time = 0.1
 one_shot = true
 
 [node name="GunCooldown" type="Timer" parent="."]
-wait_time = 0.6
+wait_time = 1.2
 one_shot = true
 
 [node name="RayCast2D" type="RayCast2D" parent="."]
 target_position = Vector2(500, 0)
 
 [node name="StateMachine" type="Node" parent="." node_paths=PackedStringArray("initial_state")]
-script = ExtResource("3_eokkq")
+script = ExtResource("3_5rrn6")
 initial_state = NodePath("Default")
 
 [node name="Default" type="Node" parent="StateMachine" node_paths=PackedStringArray("Enemy")]
-script = ExtResource("4_mkxg3")
+script = ExtResource("4_oqvsh")
 Enemy = NodePath("../..")
 speed = 50.0
 metadata/_custom_type_script = "uid://deexs4m6fy0b1"
 
 [node name="Shoot" type="Node" parent="StateMachine" node_paths=PackedStringArray("Enemy")]
-script = ExtResource("5_13mcc")
+script = ExtResource("5_utsuk")
 Enemy = NodePath("../..")
 windup_timer = 0.25
 cooldown_timer = 0.15
-BULLET = ExtResource("6_uelik")
+BULLET = ExtResource("6_drfsx")
 metadata/_custom_type_script = "uid://ccybx4amowe1u"
 
 [node name="GunRotator" type="Node2D" parent="."]
 
 [node name="ShootPosition" type="Marker2D" parent="GunRotator"]
-position = Vector2(27, 0)
+position = Vector2(43, 0)
 gizmo_extents = 20.0
 
 [node name="ShootParticles" type="CPUParticles2D" parent="GunRotator"]
-position = Vector2(27, 0)
+position = Vector2(43, 0)
 emitting = false
 lifetime = 0.3
 one_shot = true

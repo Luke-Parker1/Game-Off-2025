@@ -77,8 +77,30 @@ func _ready():
 	$StateMachine/SwordThrust.required_xp = required_xp_for_thrust
 	$StateMachine/ShootExplosive.damage = explosive_bullet_damage
 	$StateMachine/ShootExplosive.required_xp = required_xp_for_explosive
+	
+	$"XP Layer/HealthBar".max_value = health
+	
+	# Add lines to xp bars
+	for i in $"XP Layer/SwordXP".max_value/required_xp_for_bigsword:
+		if i > 0:
+			var color_rect = ColorRect.new()
+			color_rect.color = Color("0098db")
+			color_rect.size = Vector2(4, $"XP Layer/SwordXP".size.y - 8)
+			color_rect.position.x = $"XP Layer/SwordXP".size.x * i/($"XP Layer/SwordXP".max_value/required_xp_for_bigsword)
+			color_rect.position.y = 4
+			$"XP Layer/SwordXP".add_child(color_rect)
+	
+	for i in $"XP Layer/GunXP".max_value/required_xp_for_bigshoot:
+		if i > 0:
+			var color_rect = ColorRect.new()
+			color_rect.color = Color("9c173b")
+			color_rect.size = Vector2(4, $"XP Layer/GunXP".size.y - 8)
+			color_rect.position.x = $"XP Layer/GunXP".size.x * i/($"XP Layer/GunXP".max_value/required_xp_for_bigshoot)
+			color_rect.position.y = 4
+			$"XP Layer/GunXP".add_child(color_rect)
 
 func _physics_process(delta):
+	#print(health)
 	#if is_on_wall():
 		#print(get_wall_normal())
 	#else:
@@ -215,6 +237,8 @@ func _physics_process(delta):
 	$"XP Layer/SwordXP".value = sword_xp
 	$"XP Layer/GunXP".value = gun_xp
 	
+	$"XP Layer/HealthBar".value = health
+	
 
 # This is called get_custom_gravity because get_gravity is a function built into godot
 func get_custom_gravity() -> float:
@@ -231,8 +255,9 @@ func jump():
 	velocity.y = jump_velocity
 	jumping = true
 
-func hit(hit_pos):
-	if $InvinviblityTimer.is_stopped():
+func hit(hit_pos, damage):
+	if $InvinviblityTimer.is_stopped() and damage > 0:
+		health -= damage
 		if hit_pos.direction_to(global_position).x >= 0:
 			# This is "Greater or equal to" the default direction is right
 			knockback_direction = 1.0

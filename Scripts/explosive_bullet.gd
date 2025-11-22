@@ -30,7 +30,7 @@ func _physics_process(delta):
 
 
 func _on_body_entered(body):
-	if body != shooter:
+	if body != shooter and !(body.is_in_group("Enemy") and !shooter_is_player) and !(body.is_in_group("Player") and shooter_is_player):
 		#$ExplosionHitBox/CollisionShape2D.disabled = false
 		$Sprite2D.visible = false
 		$ExplosionHitBox/CollisionShape2D.set_deferred("disabled", false)
@@ -43,7 +43,7 @@ func _on_explosion_hit_box_body_entered(body):
 		if body.is_in_group("Enemy") and shooter_is_player:
 			body.hit(damage, global_position.direction_to(body.global_position) * knockback_mult)
 		elif body.is_in_group("Player") and !shooter_is_player:
-			body.hit(global_position)
+			body.hit(global_position, damage)
 		hit_bodies.append(body)
 
 

@@ -1,29 +1,29 @@
-[gd_scene load_steps=16 format=3 uid="uid://ct5v1n0oygfrs"]
+[gd_scene load_steps=16 format=3 uid="uid://dv540k8fcsfsc"]
 
-[ext_resource type="Script" uid="uid://ctfxyue2f7mjk" path="res://Scripts/gun_enemy.gd" id="1_gwdp7"]
-[ext_resource type="Texture2D" uid="uid://dlya5ytioatgn" path="res://Art/gun_enemy_sheet.png" id="2_eokkq"]
-[ext_resource type="Script" uid="uid://v4nlkn46p8aj" path="res://Scripts/state_machine.gd" id="3_eokkq"]
-[ext_resource type="Script" uid="uid://deexs4m6fy0b1" path="res://Scripts/gun_enemy_default.gd" id="4_mkxg3"]
-[ext_resource type="Script" uid="uid://ccybx4amowe1u" path="res://Scripts/gun_enemy_shoot.gd" id="5_13mcc"]
-[ext_resource type="PackedScene" uid="uid://cwcomh31mp8tt" path="res://Scenes/bullet.tscn" id="6_uelik"]
+[ext_resource type="Script" uid="uid://ctfxyue2f7mjk" path="res://Scripts/gun_enemy.gd" id="1_df86t"]
+[ext_resource type="Texture2D" uid="uid://2i4wc1tmqdxd" path="res://Art/explosive_enemy_sheet.png" id="2_df86t"]
+[ext_resource type="Script" uid="uid://v4nlkn46p8aj" path="res://Scripts/state_machine.gd" id="3_duixa"]
+[ext_resource type="Script" uid="uid://deexs4m6fy0b1" path="res://Scripts/gun_enemy_default.gd" id="4_43h3a"]
+[ext_resource type="Script" uid="uid://ccybx4amowe1u" path="res://Scripts/gun_enemy_shoot.gd" id="5_s6nft"]
+[ext_resource type="PackedScene" uid="uid://cjbpx1lsg06dy" path="res://Scenes/explosive_bullet.tscn" id="6_df86t"]
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_mkxg3"]
-atlas = ExtResource("2_eokkq")
+[sub_resource type="AtlasTexture" id="AtlasTexture_s7gxc"]
+atlas = ExtResource("2_df86t")
 region = Rect2(0, 0, 24, 16)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_gwdp7"]
-atlas = ExtResource("2_eokkq")
+[sub_resource type="AtlasTexture" id="AtlasTexture_df86t"]
+atlas = ExtResource("2_df86t")
 region = Rect2(24, 0, 24, 16)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_uelik"]
-atlas = ExtResource("2_eokkq")
+[sub_resource type="AtlasTexture" id="AtlasTexture_duixa"]
+atlas = ExtResource("2_df86t")
 region = Rect2(48, 0, 24, 16)
 
-[sub_resource type="SpriteFrames" id="SpriteFrames_13mcc"]
+[sub_resource type="SpriteFrames" id="SpriteFrames_duixa"]
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_mkxg3")
+"texture": SubResource("AtlasTexture_s7gxc")
 }],
 "loop": true,
 "name": &"default",
@@ -31,10 +31,10 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_gwdp7")
+"texture": SubResource("AtlasTexture_df86t")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_uelik")
+"texture": SubResource("AtlasTexture_duixa")
 }],
 "loop": true,
 "name": &"walk",
@@ -44,35 +44,33 @@ animations = [{
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_wfsuc"]
 size = Vector2(35, 64)
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_nvn6k"]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_4r0la"]
 size = Vector2(32, 7)
 
-[sub_resource type="Curve" id="Curve_gwdp7"]
+[sub_resource type="Curve" id="Curve_bqunj"]
 _data = [Vector2(0.0116279125, 1), 0.0, 0.0, 0, 0, Vector2(0.77906984, 0.77528095), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
 point_count = 3
 
-[sub_resource type="Curve" id="Curve_ukchy"]
+[sub_resource type="Curve" id="Curve_0cwku"]
 _data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.87209314, 0.9101124), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
 point_count = 3
 
-[sub_resource type="Curve" id="Curve_uelik"]
+[sub_resource type="Curve" id="Curve_e3v2y"]
 _data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.7965117, 0.8764045), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
 point_count = 3
 
-[node name="GunEnemy" type="CharacterBody2D" groups=["Enemy"]]
+[node name="ExplosiveGunEnemy" type="CharacterBody2D" groups=["Enemy"]]
 collision_layer = 4
 collision_mask = 2
-script = ExtResource("1_gwdp7")
+script = ExtResource("1_df86t")
 health = 10.0
-contact_damage = 1.0
 knockback_speed = Vector2(250, 25)
-bullet_damage = 2.5
+bullet_damage = 4.0
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 position = Vector2(0, 32)
 scale = Vector2(4, 4)
-sprite_frames = SubResource("SpriteFrames_13mcc")
-animation = &"walk"
+sprite_frames = SubResource("SpriteFrames_duixa")
 offset = Vector2(0, -8)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
@@ -90,35 +88,35 @@ collision_mask = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="FloorDetector"]
 position = Vector2(0, 14)
-shape = SubResource("RectangleShape2D_nvn6k")
+shape = SubResource("RectangleShape2D_4r0la")
 
 [node name="KnockbackTimer" type="Timer" parent="."]
 wait_time = 0.1
 one_shot = true
 
 [node name="GunCooldown" type="Timer" parent="."]
-wait_time = 0.6
+wait_time = 1.2
 one_shot = true
 
 [node name="RayCast2D" type="RayCast2D" parent="."]
 target_position = Vector2(500, 0)
 
 [node name="StateMachine" type="Node" parent="." node_paths=PackedStringArray("initial_state")]
-script = ExtResource("3_eokkq")
+script = ExtResource("3_duixa")
 initial_state = NodePath("Default")
 
 [node name="Default" type="Node" parent="StateMachine" node_paths=PackedStringArray("Enemy")]
-script = ExtResource("4_mkxg3")
+script = ExtResource("4_43h3a")
 Enemy = NodePath("../..")
 speed = 50.0
 metadata/_custom_type_script = "uid://deexs4m6fy0b1"
 
 [node name="Shoot" type="Node" parent="StateMachine" node_paths=PackedStringArray("Enemy")]
-script = ExtResource("5_13mcc")
+script = ExtResource("5_s6nft")
 Enemy = NodePath("../..")
 windup_timer = 0.25
 cooldown_timer = 0.15
-BULLET = ExtResource("6_uelik")
+BULLET = ExtResource("6_df86t")
 metadata/_custom_type_script = "uid://ccybx4amowe1u"
 
 [node name="GunRotator" type="Node2D" parent="."]
@@ -139,7 +137,7 @@ initial_velocity_min = 100.0
 initial_velocity_max = 100.0
 scale_amount_min = 2.0
 scale_amount_max = 5.0
-scale_amount_curve = SubResource("Curve_gwdp7")
+scale_amount_curve = SubResource("Curve_bqunj")
 
 [node name="HitParticles" type="CPUParticles2D" parent="."]
 emitting = false
@@ -153,7 +151,7 @@ initial_velocity_min = 400.0
 initial_velocity_max = 400.0
 scale_amount_min = 3.0
 scale_amount_max = 10.0
-scale_amount_curve = SubResource("Curve_ukchy")
+scale_amount_curve = SubResource("Curve_0cwku")
 
 [node name="DieParticles" type="CPUParticles2D" parent="."]
 emitting = false
@@ -166,7 +164,7 @@ initial_velocity_min = 200.0
 initial_velocity_max = 300.0
 scale_amount_min = 5.0
 scale_amount_max = 10.0
-scale_amount_curve = SubResource("Curve_uelik")
+scale_amount_curve = SubResource("Curve_e3v2y")
 
 [connection signal="body_entered" from="HitBox" to="." method="_on_hit_box_body_entered"]
 [connection signal="timeout" from="KnockbackTimer" to="." method="_on_knockback_timer_timeout"]
