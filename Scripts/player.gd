@@ -350,3 +350,7 @@ func _on_big_sword_hitbox_body_entered(body):
 func _on_sword_thrust_hitbox_body_entered(body):
 	if body.is_in_group("Enemy") and !hit_enemies.has(body):
 		sword_attack(body, sword_thrust_damage, $SwordThrustHitbox, 8.5)
+
+
+func _on_die_particles_finished():
+	get_tree().get_current_scene().reload = true

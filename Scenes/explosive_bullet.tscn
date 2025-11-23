@@ -13,7 +13,7 @@ shader_parameter/active = false
 shader_parameter/tint = Color(1, 1, 1, 1)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_8fevl"]
-radius = 57.0
+radius = 103.00485
 
 [sub_resource type="Curve" id="Curve_8fevl"]
 _data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
@@ -50,7 +50,7 @@ one_shot = true
 [node name="ExplosionParticles" type="CPUParticles2D" parent="."]
 emitting = false
 amount = 20
-lifetime = 0.5
+lifetime = 0.7
 one_shot = true
 explosiveness = 1.0
 local_coords = true

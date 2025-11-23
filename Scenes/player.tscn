@@ -304,7 +304,7 @@ point_count = 3
 [node name="Player" type="CharacterBody2D" groups=["Player"]]
 z_index = 100
 script = ExtResource("1_onrkg")
-health = 15.0
+health = 8.0
 jump_height = 150.0
 jump_time_to_peak = 0.5
 jump_time_to_descent = 0.25
@@ -412,7 +412,7 @@ wait_time = 0.2
 one_shot = true
 
 [node name="SwordAttackCooldown" type="Timer" parent="."]
-wait_time = 0.05
+wait_time = 0.15
 one_shot = true
 
 [node name="ShootCooldown" type="Timer" parent="."]
@@ -553,6 +553,7 @@ scale_amount_max = 10.0
 scale_amount_curve = SubResource("Curve_bwjto")
 
 [node name="Camera2D" type="Camera2D" parent="."]
+offset = Vector2(0, -72)
 drag_horizontal_enabled = true
 drag_vertical_enabled = true
 
@@ -573,3 +574,4 @@ scale_amount_curve = SubResource("Curve_qqcod")
 [connection signal="body_entered" from="BigSwordHitbox" to="." method="_on_big_sword_hitbox_body_entered"]
 [connection signal="body_entered" from="SwordThrustHitbox" to="." method="_on_sword_thrust_hitbox_body_entered"]
 [connection signal="timeout" from="RecoilTime" to="." method="_on_recoil_time_timeout"]
+[connection signal="finished" from="DieParticles" to="." method="_on_die_particles_finished"]
