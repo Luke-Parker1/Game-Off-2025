@@ -84,12 +84,11 @@ shape = SubResource("RectangleShape2D_wfsuc")
 shape = SubResource("RectangleShape2D_wfsuc")
 
 [node name="FloorDetector" type="Area2D" parent="."]
-position = Vector2(35, 19)
+position = Vector2(35, 32)
 collision_layer = 2
 collision_mask = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="FloorDetector"]
-position = Vector2(0, 14)
 shape = SubResource("RectangleShape2D_nvn6k")
 
 [node name="KnockbackTimer" type="Timer" parent="."]

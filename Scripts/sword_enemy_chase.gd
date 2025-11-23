@@ -68,7 +68,7 @@ func State_Physics_Update(delta: float):
 	if player_behind_enemy:
 		skid_time -= delta
 	
-	if (Enemy.is_on_wall() or Enemy.get_node("FloorDetector").get_overlapping_bodies().size() == 0) and Enemy.is_on_floor():
+	if ((Enemy.is_on_wall() and Enemy.get_wall_normal().x != Enemy.direction) or Enemy.get_node("FloorDetector").get_overlapping_bodies().size() == 0) and Enemy.is_on_floor():
 		Enemy.speed = 0
 	else:
 		Enemy.speed = speed
