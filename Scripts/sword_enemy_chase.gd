@@ -68,6 +68,11 @@ func State_Physics_Update(delta: float):
 	if player_behind_enemy:
 		skid_time -= delta
 	
+	if (Enemy.is_on_wall() or Enemy.get_node("FloorDetector").get_overlapping_bodies().size() == 0) and Enemy.is_on_floor():
+		Enemy.speed = 0
+	else:
+		Enemy.speed = speed
+	
 	if return_to_default or forget_time <= 0 or skid_time <= 0:
 		Transitioned.emit(self, "default")
 	elif Enemy.global_position.distance_squared_to(Player.global_position) <= min_distance**2:

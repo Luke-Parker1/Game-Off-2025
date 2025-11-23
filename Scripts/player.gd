@@ -234,9 +234,15 @@ func _physics_process(delta):
 		$GunRotator/ShootPosition/Sprite2D.visible = false
 	
 	# Get xp
+	if sword_xp > $"XP Layer/SwordXP".max_value:
+		sword_xp = $"XP Layer/SwordXP".max_value
+	if gun_xp > $"XP Layer/GunXP".max_value:
+		gun_xp = $"XP Layer/GunXP".max_value
 	$"XP Layer/SwordXP".value = sword_xp
 	$"XP Layer/GunXP".value = gun_xp
 	
+	if health > $"XP Layer/HealthBar".max_value:
+		health = $"XP Layer/HealthBar".max_value
 	$"XP Layer/HealthBar".value = health
 	
 

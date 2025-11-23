@@ -36,7 +36,10 @@ func State_Physics_Update(delta: float):
 	knockback_time -= delta
 	
 	if knockback_time <= 0:
-		Transitioned.emit(self, "default")
+		if Player.health > 0:
+			Transitioned.emit(self, "default")
+		else:
+			Transitioned.emit(self, "die")
 
 func Exit():
 	Player.knockback_direction = 0

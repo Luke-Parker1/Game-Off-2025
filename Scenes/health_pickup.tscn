@@ -16,6 +16,7 @@ point_count = 3
 
 [node name="Health Pickup" type="Area2D"]
 script = ExtResource("1_lj2jr")
+health = 2.0
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 scale = Vector2(4, 4)

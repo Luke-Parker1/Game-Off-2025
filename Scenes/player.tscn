@@ -1,4 +1,4 @@
-[gd_scene load_steps=57 format=3 uid="uid://b2lk5meo42827"]
+[gd_scene load_steps=58 format=3 uid="uid://b2lk5meo42827"]
 
 [ext_resource type="Script" uid="uid://f1a23u4u1tyb" path="res://Scripts/player.gd" id="1_onrkg"]
 [ext_resource type="Texture2D" uid="uid://b11m7snql17p3" path="res://Art/player_sheet.png" id="2_urp6f"]
@@ -17,6 +17,7 @@
 [ext_resource type="PackedScene" uid="uid://0l4pdyih8glm" path="res://Scenes/big_bullet.tscn" id="9_n7ghd"]
 [ext_resource type="PackedScene" uid="uid://cjbpx1lsg06dy" path="res://Scenes/explosive_bullet.tscn" id="10_ivps1"]
 [ext_resource type="Script" uid="uid://dmddma07poe7x" path="res://Scripts/player_sword_thrust.gd" id="11_nvl01"]
+[ext_resource type="Script" uid="uid://dpkpd102q6rrc" path="res://Scripts/player_die.gd" id="18_igrcy"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_u1c27"]
 atlas = ExtResource("2_urp6f")
@@ -363,8 +364,6 @@ position = Vector2(-12.5, 0)
 scale = Vector2(4, 4)
 sprite_frames = SubResource("SpriteFrames_606se")
 animation = &"attack"
-frame = 2
-frame_progress = 1.0
 
 [node name="SwordThrustHitbox" type="Area2D" parent="."]
 collision_layer = 7
@@ -494,6 +493,11 @@ thrust_speed = 550.0
 effect_num = 4
 metadata/_custom_type_script = "uid://dmddma07poe7x"
 
+[node name="Die" type="Node" parent="StateMachine" node_paths=PackedStringArray("Player")]
+script = ExtResource("18_igrcy")
+Player = NodePath("../..")
+metadata/_custom_type_script = "uid://dpkpd102q6rrc"
+
 [node name="XP Layer" type="CanvasLayer" parent="."]
 
 [node name="SwordXP" type="ProgressBar" parent="XP Layer"]
@@ -507,7 +511,7 @@ offset_bottom = 127.0
 grow_horizontal = 0
 theme_override_styles/background = SubResource("StyleBoxFlat_qqcod")
 theme_override_styles/fill = SubResource("StyleBoxFlat_igrcy")
-max_value = 10.0
+max_value = 2.0
 show_percentage = false
 
 [node name="GunXP" type="ProgressBar" parent="XP Layer"]
@@ -517,7 +521,7 @@ offset_right = 273.0
 offset_bottom = 127.0
 theme_override_styles/background = SubResource("StyleBoxFlat_fs7ks")
 theme_override_styles/fill = SubResource("StyleBoxFlat_l6n3p")
-max_value = 10.0
+max_value = 2.0
 show_percentage = false
 
 [node name="HealthBar" type="ProgressBar" parent="XP Layer"]

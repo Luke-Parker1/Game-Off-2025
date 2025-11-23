@@ -57,7 +57,7 @@ func _physics_process(delta):
 		sprite_bounce_scale = Vector2(1.15, 0.85)
 		sprite_bounce_speed = 4
 	
-	if is_on_floor() and velocity.x != 0:
+	if is_on_floor() and ($AnimatedSprite2D.animation == "walk" or $AnimatedSprite2D.animation == "run"):
 		if sprite_bouncing_down:
 			$AnimatedSprite2D.scale = $AnimatedSprite2D.scale.move_toward(default_sprite_scale  * sprite_bounce_scale, sprite_bounce_speed * delta)
 		else:

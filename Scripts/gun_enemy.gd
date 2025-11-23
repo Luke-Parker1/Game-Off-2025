@@ -48,7 +48,7 @@ func _physics_process(delta):
 		$AnimatedSprite2D.flip_h = true
 	$GunRotator.rotation = Vector2.ZERO.angle_to_point(Vector2(direction, 0))
 	
-	if is_on_floor() and velocity.x != 0:
+	if is_on_floor() and $AnimatedSprite2D.animation == "walk":
 		if sprite_bouncing_down:
 			$AnimatedSprite2D.scale = $AnimatedSprite2D.scale.move_toward(default_sprite_scale  * Vector2(1.05, 0.95), delta)
 		else:

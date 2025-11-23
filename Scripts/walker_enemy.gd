@@ -30,7 +30,7 @@ func _physics_process(delta):
 	velocity += knockback
 	move_and_slide()
 	
-	if is_on_floor() and velocity.x != 0:
+	if is_on_floor():
 		if sprite_bouncing_down:
 			$Sprite2D.scale = $Sprite2D.scale.move_toward(default_sprite_scale  * Vector2(1.15, 0.85), 4*delta)
 		else:
