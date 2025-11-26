@@ -25,7 +25,7 @@ func Enter():
 func State_Physics_Update(delta: float):
 	if windup_time > 0:
 		windup_time -= delta
-	elif windup_time <= 0 and !shot:
+	elif windup_time <= 0 and !shot and Enemy.health > 0:
 		var bullet = BULLET.instantiate()
 		bullet.global_position = Enemy.get_node("GunRotator/ShootPosition").global_position
 		bullet.global_rotation = Enemy.get_node("GunRotator/ShootPosition").global_rotation

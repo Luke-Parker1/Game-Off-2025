@@ -1,0 +1,45 @@
+[gd_scene load_steps=2 format=3 uid="uid://cl5yexn56ujxi"]
+
+[ext_resource type="Script" uid="uid://loqm81s3vybp" path="res://Scripts/level_clear.gd" id="1_7k5mv"]
+
+[node name="LevelClear" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_7k5mv")
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 0
+offset_right = 1280.0
+offset_bottom = 23.0
+text = "Level Clear!"
+horizontal_alignment = 1
+
+[node name="NextLevel" type="Button" parent="."]
+layout_mode = 0
+offset_left = 542.0
+offset_top = 253.0
+offset_right = 632.0
+offset_bottom = 284.0
+text = "Next Level"
+
+[node name="ReplayLevel" type="Button" parent="."]
+layout_mode = 0
+offset_left = 345.0
+offset_top = 253.0
+offset_right = 435.0
+offset_bottom = 284.0
+text = "Replay Level"
+
+[node name="TimeInfo" type="Label" parent="."]
+layout_mode = 0
+offset_top = 84.0
+offset_right = 1280.0
+offset_bottom = 107.0
+horizontal_alignment = 1
+
+[connection signal="pressed" from="NextLevel" to="." method="_on_next_level_pressed"]
+[connection signal="pressed" from="ReplayLevel" to="." method="_on_replay_level_pressed"]
