@@ -1,0 +1,21 @@
+[gd_scene load_steps=2 format=3 uid="uid://b66axco78eg13"]
+
+[ext_resource type="Script" uid="uid://fnis3j3y2jtd" path="res://Scripts/options.gd" id="1_prnvy"]
+
+[node name="Options" type="CanvasLayer"]
+script = ExtResource("1_prnvy")
+
+[node name="ReturnToGame" type="Button" parent="."]
+offset_left = 103.0
+offset_right = 234.0
+offset_bottom = 31.0
+text = "Return to Game"
+
+[node name="ExitToMenu" type="Button" parent="."]
+offset_left = 948.0
+offset_right = 1054.0
+offset_bottom = 31.0
+text = "Exit to Menu"
+
+[connection signal="pressed" from="ReturnToGame" to="." method="_on_return_to_game_pressed"]
+[connection signal="pressed" from="ExitToMenu" to="." method="_on_exit_to_menu_pressed"]

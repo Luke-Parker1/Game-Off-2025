@@ -1,0 +1,74 @@
+[gd_scene load_steps=3 format=3 uid="uid://bm8fa3jivhp0f"]
+
+[ext_resource type="Script" uid="uid://wrw82mrwx7ji" path="res://Scripts/main_menu.gd" id="1_28flt"]
+[ext_resource type="FontFile" uid="uid://6vwxo3ycvhna" path="res://Art/Reality Hyper Regular.ttf" id="2_48xlc"]
+
+[node name="MainMenu" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_28flt")
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 0
+offset_left = 62.0
+offset_top = 687.0
+offset_right = 315.0
+offset_bottom = 710.0
+text = "License: godotengine.org/license"
+
+[node name="Play" type="Button" parent="."]
+layout_mode = 0
+offset_left = 567.0
+offset_top = 353.0
+offset_right = 608.0
+offset_bottom = 384.0
+text = "Play"
+
+[node name="BestTimes" type="Button" parent="."]
+layout_mode = 0
+offset_left = 560.0
+offset_top = 469.0
+offset_right = 648.0
+offset_bottom = 500.0
+text = "Best Times
+"
+
+[node name="Oscillating" type="Label" parent="."]
+layout_mode = 0
+offset_right = 1280.0
+offset_bottom = 251.0
+theme_override_fonts/font = ExtResource("2_48xlc")
+theme_override_font_sizes/font_size = 128
+text = "OSCILLATING"
+horizontal_alignment = 1
+
+[node name="Offenses1" type="Label" parent="."]
+layout_mode = 0
+offset_right = 1280.0
+offset_bottom = 251.0
+theme_override_colors/font_color = Color(1, 0.015686275, 0.3372549, 1)
+theme_override_fonts/font = ExtResource("2_48xlc")
+theme_override_font_sizes/font_size = 128
+text = "
+O  F  N  E  "
+horizontal_alignment = 1
+
+[node name="Offenses2" type="Label" parent="."]
+layout_mode = 0
+offset_left = 21.0
+offset_top = 17.0
+offset_right = 1301.0
+offset_bottom = 268.0
+theme_override_colors/font_color = Color(0.047058824, 0.9019608, 0.9490196, 1)
+theme_override_fonts/font = ExtResource("2_48xlc")
+theme_override_font_sizes/font_size = 128
+text = "
+  F  E  S  S "
+horizontal_alignment = 1
+
+[connection signal="pressed" from="Play" to="." method="_on_play_pressed"]
+[connection signal="pressed" from="BestTimes" to="." method="_on_best_times_pressed"]

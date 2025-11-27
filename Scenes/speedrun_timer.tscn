@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://b5axwmvriu5rg"]
 
-[ext_resource type="Script" uid="uid://14mwug3ga6qa" path="res://Scenes/speedrun_timer.gd" id="1_pyk7o"]
+[ext_resource type="Script" uid="uid://14mwug3ga6qa" path="res://Scripts/speedrun_timer.gd" id="1_pyk7o"]
 
 [node name="SpeedrunTimer" type="CanvasLayer"]
 script = ExtResource("1_pyk7o")

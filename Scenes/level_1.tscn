@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=4 uid="uid://cd6p61r7ahn53"]
+[gd_scene load_steps=13 format=4 uid="uid://cd6p61r7ahn53"]
 
 [ext_resource type="Script" uid="uid://booj8ytpoe86a" path="res://Scripts/level.gd" id="1_vk57k"]
 [ext_resource type="PackedScene" uid="uid://j5mwc8ewxk6l" path="res://Scenes/progress_bar.tscn" id="2_8ffim"]
@@ -7,6 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://dp2qd5sjm6xgp" path="res://Scenes/parallax.tscn" id="3_xfk5q"]
 [ext_resource type="PackedScene" uid="uid://cdyghmy1ftmk0" path="res://Scenes/exit_portal.tscn" id="6_evi0p"]
 [ext_resource type="PackedScene" uid="uid://cvwe6s686ct3u" path="res://Scenes/spike.tscn" id="7_lsmp6"]
+[ext_resource type="PackedScene" uid="uid://b66axco78eg13" path="res://Scenes/options.tscn" id="7_uy8f0"]
 [ext_resource type="PackedScene" uid="uid://fy2v3116q2dv" path="res://Scenes/walker_enemy.tscn" id="8_xrdnt"]
 [ext_resource type="PackedScene" uid="uid://b1tpi2ms12dmx" path="res://Scenes/sword_enemy.tscn" id="9_wrinw"]
 [ext_resource type="PackedScene" uid="uid://ct5v1n0oygfrs" path="res://Scenes/gun_enemy.tscn" id="10_chwpn"]
@@ -25,6 +26,8 @@ tile_map_data = PackedByteArray("AAAAAAQAAgABAAEAAAAAAAMAAgABAAEAAAAAAAIAAgABAAA
 [node name="ProgressBarLayer" parent="." instance=ExtResource("2_8ffim")]
 
 [node name="SpeedrunTimer" parent="." instance=ExtResource("11_af3po")]
+
+[node name="Options" parent="." instance=ExtResource("7_uy8f0")]
 
 [node name="ExitPortal" parent="." instance=ExtResource("6_evi0p")]
 position = Vector2(1566, -568)
