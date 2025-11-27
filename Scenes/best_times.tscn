@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=3 uid="uid://bod2yq2586xp0"]
+[gd_scene load_steps=3 format=3 uid="uid://bod2yq2586xp0"]
 
 [ext_resource type="Script" uid="uid://b1jtpjom7jgfv" path="res://Scripts/best_times.gd" id="1_fxulv"]
+[ext_resource type="FontFile" uid="uid://6vwxo3ycvhna" path="res://Art/Reality Hyper Regular.ttf" id="2_odvxc"]
 
 [node name="BestTimes" type="Control"]
 layout_mode = 3
@@ -13,15 +14,28 @@ script = ExtResource("1_fxulv")
 
 [node name="Label" type="Label" parent="."]
 layout_mode = 0
-offset_right = 40.0
-offset_bottom = 23.0
+offset_top = 114.0
+offset_right = 1280.0
+offset_bottom = 161.0
+theme_override_constants/paragraph_spacing = 24
+theme_override_font_sizes/font_size = 48
+horizontal_alignment = 1
 
 [node name="Back" type="Button" parent="."]
 layout_mode = 0
-offset_left = 27.0
-offset_top = 668.0
-offset_right = 72.0
-offset_bottom = 699.0
+offset_left = 17.0
+offset_top = 616.0
+offset_right = 227.0
+offset_bottom = 706.0
 text = "Back"
+
+[node name="Title" type="Label" parent="."]
+layout_mode = 0
+offset_right = 1280.0
+offset_bottom = 251.0
+theme_override_fonts/font = ExtResource("2_odvxc")
+theme_override_font_sizes/font_size = 128
+text = "BEST TIMES"
+horizontal_alignment = 1
 
 [connection signal="pressed" from="Back" to="." method="_on_back_pressed"]

@@ -1,29 +1,29 @@
 [gd_scene load_steps=17 format=3 uid="uid://0p24jlu4hkt4"]
 
 [ext_resource type="Script" uid="uid://ctfxyue2f7mjk" path="res://Scripts/gun_enemy.gd" id="1_drfsx"]
-[ext_resource type="Texture2D" uid="uid://bgexhnpa78o4t" path="res://Art/big_gun_enemy_sheet.png" id="2_drfsx"]
+[ext_resource type="Texture2D" uid="uid://doq8jho8oadw" path="res://Art/big_gun_enemy_sheet.png" id="2_fbggw"]
 [ext_resource type="Script" uid="uid://v4nlkn46p8aj" path="res://Scripts/state_machine.gd" id="3_5rrn6"]
 [ext_resource type="Script" uid="uid://deexs4m6fy0b1" path="res://Scripts/gun_enemy_default.gd" id="4_oqvsh"]
 [ext_resource type="Script" uid="uid://ccybx4amowe1u" path="res://Scripts/gun_enemy_shoot.gd" id="5_utsuk"]
 [ext_resource type="PackedScene" uid="uid://0l4pdyih8glm" path="res://Scenes/big_bullet.tscn" id="6_drfsx"]
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_fbggw"]
-atlas = ExtResource("2_drfsx")
+[sub_resource type="AtlasTexture" id="AtlasTexture_utsuk"]
+atlas = ExtResource("2_fbggw")
 region = Rect2(0, 0, 48, 24)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_5rrn6"]
-atlas = ExtResource("2_drfsx")
+[sub_resource type="AtlasTexture" id="AtlasTexture_drfsx"]
+atlas = ExtResource("2_fbggw")
 region = Rect2(48, 0, 48, 24)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_oqvsh"]
-atlas = ExtResource("2_drfsx")
+[sub_resource type="AtlasTexture" id="AtlasTexture_fbggw"]
+atlas = ExtResource("2_fbggw")
 region = Rect2(96, 0, 48, 24)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_d1cuc"]
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_fbggw")
+"texture": SubResource("AtlasTexture_utsuk")
 }],
 "loop": true,
 "name": &"default",
@@ -31,10 +31,10 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_5rrn6")
+"texture": SubResource("AtlasTexture_drfsx")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_oqvsh")
+"texture": SubResource("AtlasTexture_fbggw")
 }],
 "loop": true,
 "name": &"walk",
@@ -75,6 +75,7 @@ bullet_damage = 4.5
 position = Vector2(0, 48)
 scale = Vector2(4, 4)
 sprite_frames = SubResource("SpriteFrames_d1cuc")
+animation = &"walk"
 offset = Vector2(0, -12)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]

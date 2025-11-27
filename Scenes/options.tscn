@@ -6,15 +6,28 @@
 script = ExtResource("1_prnvy")
 
 [node name="ReturnToGame" type="Button" parent="."]
-offset_left = 103.0
-offset_right = 234.0
-offset_bottom = 31.0
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -308.0
+offset_top = 74.0
+offset_right = 308.0
+offset_bottom = 164.0
+grow_horizontal = 2
+grow_vertical = 2
 text = "Return to Game"
 
 [node name="ExitToMenu" type="Button" parent="."]
-offset_left = 948.0
-offset_right = 1054.0
-offset_bottom = 31.0
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -245.5
+offset_top = 119.0
+offset_right = 245.5
+offset_bottom = 209.0
+grow_horizontal = 2
 text = "Exit to Menu"
 
 [connection signal="pressed" from="ReturnToGame" to="." method="_on_return_to_game_pressed"]

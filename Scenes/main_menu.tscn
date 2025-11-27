@@ -1,7 +1,8 @@
-[gd_scene load_steps=3 format=3 uid="uid://bm8fa3jivhp0f"]
+[gd_scene load_steps=4 format=3 uid="uid://bm8fa3jivhp0f"]
 
 [ext_resource type="Script" uid="uid://wrw82mrwx7ji" path="res://Scripts/main_menu.gd" id="1_28flt"]
 [ext_resource type="FontFile" uid="uid://6vwxo3ycvhna" path="res://Art/Reality Hyper Regular.ttf" id="2_48xlc"]
+[ext_resource type="Texture2D" uid="uid://bbug2h2mxd3da" path="res://Art/title_picture.png" id="3_1ehe0"]
 
 [node name="MainMenu" type="Control"]
 layout_mode = 3
@@ -14,27 +15,57 @@ script = ExtResource("1_28flt")
 
 [node name="Label" type="Label" parent="."]
 layout_mode = 0
-offset_left = 62.0
+offset_left = 11.0
 offset_top = 687.0
-offset_right = 315.0
+offset_right = 333.0
 offset_bottom = 710.0
 text = "License: godotengine.org/license"
 
 [node name="Play" type="Button" parent="."]
-layout_mode = 0
-offset_left = 567.0
-offset_top = 353.0
-offset_right = 608.0
-offset_bottom = 384.0
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -620.0
+offset_top = -42.0
+offset_right = -392.0
+offset_bottom = 48.0
+grow_horizontal = 2
+grow_vertical = 2
 text = "Play"
 
 [node name="BestTimes" type="Button" parent="."]
-layout_mode = 0
-offset_left = 560.0
-offset_top = 469.0
-offset_right = 648.0
-offset_bottom = 500.0
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -620.0
+offset_top = 66.0
+offset_right = -160.0
+offset_bottom = 156.0
+grow_horizontal = 2
+grow_vertical = 2
 text = "Best Times
+"
+
+[node name="HowToPlay" type="Button" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -620.0
+offset_top = 174.0
+offset_right = -90.0
+offset_bottom = 264.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "How To Play
 "
 
 [node name="Oscillating" type="Label" parent="."]
@@ -70,5 +101,11 @@ text = "
   F  E  S  S "
 horizontal_alignment = 1
 
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(926, 487)
+scale = Vector2(4, 4)
+texture = ExtResource("3_1ehe0")
+
 [connection signal="pressed" from="Play" to="." method="_on_play_pressed"]
 [connection signal="pressed" from="BestTimes" to="." method="_on_best_times_pressed"]
+[connection signal="pressed" from="HowToPlay" to="." method="_on_how_to_play_pressed"]

@@ -1,7 +1,7 @@
 [gd_scene load_steps=27 format=3 uid="uid://c2ep1pufwi04v"]
 
 [ext_resource type="Script" uid="uid://cfuo1o74q1j4b" path="res://Scripts/sword_enemy.gd" id="1_i2x3s"]
-[ext_resource type="Texture2D" uid="uid://2tdh7qlymiwl" path="res://Art/big_sword_enemy_sheet.png" id="2_i2x3s"]
+[ext_resource type="Texture2D" uid="uid://coet820lwl4xs" path="res://Art/big_sword_enemy_sheet.png" id="2_6gi4k"]
 [ext_resource type="Shader" uid="uid://byj2pf1y7nemn" path="res://Scripts/color_change.gdshader" id="3_r68f5"]
 [ext_resource type="Texture2D" uid="uid://c4sv4qa32yjcl" path="res://Art/big_sword_sheet.png" id="4_i2x3s"]
 [ext_resource type="Script" uid="uid://v4nlkn46p8aj" path="res://Scripts/state_machine.gd" id="5_2f80o"]
@@ -9,35 +9,35 @@
 [ext_resource type="Script" uid="uid://orxk4u6ibkso" path="res://Scripts/sword_enemy_chase.gd" id="7_ldw7i"]
 [ext_resource type="Script" uid="uid://bn87wwqajopv4" path="res://Scripts/sword_enemy_attack.gd" id="8_ektqm"]
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_i2x3s"]
-atlas = ExtResource("2_i2x3s")
+[sub_resource type="AtlasTexture" id="AtlasTexture_btpq4"]
+atlas = ExtResource("2_6gi4k")
 region = Rect2(0, 0, 48, 24)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_6gi4k"]
-atlas = ExtResource("2_i2x3s")
+atlas = ExtResource("2_6gi4k")
 region = Rect2(48, 0, 48, 24)
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_i2x3s"]
+atlas = ExtResource("2_6gi4k")
+region = Rect2(192, 0, 48, 24)
+
 [sub_resource type="AtlasTexture" id="AtlasTexture_r68f5"]
-atlas = ExtResource("2_i2x3s")
+atlas = ExtResource("2_6gi4k")
 region = Rect2(240, 0, 48, 24)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_u62o7"]
-atlas = ExtResource("2_i2x3s")
-region = Rect2(288, 0, 48, 24)
-
 [sub_resource type="AtlasTexture" id="AtlasTexture_2f80o"]
-atlas = ExtResource("2_i2x3s")
+atlas = ExtResource("2_6gi4k")
 region = Rect2(96, 0, 48, 24)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_g55er"]
-atlas = ExtResource("2_i2x3s")
+atlas = ExtResource("2_6gi4k")
 region = Rect2(144, 0, 48, 24)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_n8bq6"]
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_i2x3s")
+"texture": SubResource("AtlasTexture_btpq4")
 }],
 "loop": true,
 "name": &"attack",
@@ -53,10 +53,10 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_r68f5")
+"texture": SubResource("AtlasTexture_i2x3s")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_u62o7")
+"texture": SubResource("AtlasTexture_r68f5")
 }],
 "loop": true,
 "name": &"run",
@@ -141,6 +141,7 @@ knockback_speed = Vector2(250, 25)
 position = Vector2(0, 48)
 scale = Vector2(4, 4)
 sprite_frames = SubResource("SpriteFrames_n8bq6")
+animation = &"run"
 offset = Vector2(0, -12)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]

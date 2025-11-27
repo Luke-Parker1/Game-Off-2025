@@ -1,29 +1,29 @@
 [gd_scene load_steps=16 format=3 uid="uid://dv540k8fcsfsc"]
 
 [ext_resource type="Script" uid="uid://ctfxyue2f7mjk" path="res://Scripts/gun_enemy.gd" id="1_df86t"]
-[ext_resource type="Texture2D" uid="uid://2i4wc1tmqdxd" path="res://Art/explosive_enemy_sheet.png" id="2_df86t"]
+[ext_resource type="Texture2D" uid="uid://cvr7r0vm4cjrt" path="res://Art/explosive_enemy-Sheet.png" id="2_s7gxc"]
 [ext_resource type="Script" uid="uid://v4nlkn46p8aj" path="res://Scripts/state_machine.gd" id="3_duixa"]
 [ext_resource type="Script" uid="uid://deexs4m6fy0b1" path="res://Scripts/gun_enemy_default.gd" id="4_43h3a"]
 [ext_resource type="Script" uid="uid://ccybx4amowe1u" path="res://Scripts/gun_enemy_shoot.gd" id="5_s6nft"]
 [ext_resource type="PackedScene" uid="uid://cjbpx1lsg06dy" path="res://Scenes/explosive_bullet.tscn" id="6_df86t"]
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_s7gxc"]
-atlas = ExtResource("2_df86t")
+[sub_resource type="AtlasTexture" id="AtlasTexture_43h3a"]
+atlas = ExtResource("2_s7gxc")
 region = Rect2(0, 0, 24, 16)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_df86t"]
-atlas = ExtResource("2_df86t")
+atlas = ExtResource("2_s7gxc")
 region = Rect2(24, 0, 24, 16)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_duixa"]
-atlas = ExtResource("2_df86t")
+[sub_resource type="AtlasTexture" id="AtlasTexture_s7gxc"]
+atlas = ExtResource("2_s7gxc")
 region = Rect2(48, 0, 24, 16)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_duixa"]
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_s7gxc")
+"texture": SubResource("AtlasTexture_43h3a")
 }],
 "loop": true,
 "name": &"default",
@@ -34,7 +34,7 @@ animations = [{
 "texture": SubResource("AtlasTexture_df86t")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_duixa")
+"texture": SubResource("AtlasTexture_s7gxc")
 }],
 "loop": true,
 "name": &"walk",
@@ -72,6 +72,7 @@ bullet_damage = 4.0
 position = Vector2(0, 32)
 scale = Vector2(4, 4)
 sprite_frames = SubResource("SpriteFrames_duixa")
+animation = &"walk"
 offset = Vector2(0, -8)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]

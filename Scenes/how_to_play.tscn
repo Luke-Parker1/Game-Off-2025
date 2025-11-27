@@ -1,0 +1,106 @@
+[gd_scene load_steps=7 format=3 uid="uid://btydc5xh4yj13"]
+
+[ext_resource type="PackedScene" uid="uid://j5mwc8ewxk6l" path="res://Scenes/progress_bar.tscn" id="1_hl01w"]
+[ext_resource type="Script" uid="uid://crjfbg114dgbv" path="res://Scripts/how_to_play.gd" id="1_wpr6w"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hl01w"]
+bg_color = Color(0.03529412, 0.003921569, 0.050980393, 1)
+border_width_left = 4
+border_width_top = 4
+border_width_right = 4
+border_width_bottom = 4
+border_color = Color(0, 0.59607846, 0.85882354, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_wpr6w"]
+bg_color = Color(0.047058824, 0.9019608, 0.9490196, 1)
+border_width_left = 4
+border_width_top = 4
+border_width_right = 4
+border_width_bottom = 4
+border_color = Color(0, 0.59607846, 0.85882354, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_dlnx3"]
+bg_color = Color(0.03529412, 0.003921569, 0.050980393, 1)
+border_width_left = 4
+border_width_top = 4
+border_width_right = 4
+border_width_bottom = 4
+border_color = Color(0.6117647, 0.09019608, 0.23137255, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_lonyb"]
+bg_color = Color(1, 0.019607844, 0.27450982, 1)
+border_width_left = 4
+border_width_top = 4
+border_width_right = 4
+border_width_bottom = 4
+border_color = Color(0.6117647, 0.09019608, 0.23137255, 1)
+
+[node name="HowToPlay" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_wpr6w")
+
+[node name="ProgressBarLayer" parent="." instance=ExtResource("1_hl01w")]
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -615.0
+offset_top = -604.0
+offset_right = 615.0
+offset_bottom = -15.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_font_sizes/font_size = 28
+text = "Controls: WASD or arraw keys to move, Space to jump, shift to dash, esc to pause, K to swing your sword, J to shoot, i to use a stronger sword attack, U to shoot a stronger bullet, l to thrust your sword, h to shoot an explosive.
+
+The bar at the top of the screen controls how strong sword and gun attacks are. If blue covers less than half of it, than sword attacks do no damage. If red covers less than half of it, gun attacks do no damage. The more a color covers the bar, the stronger those attacks are. This affects attaacks from the player and enemies, so be aware of it!
+
+Stronger attacks, thrust, and explosives are special attacks, and can only be used if the xp bar for that attack is filled.
+
+Defeat all the enemies, and enter the portal!"
+autowrap_mode = 3
+
+[node name="SwordXP" type="ProgressBar" parent="."]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -273.0
+offset_top = 84.0
+offset_right = -50.0
+offset_bottom = 111.0
+grow_horizontal = 0
+theme_override_styles/background = SubResource("StyleBoxFlat_hl01w")
+theme_override_styles/fill = SubResource("StyleBoxFlat_wpr6w")
+max_value = 2.0
+show_percentage = false
+
+[node name="GunXP" type="ProgressBar" parent="."]
+layout_mode = 0
+offset_left = 50.0
+offset_top = 84.0
+offset_right = 273.0
+offset_bottom = 111.0
+theme_override_styles/background = SubResource("StyleBoxFlat_dlnx3")
+theme_override_styles/fill = SubResource("StyleBoxFlat_lonyb")
+max_value = 2.0
+show_percentage = false
+
+[node name="Back" type="Button" parent="."]
+layout_mode = 0
+offset_left = 8.0
+offset_top = 616.0
+offset_right = 218.0
+offset_bottom = 706.0
+text = "Back"
+
+[connection signal="pressed" from="Back" to="." method="_on_back_pressed"]

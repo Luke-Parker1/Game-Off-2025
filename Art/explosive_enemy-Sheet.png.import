@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://2i4wc1tmqdxd"
-path="res://.godot/imported/explosive_enemy_sheet.png-74775d638c4d4e893d50c809a0182d3d.ctex"
+uid="uid://cvr7r0vm4cjrt"
+path="res://.godot/imported/explosive_enemy-Sheet.png-fad6799ee8059ec9ad1b5f5e1fd08224.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Art/explosive_enemy_sheet.png"
-dest_files=["res://.godot/imported/explosive_enemy_sheet.png-74775d638c4d4e893d50c809a0182d3d.ctex"]
+source_file="res://Art/explosive_enemy-Sheet.png"
+dest_files=["res://.godot/imported/explosive_enemy-Sheet.png-fad6799ee8059ec9ad1b5f5e1fd08224.ctex"]
 
 [params]
 

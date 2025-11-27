@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://doq8jho8oadw"
-path="res://.godot/imported/big_gun_enemy_sheet.png-5506c1fd4a21686f96dbf78a61651fce.ctex"
+uid="uid://bbug2h2mxd3da"
+path="res://.godot/imported/title_picture.png-4ec15bba63d782461c86f4f568c54576.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Art/big_gun_enemy_sheet.png"
-dest_files=["res://.godot/imported/big_gun_enemy_sheet.png-5506c1fd4a21686f96dbf78a61651fce.ctex"]
+source_file="res://Art/title_picture.png"
+dest_files=["res://.godot/imported/title_picture.png-4ec15bba63d782461c86f4f568c54576.ctex"]
 
 [params]
 

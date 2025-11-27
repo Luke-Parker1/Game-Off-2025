@@ -22,3 +22,7 @@ func _on_next_level_pressed():
 
 func _on_replay_level_pressed():
 	get_tree().change_scene_to_file("res://Scenes/level_" +str(Global.level_num)+ ".tscn")
+
+
+func _on_return_to_menu_pressed():
+	get_tree().change_scene_to_file("res://Scenes/main_menu.tscn")

@@ -13,33 +13,67 @@ script = ExtResource("1_7k5mv")
 
 [node name="Label" type="Label" parent="."]
 layout_mode = 0
+offset_top = 10.0
 offset_right = 1280.0
-offset_bottom = 23.0
+offset_bottom = 57.0
+theme_override_font_sizes/font_size = 48
 text = "Level Clear!"
 horizontal_alignment = 1
 
 [node name="NextLevel" type="Button" parent="."]
-layout_mode = 0
-offset_left = 542.0
-offset_top = 253.0
-offset_right = 632.0
-offset_bottom = 284.0
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -227.0
+offset_top = -31.0
+offset_right = 227.0
+offset_bottom = 59.0
+grow_horizontal = 2
+grow_vertical = 2
 text = "Next Level"
 
 [node name="ReplayLevel" type="Button" parent="."]
-layout_mode = 0
-offset_left = 345.0
-offset_top = 253.0
-offset_right = 435.0
-offset_bottom = 284.0
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -284.25
+offset_top = 91.0
+offset_right = 284.25
+offset_bottom = 181.0
+grow_horizontal = 2
+grow_vertical = 2
 text = "Replay Level"
+
+[node name="ReturnToMenu" type="Button" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -318.25
+offset_top = 213.0
+offset_right = 318.25
+offset_bottom = 303.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "Return to Menu"
 
 [node name="TimeInfo" type="Label" parent="."]
 layout_mode = 0
-offset_top = 84.0
+offset_top = 130.0
 offset_right = 1280.0
-offset_bottom = 107.0
+offset_bottom = 177.0
+theme_override_constants/paragraph_spacing = 24
+theme_override_font_sizes/font_size = 48
 horizontal_alignment = 1
 
 [connection signal="pressed" from="NextLevel" to="." method="_on_next_level_pressed"]
 [connection signal="pressed" from="ReplayLevel" to="." method="_on_replay_level_pressed"]
+[connection signal="pressed" from="ReturnToMenu" to="." method="_on_return_to_menu_pressed"]
