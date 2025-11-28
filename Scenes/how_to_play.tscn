@@ -62,7 +62,7 @@ grow_vertical = 0
 theme_override_font_sizes/font_size = 28
 text = "Controls: WASD or arrow keys to move, Space to jump, shift to dash, esc to pause, K to swing your sword, J to shoot, i to use a stronger sword attack, U to shoot a stronger bullet, l to thrust your sword, h to shoot an explosive.
 
-The bar at the top of the screen controls how strong sword and gun attacks are. If blue covers less than half of it, than sword attacks do no damage. If red covers less than half of it, gun attacks do no damage. The more a color covers the bar, the stronger those attacks are. This affects attacks from the player and enemies, so be aware of it!
+The bar at the top of the screen controls how strong sword and gun attacks are. If blue covers less than half of it, then sword attacks do no damage. If red covers less than half of it, gun attacks do no damage. The more a color covers the bar, the stronger those attacks are. This affects attacks from the player and enemies, so be aware of it!
 
 Stronger attacks, thrust, and explosives are special attacks, and can only be used if the xp bar for that attack is filled.
 
