@@ -19,6 +19,7 @@ func Enter():
 	dash_time = dash_timer
 	Player.velocity.y = 0
 	current_effect_num = effect_num
+	Player.get_node("DashSound").play()
 
 func State_Physics_Update(delta: float):
 	Player.get_node("AnimatedSprite2D").play("dash")

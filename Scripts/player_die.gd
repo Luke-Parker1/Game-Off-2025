@@ -9,3 +9,4 @@ func Enter():
 	Player.velocity = Vector2.ZERO
 	Player.get_node("AnimatedSprite2D").visible = false
 	Player.get_node("DieParticles").emitting = true
+	Player.get_node("DeathSound").play()

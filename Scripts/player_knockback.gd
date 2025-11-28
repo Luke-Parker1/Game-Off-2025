@@ -24,6 +24,7 @@ func Enter():
 	frame_freeze(0.05, stun_timer)
 	Player.get_node("AnimatedSprite2D").play("hit")
 	Player.get_node("HitParticles").emitting = true
+	Player.get_node("HurtSound").play()
 
 func State_Physics_Update(delta: float):
 	#if stun_time < 0:

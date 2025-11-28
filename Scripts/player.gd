@@ -117,6 +117,7 @@ func _physics_process(delta):
 		# Handle jump.
 		if Input.is_action_just_pressed("jump") and (is_on_floor() or is_on_wall()):
 			$AnimatedSprite2D.scale = default_sprite_scale * Vector2(0.7, 1.3)
+			$JumpSound.play()
 			jump()
 			if is_on_wall_only():
 				wall_kick_direction = get_wall_normal().x * 350
