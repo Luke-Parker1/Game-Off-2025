@@ -46,10 +46,12 @@ func hit(damage : float, knockback_direction : Vector2):
 	health -= damage
 	if damage > 0 and health > 0:
 		$HitParticles.emitting = true
+		$HurtSound.play()
 	knockback = knockback_direction * knockback_speed
 	$KnockbackTimer.start()
 	if health <= 0:
 		$DieParticles.emitting = true
+		$DeathSound.play()
 		$Sprite2D.visible = false
 		$CollisionShape2D.set_deferred("disabled", true)
 		$HitBox/CollisionShape2D.set_deferred("disabled", true)

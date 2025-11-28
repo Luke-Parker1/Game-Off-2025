@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://dv540k8fcsfsc"]
+[gd_scene load_steps=20 format=3 uid="uid://dv540k8fcsfsc"]
 
 [ext_resource type="Script" uid="uid://ctfxyue2f7mjk" path="res://Scripts/gun_enemy.gd" id="1_df86t"]
 [ext_resource type="Texture2D" uid="uid://cvr7r0vm4cjrt" path="res://Art/explosive_enemy-Sheet.png" id="2_s7gxc"]
@@ -6,6 +6,8 @@
 [ext_resource type="Script" uid="uid://deexs4m6fy0b1" path="res://Scripts/gun_enemy_default.gd" id="4_43h3a"]
 [ext_resource type="Script" uid="uid://ccybx4amowe1u" path="res://Scripts/gun_enemy_shoot.gd" id="5_s6nft"]
 [ext_resource type="PackedScene" uid="uid://cjbpx1lsg06dy" path="res://Scenes/explosive_bullet.tscn" id="6_df86t"]
+[ext_resource type="AudioStream" uid="uid://dpb56attap1q8" path="res://Art/enemy_hurt_sound.wav" id="7_s7gxc"]
+[ext_resource type="AudioStream" uid="uid://bbq7o6vkmvjjt" path="res://Art/death_sound.wav" id="8_duixa"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_43h3a"]
 atlas = ExtResource("2_s7gxc")
@@ -58,6 +60,16 @@ point_count = 3
 [sub_resource type="Curve" id="Curve_e3v2y"]
 _data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.7965117, 0.8764045), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
 point_count = 3
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_duixa"]
+random_pitch = 1.3
+streams_count = 1
+stream_0/stream = ExtResource("7_s7gxc")
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_43h3a"]
+random_pitch = 1.3
+streams_count = 1
+stream_0/stream = ExtResource("8_duixa")
 
 [node name="ExplosiveGunEnemy" type="CharacterBody2D" groups=["Enemy"]]
 collision_layer = 4
@@ -167,6 +179,14 @@ initial_velocity_max = 300.0
 scale_amount_min = 5.0
 scale_amount_max = 10.0
 scale_amount_curve = SubResource("Curve_e3v2y")
+
+[node name="HurtSound" type="AudioStreamPlayer2D" parent="."]
+stream = SubResource("AudioStreamRandomizer_duixa")
+volume_db = 13.0
+
+[node name="DeathSound" type="AudioStreamPlayer2D" parent="."]
+stream = SubResource("AudioStreamRandomizer_43h3a")
+volume_db = 12.0
 
 [connection signal="body_entered" from="HitBox" to="." method="_on_hit_box_body_entered"]
 [connection signal="timeout" from="KnockbackTimer" to="." method="_on_knockback_timer_timeout"]

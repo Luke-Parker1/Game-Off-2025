@@ -17,6 +17,9 @@ var attack_time : float
 # Amount of xp required for this attack
 var required_xp := 0.0
 
+# Volume of sound effect
+@export var volume : float
+
 func Enter():
 	Player.state_allows_default_move = true
 	Player.state_allows_animation = true
@@ -29,6 +32,9 @@ func Enter():
 		hitbox.get_node("AnimatedSprite2D").flip_v = false
 	else:
 		hitbox.get_node("AnimatedSprite2D").flip_v = true
+	
+	Player.get_node("SwordSound").volume_db = volume
+	Player.get_node("SwordSound").play()
 
 func State_Physics_Update(delta: float):
 	attack_time -= delta

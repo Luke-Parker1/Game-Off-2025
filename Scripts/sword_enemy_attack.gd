@@ -29,6 +29,7 @@ func State_Physics_Update(delta: float):
 		Enemy.get_node("Sword/CollisionShape2D").disabled = false
 		Enemy.get_node("Sword/AnimatedSprite2D").visible = true
 		Enemy.get_node("Sword/AnimatedSprite2D").play("attack")
+		Enemy.get_node("SwordSound").play()
 		attack_time -= delta
 	elif cooldown_time > 0:
 		cooldown_time -= delta

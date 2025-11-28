@@ -1,4 +1,4 @@
-[gd_scene load_steps=27 format=3 uid="uid://c2ep1pufwi04v"]
+[gd_scene load_steps=33 format=3 uid="uid://c2ep1pufwi04v"]
 
 [ext_resource type="Script" uid="uid://cfuo1o74q1j4b" path="res://Scripts/sword_enemy.gd" id="1_i2x3s"]
 [ext_resource type="Texture2D" uid="uid://coet820lwl4xs" path="res://Art/big_sword_enemy_sheet.png" id="2_6gi4k"]
@@ -8,6 +8,9 @@
 [ext_resource type="Script" uid="uid://b1tndal8vtuip" path="res://Scripts/sword_enemy_default.gd" id="6_g55er"]
 [ext_resource type="Script" uid="uid://orxk4u6ibkso" path="res://Scripts/sword_enemy_chase.gd" id="7_ldw7i"]
 [ext_resource type="Script" uid="uid://bn87wwqajopv4" path="res://Scripts/sword_enemy_attack.gd" id="8_ektqm"]
+[ext_resource type="AudioStream" uid="uid://dpb56attap1q8" path="res://Art/enemy_hurt_sound.wav" id="9_6gi4k"]
+[ext_resource type="AudioStream" uid="uid://bbq7o6vkmvjjt" path="res://Art/death_sound.wav" id="10_r68f5"]
+[ext_resource type="AudioStream" uid="uid://c14jb1tt2y0fb" path="res://Art/sword_sound.wav" id="11_u62o7"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_btpq4"]
 atlas = ExtResource("2_6gi4k")
@@ -128,6 +131,21 @@ point_count = 3
 _data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.7965117, 0.8764045), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
 point_count = 3
 
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_r68f5"]
+random_pitch = 1.3
+streams_count = 1
+stream_0/stream = ExtResource("9_6gi4k")
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_u62o7"]
+random_pitch = 1.3
+streams_count = 1
+stream_0/stream = ExtResource("10_r68f5")
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_2f80o"]
+random_pitch = 1.3
+streams_count = 1
+stream_0/stream = ExtResource("11_u62o7")
+
 [node name="BigSwordEnemy" type="CharacterBody2D" groups=["Enemy"]]
 collision_layer = 4
 collision_mask = 2
@@ -240,6 +258,18 @@ initial_velocity_max = 300.0
 scale_amount_min = 5.0
 scale_amount_max = 10.0
 scale_amount_curve = SubResource("Curve_48en1")
+
+[node name="HurtSound" type="AudioStreamPlayer2D" parent="."]
+stream = SubResource("AudioStreamRandomizer_r68f5")
+volume_db = 13.0
+
+[node name="DeathSound" type="AudioStreamPlayer2D" parent="."]
+stream = SubResource("AudioStreamRandomizer_u62o7")
+volume_db = 12.0
+
+[node name="SwordSound" type="AudioStreamPlayer2D" parent="."]
+stream = SubResource("AudioStreamRandomizer_2f80o")
+volume_db = 13.0
 
 [connection signal="body_entered" from="HitBox" to="." method="_on_hit_box_body_entered"]
 [connection signal="body_entered" from="Sword" to="." method="_on_sword_body_entered"]

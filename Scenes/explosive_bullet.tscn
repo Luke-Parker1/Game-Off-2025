@@ -1,8 +1,10 @@
-[gd_scene load_steps=8 format=3 uid="uid://cjbpx1lsg06dy"]
+[gd_scene load_steps=12 format=3 uid="uid://cjbpx1lsg06dy"]
 
 [ext_resource type="Script" uid="uid://se6ct5g5mh7o" path="res://Scripts/explosive_bullet.gd" id="1_js8op"]
 [ext_resource type="Shader" uid="uid://byj2pf1y7nemn" path="res://Scripts/color_change.gdshader" id="2_2jpdw"]
 [ext_resource type="Texture2D" uid="uid://c25ea13winnp7" path="res://Art/explosive.png" id="2_js8op"]
+[ext_resource type="AudioStream" uid="uid://drqp25jdf6ah7" path="res://Art/shoot_sound.wav" id="4_h8223"]
+[ext_resource type="AudioStream" uid="uid://ci6u0yqql4l5w" path="res://Art/explode_sound.wav" id="5_7k5mw"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_v8qja"]
 size = Vector2(16, 16)
@@ -18,6 +20,16 @@ radius = 103.00485
 [sub_resource type="Curve" id="Curve_8fevl"]
 _data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
 point_count = 2
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_7k5mw"]
+random_pitch = 1.3
+streams_count = 1
+stream_0/stream = ExtResource("4_h8223")
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_h8223"]
+random_pitch = 1.3
+streams_count = 1
+stream_0/stream = ExtResource("5_7k5mw")
 
 [node name="ExplosiveBullet" type="Area2D"]
 z_index = 150
@@ -62,6 +74,15 @@ scale_amount_min = 10.0
 scale_amount_max = 15.0
 scale_amount_curve = SubResource("Curve_8fevl")
 color = Color(1, 0.015686275, 0.3372549, 1)
+
+[node name="ShootSound" type="AudioStreamPlayer2D" parent="."]
+stream = SubResource("AudioStreamRandomizer_7k5mw")
+volume_db = 8.0
+autoplay = true
+
+[node name="ExplodeSound" type="AudioStreamPlayer2D" parent="."]
+stream = SubResource("AudioStreamRandomizer_h8223")
+volume_db = 13.0
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]
 [connection signal="body_entered" from="ExplosionHitBox" to="." method="_on_explosion_hit_box_body_entered"]

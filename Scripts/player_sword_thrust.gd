@@ -23,6 +23,7 @@ func Enter():
 	current_effect_num = effect_num
 	hitbox.get_node("AnimatedSprite2D").visible = true
 	hitbox.get_node("AnimatedSprite2D").play("attack")
+	Player.get_node("ThrustSound").play()
 	if Player.look_direction > 0:
 		hitbox.get_node("AnimatedSprite2D").flip_v = false
 	else:

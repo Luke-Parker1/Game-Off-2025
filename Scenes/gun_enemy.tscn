@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://ct5v1n0oygfrs"]
+[gd_scene load_steps=20 format=3 uid="uid://ct5v1n0oygfrs"]
 
 [ext_resource type="Script" uid="uid://ctfxyue2f7mjk" path="res://Scripts/gun_enemy.gd" id="1_gwdp7"]
 [ext_resource type="Texture2D" uid="uid://b7eq2c1aohae0" path="res://Art/gun_enemy_sheet.png" id="2_mkxg3"]
@@ -6,6 +6,8 @@
 [ext_resource type="Script" uid="uid://deexs4m6fy0b1" path="res://Scripts/gun_enemy_default.gd" id="4_mkxg3"]
 [ext_resource type="Script" uid="uid://ccybx4amowe1u" path="res://Scripts/gun_enemy_shoot.gd" id="5_13mcc"]
 [ext_resource type="PackedScene" uid="uid://cwcomh31mp8tt" path="res://Scenes/bullet.tscn" id="6_uelik"]
+[ext_resource type="AudioStream" uid="uid://dpb56attap1q8" path="res://Art/enemy_hurt_sound.wav" id="7_eokkq"]
+[ext_resource type="AudioStream" uid="uid://bbq7o6vkmvjjt" path="res://Art/death_sound.wav" id="8_mkxg3"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_13mcc"]
 atlas = ExtResource("2_mkxg3")
@@ -58,6 +60,16 @@ point_count = 3
 [sub_resource type="Curve" id="Curve_uelik"]
 _data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.7965117, 0.8764045), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
 point_count = 3
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_mkxg3"]
+random_pitch = 1.3
+streams_count = 1
+stream_0/stream = ExtResource("7_eokkq")
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_13mcc"]
+random_pitch = 1.3
+streams_count = 1
+stream_0/stream = ExtResource("8_mkxg3")
 
 [node name="GunEnemy" type="CharacterBody2D" groups=["Enemy"]]
 collision_layer = 4
@@ -165,6 +177,14 @@ initial_velocity_max = 300.0
 scale_amount_min = 5.0
 scale_amount_max = 10.0
 scale_amount_curve = SubResource("Curve_uelik")
+
+[node name="HurtSound" type="AudioStreamPlayer2D" parent="."]
+stream = SubResource("AudioStreamRandomizer_mkxg3")
+volume_db = 13.0
+
+[node name="DeathSound" type="AudioStreamPlayer2D" parent="."]
+stream = SubResource("AudioStreamRandomizer_13mcc")
+volume_db = 12.0
 
 [connection signal="body_entered" from="HitBox" to="." method="_on_hit_box_body_entered"]
 [connection signal="timeout" from="KnockbackTimer" to="." method="_on_knockback_timer_timeout"]

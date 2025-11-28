@@ -35,6 +35,7 @@ func _on_body_entered(body):
 		$Sprite2D.visible = false
 		$ExplosionHitBox/CollisionShape2D.set_deferred("disabled", false)
 		$ExplosionParticles.emitting = true
+		$ExplodeSound.play()
 		$ExplosionTimer.start()
 
 

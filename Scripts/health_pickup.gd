@@ -9,6 +9,7 @@ func _on_body_entered(body):
 		$CPUParticles2D.emitting = false
 		$DieParticles.emitting = true
 		body.health += health
+		$AudioStreamPlayer2D.play()
 
 
 func _on_die_particles_finished():

@@ -1,7 +1,9 @@
-[gd_scene load_steps=8 format=3 uid="uid://fy2v3116q2dv"]
+[gd_scene load_steps=12 format=3 uid="uid://fy2v3116q2dv"]
 
 [ext_resource type="Script" uid="uid://byyo0jgvc8wcs" path="res://Scripts/walker_enemy.gd" id="1_7d8e2"]
 [ext_resource type="Texture2D" uid="uid://cuovt68o1r47c" path="res://Art/walker.png" id="2_7d8e2"]
+[ext_resource type="AudioStream" uid="uid://dpb56attap1q8" path="res://Art/enemy_hurt_sound.wav" id="3_cemhg"]
+[ext_resource type="AudioStream" uid="uid://bbq7o6vkmvjjt" path="res://Art/death_sound.wav" id="4_njsf6"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_7d8e2"]
 size = Vector2(42, 34)
@@ -19,6 +21,16 @@ point_count = 3
 [sub_resource type="Curve" id="Curve_7d8e2"]
 _data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.7965117, 0.8764045), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
 point_count = 3
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_7d8e2"]
+random_pitch = 1.3
+streams_count = 1
+stream_0/stream = ExtResource("3_cemhg")
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_khqav"]
+random_pitch = 1.3
+streams_count = 1
+stream_0/stream = ExtResource("4_njsf6")
 
 [node name="WalkerEnemy" type="CharacterBody2D" groups=["Enemy"]]
 collision_layer = 4
@@ -83,6 +95,14 @@ initial_velocity_max = 300.0
 scale_amount_min = 5.0
 scale_amount_max = 10.0
 scale_amount_curve = SubResource("Curve_7d8e2")
+
+[node name="HurtSound" type="AudioStreamPlayer2D" parent="."]
+stream = SubResource("AudioStreamRandomizer_7d8e2")
+volume_db = 13.0
+
+[node name="DeathSound" type="AudioStreamPlayer2D" parent="."]
+stream = SubResource("AudioStreamRandomizer_khqav")
+volume_db = 12.0
 
 [connection signal="body_entered" from="HitBox" to="." method="_on_hit_box_body_entered"]
 [connection signal="timeout" from="KnockbackTimer" to="." method="_on_knockback_timer_timeout"]
